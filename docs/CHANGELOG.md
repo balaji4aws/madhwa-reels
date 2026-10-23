@@ -1320,3 +1320,44 @@ choice matters more.
   recreate them. reel 01 was NOT touched (still built, awaiting review).
 - Note on numbering: reel_numbering.py never reuses a number, so a future ep07
   reel will be 05+, not a refill of the deleted 02/03 slots.
+
+---
+
+## 2026-10-23 (standing-rule additions) — strict <60s, short-first, post-upload cleanup
+
+Channel owner added three standing rules (applied to STYLE.md, the steering
+file, and WORKFLOW.md where relevant):
+
+1. **Strict length < 60s.** Every reel MUST be under 60 seconds — a hard rule,
+   not a target (Gen-Z won't sit through more). Changed STYLE.md's duration
+   check from "WARN if >60s" to a hard FAIL at >= 60s. NOTE / follow-up: the
+   per-slug `check_reel.py` scripts still only emit a WARN on duration in code
+   — the WARN->FAIL enforcement should be applied to those scripts the next
+   time a reel is built (not changed this turn because no reel is being built;
+   all currently-live reels are already under 60s — longest shipped is 55.2s,
+   so nothing live violates the rule).
+
+2. **Prefer short first (~15s), build shortest first.** A ~15s reel is the
+   first option to try when a self-contained candidate that short exists (not
+   mandatory — don't break a payoff to force 15s). Preference order: ~15s ideal
+   -> 15-30s strong -> up to just under 60s only when the payoff needs it. When
+   a source has several candidates, BUILD the shortest viable ones first, then
+   longer ones. Never pad to fill time; never exceed 60s to keep a payoff (pick
+   a tighter moment instead).
+
+3. **Post-upload local cleanup.** After a reel is uploaded to YouTube following
+   the owner's approval, delete that reel's finished `reels/<slug>/<reel>.mp4` +
+   `.caption.txt` from local storage (exact filename, never wildcard, only
+   after the upload is confirmed). KEEP the sources (`sources/<slug>/`) and the
+   build scripts/cut reports — only the finished reel output is removed, and
+   only for a reel that was both approved and successfully uploaded. (This
+   formalizes "upload then free the disk, but keep what lets us re-cut.")
+
+Also verified this turn (owner asked): `venkatachala-ep07_01_god-does-all-work`
+was NEVER uploaded — no youtu.be link recorded, SOURCES.md shows "awaiting
+review", file still local. Not re-uploaded. Still awaiting the owner's review.
+
+Note: these cleanup/length rules are going forward. The already-uploaded reels'
+local files (ep06 03-06, ep07 04) have NOT yet been cleaned up under rule 3 —
+left in place for now; they can be removed per rule 3 on the owner's go-ahead
+since all are confirmed live.

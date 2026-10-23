@@ -189,13 +189,27 @@ manually using this file; YouTube may be automated later.
 - **Produce MULTIPLE clips from one long discourse** whenever there are several
   good moments — don't stop at one. A 20+ minute talk usually yields several
   reels. Number them per source: `<slug>_01_<topic>.mp4`, `<slug>_02_<topic>.mp4`.
+- **Build order: shortest viable reels FIRST (updated 2026-10-23).** When a
+  source yields several candidates, build the shortest self-contained ones
+  first (the ~15s punchy moments), then the slightly longer ones — so the
+  strongest short-form candidates are prioritized and ready before time goes
+  into longer cuts.
 - The **user may also supply timestamps**; when given, use those.
-- Target length **20–45s**; 15–60s acceptable. Instagram Reels / YouTube Shorts.
-- When a reel is explicitly meant for Instagram Reels / Gen-Z-paced
-  consumption, target the shorter **15–30s** end of the range: one hook in
-  the first 1–2s, one payoff, no multi-part list. The 20–45s band remains the
-  default for YouTube-first or multi-point teachings (e.g. the 4-names list
-  format).
+- **LENGTH — strict rule (updated 2026-10-23, channel-owner direction):**
+  every reel MUST be **under 60 seconds**, no exceptions — this is a hard
+  limit, not a target, because the Gen-Z audience won't sit through more. A
+  reel at or over 60s is a FAIL to fix before shipping, not a WARN to note.
+- **Prefer SHORT first (updated 2026-10-23).** A ~15s reel is the FIRST option
+  to try whenever a self-contained candidate that short exists — short, punchy
+  reels are the strongest for this audience. It is NOT a mandatory rule (not
+  every good moment compresses to 15s without losing its payoff), but the
+  order of preference is: try the shortest viable cut first, and only go
+  longer when the moment genuinely needs it to land whole. Rough tiers:
+  ~15s ideal → ~15–30s strong → up to just under 60s acceptable when the
+  payoff requires it. Never pad a reel to fill time; never exceed 60s to keep
+  a payoff — if a payoff truly needs ≥60s, pick a tighter moment instead.
+- When a reel is meant for Instagram Reels / Gen-Z-paced consumption, keep it
+  to one hook in the first 1–2s, one payoff, no multi-part list.
 - Discourses often end with a short summary line + a Sanskrit dedication
   shloka. Treat this as its own recurring candidate-moment category when
   auto-picking moments — it is usually self-contained and short.
@@ -284,8 +298,12 @@ madhwa reels/
 
 Run `work/<slug>/check_reel.py` on every finished reel. It checks:
 
-1. **Dimensions** 1080x1920 (hard FAIL if wrong) and **duration** (WARN if >60s,
-   i.e. not a valid Short).
+1. **Dimensions** 1080x1920 (hard FAIL if wrong) and **duration** — now a
+   **hard FAIL at 60s or longer** (updated 2026-10-23 from the old WARN: the
+   channel owner made "< 60s" a strict rule; a reel >= 60s must be re-cut
+   shorter before it ships, it is not acceptable-with-a-note). Shorter is
+   preferred — see "Clip selection" for the short-first preference (~15s is the
+   first option to try when such a candidate exists).
 2. **Spelling** — every subtitle word must be in the macOS dictionary
    (`/usr/share/dict/words`, with plural/verb-form handling) OR the known-names
    ALLOWLIST in the script. Add new Sanskrit/Madhwa proper nouns to that
@@ -341,6 +359,28 @@ Then also extract a few preview frames and visually confirm composition (title,
 captions legible, watermark present, safe zones respected, no collisions) before
 calling a reel done.
 
+## Post-upload cleanup (finished reels)
+
+**Added 2026-10-23, channel-owner direction.** Once a reel has been **uploaded
+to YouTube after the owner's approval**, delete that reel's finished output
+from local storage:
+
+- Delete the uploaded reel's `reels/<slug>/<reel>.mp4` AND its matching
+  `.caption.txt` sidecar — by EXACT filename, never a wildcard (per
+  `docs/GUARDRAILS.md`), and only after the upload has succeeded (the
+  `youtu.be/...` link is confirmed). The reel is now live on YouTube and the
+  local finished file is just taking up disk — it can be re-rendered from the
+  slug's build script if ever needed.
+- **Keep the sources.** `sources/<slug>/` (the full `source.mp4` + `.vtt`
+  captions) stays — do NOT delete it as part of post-upload cleanup. More
+  reels are often cut from the same source later, and re-downloading is slow.
+- **Keep the build scripts and cut reports** (`work/<slug>/`) — same reason,
+  the reel is reproducible from them.
+- Only delete a reel that was BOTH approved AND successfully uploaded. A reel
+  that is merely built, or rejected, or awaiting review is NOT cleaned up this
+  way — leave it for review (and a rejected reel is deleted only on explicit
+  owner instruction, as happened with ep07 02/03).
+
 ## Work-folder cleanup policy
 
 Once reels from a `work/<slug>/` folder are finalized and verified, apply this
@@ -358,6 +398,8 @@ rule rather than leaving every scratch file forever:
   `check_reel.py`, plus the shared tool `tools/clip_cutter.py` and
   `cut_report_*.json` (an audit trail of cut decisions).
 - `sources/<slug>/source.mp4` is fully re-downloadable from the original
-  YouTube URL and could be deleted once all reels from that source are
-  finished — but only once no more reels are planned from it; re-downloading
-  costs time, so don't delete it speculatively.
+  YouTube URL and could in principle be deleted once all reels from that source
+  are finished — but the channel owner's standing preference (2026-10-23) is to
+  **keep the sources**: post-upload cleanup removes finished reels, not
+  sources. Don't delete a source unless the owner explicitly says so for a
+  specific slug; re-downloading costs time and more reels are often cut later.
