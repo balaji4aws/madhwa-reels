@@ -1,133 +1,133 @@
-# Workflow — the pipeline, step by step
+# Workflow
 
-A concrete, operational reference for "what actually happens, in order."
-`README.md` explains this in plain language for a newcomer; this file is the
-quick re-orientation doc — read this if you're coming back after weeks away
-and need to remember the actual mechanics, not the pitch.
+How one YouTube discourse becomes live reels. Follow the steps in order.
+Visual rules (fonts, colors, sizes) are in `docs/STYLE.md`; things never to
+do are in `docs/GUARDRAILS.md`.
 
----
+**At a glance:** download → pick moments → cut → style → check → owner
+reviews → upload → clean up.
 
-## Step 1 — Get the source video
-
-- Input: a YouTube link (shared by the channel owner), optionally with
-  timestamps for a moment already picked out.
-- Tool: `yt-dlp --cookies-from-browser chrome` (this machine needs browser
-  cookies to pass YouTube's bot detection).
-- Output: `sources/<slug>/source.mp4` + `source.en.vtt` + `source.kn.vtt`
-  (English and Kannada auto-captions, pulled alongside the video).
-- A **slug** is a short id for this source video, e.g. `venkatachala-ep01`.
-  Chosen once per source video, used in every filename downstream.
-
-## Step 2 — Find candidate moments
-
-- Input: `source.en.vtt` (the English captions).
-- Process: read the captions for self-contained teachings — a complete
-  thought with a hook and a payoff, short enough to work as a standalone
-  reel. A single long talk usually yields several such moments.
-- **Skim the transcript specifically for the TWO STRONGEST candidate shapes
-  (channel-owner feedback, 2026-10-23 — see `docs/STYLE.md`'s "Clip
-  selection"):**
-  1. **the speaker giving advice / an exhortation to people or society** (a
-     complete "how to live" teaching that resolves on its own), and
-  2. **the speaker narrating a great / high / peak moment of a story** (a
-     dramatic climax told as a self-contained arc).
-  Both RESOLVE on their own, so they don't feel abruptly cut. Deliberately
-  AVOID picking mid-narrative explanation / connective material with no
-  self-contained resolution — those feel abrupt no matter how the cut is
-  placed, because the thought itself hasn't finished (ep07 reels 02 & 03
-  failed this way; reel 04, an exhortation, worked — see `docs/CHANGELOG.md`).
-- Output: a list of candidate `(start_time, end_time, topic)` windows in
-  source-video seconds. No file artifact yet — this is a reading/judgment
-  step, recorded directly into the next step's cut decisions.
-
-## Step 3 — Place the cut boundaries precisely
-
-- Input: a candidate rough `(start, end)` window from Step 2.
-- Tool: `tools/clip_cutter.py` — runs `ffmpeg silencedetect` near each rough
-  boundary to find a real pause in the speech, then cross-checks the snapped
-  point against the VTT caption-cue boundaries, and reports a confidence
-  flag per boundary: `clean` / `snapped-low-confidence` / `review-manually`.
-- Any `review-manually` flag gets checked by hand — read the caption text at
-  that exact timestamp to confirm it's a real sentence boundary, not a false
-  alarm from a long run-on caption cue (a known, common pattern on this
-  source material — see `docs/CHANGELOG.md`).
-- Output: a confirmed `(start, end)` pair in source-video seconds, plus a
-  `cut_report_NN.json` audit file recording the decision.
-
-## Step 4 — Cut the raw clip
-
-- Input: the confirmed `(start, end)` pair + `source.mp4`.
-- Tool: `ffmpeg`, re-encoding (not a fast `-c copy` cut) so the boundary is
-  frame-accurate.
-- Output: `work/<slug>/clipNN_<topic>.mp4` — the raw, un-styled horizontal
-  clip for this one reel.
-
-## Step 5 — Style the reel
-
-- Input: the raw clip, plus a hand-written title and a short list of
-  spell-checked subtitle lines with their timing (clip-relative seconds).
-- Tool: a per-reel build script (e.g. `work/<slug>/build_reel06.py`), using
-  `overlays_lib.py` to render all text as transparent PNGs (this machine's
-  ffmpeg has no `drawtext` filter — see `docs/STYLE.md`), then `ffmpeg
-  overlay` to composite: reframed video + title card + subtitle + watermark.
-- Exact visual rules (crop vs. fill, safe zones, fonts, colors) live in
-  `docs/STYLE.md` — this step always reads that file first.
-- **Watermark (updated 2026-10-23):** the watermark PNG shows the full
-  channel URL `https://www.youtube.com/@madhwa16` plus the brand icon
-  (`assets/channels4_profile.jpg`) to its left — see the "Watermark" section
-  in `docs/STYLE.md`. If `assets/watermark.png` still carries the old bare
-  `@madhwa16` handle, regenerate it with `assets/make_watermark.py` and
-  visually verify the URL+icon layout against a real rendered frame (the URL
-  is wide — confirm it stays centered and clear of the right-edge safe zone)
-  before compositing it into a shipped reel.
-- Output: `reels/<slug>_NN_<topic>.mp4` + a matching
-  `<slug>_NN_<topic>.caption.txt` sidecar (title/description/hashtags).
-
-## Step 6 — Check the reel
-
-- Tool: `work/<slug>/check_reel.py`.
-- Checks performed:
-  1. **Dimensions/duration** — must be 1080x1920; flags anything over 60s.
-  2. **Spelling** — every subtitle word checked against the system
-     dictionary + `tools/sanskrit_terms.py` (the growing reference list of
-     correct Sanskrit/Madhwa name spellings). A KNOWN WRONG transliteration
-     is a hard FAIL, not just a warning.
-  3. **Clean cuts** — re-verifies the start/end against the VTT caption
-     boundaries (same method as Step 3, as a final gate).
-- Then: a few preview frames are extracted and looked at directly to
-  confirm the title/subtitle are legible, the watermark is placed correctly,
-  and nothing overlaps badly. This visual check has no automated tool —
-  it's a direct look at actual frames, every time.
-- A reel is not considered finished until this step passes (or every
-  warning has been manually reviewed and understood).
-
-## Step 7 — Upload
-
-- Tool: `upload/youtube_upload.py` (isolated venv at `upload/.venv/`).
-- YouTube Shorts: automatic, defaults to **public**, goes live immediately.
-  Reads title/description/hashtags from the `.caption.txt` sidecar.
-- The same script can also manage already-uploaded videos:
-  `--set-privacy`, `--delete`, `--replace` — see `docs/GUARDRAILS.md` for
-  the rules on when these are and aren't okay to use.
-- Instagram: no API posting (no business account). The channel owner posts
-  the `.caption.txt` content by hand.
+**Run everything from the project folder** (`madhwa reels/`) with the Python
+that has Pillow: `/Users/venkyb/envs/bie-work/bin/python3`.
+(`/usr/bin/python3` has no Pillow and will fail.)
 
 ---
 
-## Where each step's output lives
+## 1. Download the source
 
-| Step | Output | Folder |
-|------|--------|--------|
-| 1 | source video + captions | `sources/<slug>/` |
-| 3, 4 | cut report, raw clip | `work/<slug>/` |
-| 5 | finished reel + caption sidecar | `reels/` |
-| 7 | nothing new locally — the video is now also live on YouTube | — |
+- Get the **full** video with `yt-dlp --cookies-from-browser chrome`, plus
+  English and Kannada captions. Never download a trimmed section.
+- Check the downloaded length matches the length on YouTube.
+- Pick a short **slug** for this source (e.g. `venkatachala-ep07`). It is
+  used in every file name from here on.
+- Output: `sources/<slug>/source.mp4`, `source.en.vtt`, `source.kn.vtt`
 
-## Quick fact sheet
+## 2. Pick the moments
 
-- Reel spec: 1080x1920, 30fps, H.264 high/yuv420p, ~6Mbps, AAC 192k, +faststart.
-- Target length: see `docs/STYLE.md`'s "Clip selection" section (it varies
-  by target platform/audience).
-- One source video → multiple reels, numbered `_01`, `_02`, etc.
-- See `docs/SOURCES.md` for which source videos have been processed and how
-  many reels came from each.
+Read `source.en.vtt` and choose moments that **end on a complete thought**.
+
+- **Best candidates** — look for these two first:
+  1. The speaker **giving advice** to people or society.
+  2. The speaker telling the **high point of a story**.
+- **Avoid** the middle of an explanation or story. These feel abruptly cut
+  no matter where the cut goes, because the thought isn't finished.
+- **Length:** every reel must be **under 60 seconds**. Try for **~15s
+  first** when a moment that short works on its own; go longer only when the
+  payoff needs it.
+- **Build the shortest ones first.**
+- Output: a list of rough `start – end` times (in seconds) with a topic for each.
+
+## 3. Place the cuts
+
+- Run `tools/clip_cutter.py` on each rough start/end. It snaps to a real
+  pause and checks the caption timing, flagging each boundary `clean`,
+  `snapped-low-confidence`, or `review-manually`.
+- For every `review-manually` flag, read the caption text at that time
+  yourself before trusting or overriding the snap.
+- Leave a little quiet after the last word (aim for 0.5–0.7s).
+- Output: confirmed start/end + `work/<slug>/cut_report_NN.json`
+
+## 4. Cut the raw clip
+
+- Cut with `ffmpeg`, re-encoding (not `-c copy`) so the cut is frame-accurate.
+- Output: `work/<slug>/clipNN_<topic>.mp4`
+
+## 5. Style the reel
+
+Write a build script `work/<slug>/build_reelNN.py` (copy the nearest
+existing one). It uses `tools/overlays_lib.py` and does, in order:
+
+1. **Reframe** to 1080x1920 by cropping around the speaker. Work out a fresh
+   `crop_x` for every new source; never reuse another source's value.
+2. **Title card** at the top. Check one frame first: if the title touches the
+   speaker's forehead, use a per-source `title_compact.py` (see ep06/ep07).
+3. **Subtitles:** one line at a time, spell-checked, at `SUB_Y = 1560`.
+4. **Watermark:** `assets/watermark.png` (channel URL + brand icon).
+5. **Fade:** 0.2s fade in/out on the finished picture **and** the audio,
+   applied after everything is composited so it all fades together.
+   A fade only smooths a cut that already lands in quiet; it can't fix a cut
+   that lands on speech.
+
+Get the reel number from `tools/reel_numbering.py` on the first build, then
+keep it fixed in the script. Numbers are never reused.
+
+- Output: `reels/<slug>/<slug>_NN_<topic>.mp4` + a matching
+  `.caption.txt` (TITLE / DESCRIPTION / HASHTAGS)
+
+> **Watermark, first time only:** the URL + icon watermark hasn't been
+> rendered yet. On the next build, run `assets/make_watermark.py`, check it
+> on a real frame (centered, readable, not touching the right edge), and get
+> the owner's OK before using it.
+
+## 6. Check the reel
+
+Run `work/<slug>/check_reel.py`. A reel is not ready until all of these pass:
+
+- **Size and length:** 1080x1920 and **under 60s**. Either failing is a hard FAIL.
+- **Spelling:** dictionary + `tools/sanskrit_terms.py`. Never guess a
+  Sanskrit name; flag it if it isn't in the list.
+- **Cut placement:** start and end sit on caption sentence boundaries.
+
+Then check by hand:
+
+- **The ending, on the finished file:** run `ffmpeg silencedetect` on the
+  finished reel. If the speaker is still talking in the last ~0.5s, the cut
+  is too tight.
+- **Listen** to the first ~1s and last ~1.5s. Does it end on a complete
+  thought, or does it feel cut off? Passing numbers alone have been wrong before.
+- **Look** at a few frames: title, subtitles and watermark readable, nothing
+  overlapping, speaker's face clear.
+
+## 7. Owner review
+
+Tell the owner the reel is ready and where it is. **Nothing is uploaded until
+the owner approves that specific reel.**
+
+## 8. Upload (after approval)
+
+- From the project folder:
+  `upload/.venv/bin/python upload/youtube_upload.py reels/<slug>/<reel>.mp4`
+- It goes live as **public** immediately and reads title/description/hashtags
+  from the `.caption.txt`.
+- Instagram is posted by hand by the owner using the same `.caption.txt`.
+
+## 9. Clean up and record
+
+- Delete the uploaded reel's `.mp4` and `.caption.txt` from `reels/<slug>/`
+  (exact file names). **Keep** `sources/` and `work/` (build scripts, cut
+  reports, raw clips).
+- Add or update the reel's row in `docs/SOURCES.md` with its YouTube link.
+- Add a dated note to `docs/CHANGELOG.md` for anything learned.
+- Commit and push the doc/script changes to GitHub.
+
+---
+
+## Where things go
+
+| What | Folder |
+|------|--------|
+| Downloaded source + captions | `sources/<slug>/` |
+| Build scripts, cut reports, raw clips | `work/<slug>/` |
+| Finished reels (until uploaded) | `reels/<slug>/` |
+| Shared tools | `tools/` |
+| Watermark + brand icon | `assets/` |

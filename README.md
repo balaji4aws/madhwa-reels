@@ -1,100 +1,53 @@
 # Madhwa Reels
 
-Turning long Madhwa / Dvaita devotional discourses (from YouTube) into short
+Turning long Madhwa / Dvaita devotional discourses from YouTube into short
 vertical reels for the **Madhwa16** channel
-(https://www.youtube.com/@madhwa16/) — posted to YouTube Shorts automatically,
-and to Instagram Reels by hand.
+(https://www.youtube.com/@madhwa16/). Reels go to YouTube Shorts
+automatically and to Instagram Reels by hand.
 
-This is a personal project, run with the help of an AI coding assistant acting
-as the video editor. You share a YouTube link; the assistant finds the strong
-moments in the talk, cuts them into short vertical reels in a consistent
-house style, checks them, and uploads them.
+This is a personal project. An AI coding assistant acts as the video editor:
+you share a YouTube link, and it finds the strong moments, cuts them into
+reels in a consistent style, checks them, and uploads the ones you approve.
 
-> **About this repository:** this repo holds only the *pipeline* — the small
-> plain-text scripts (`.py`) and documentation (`.md`) that run the workflow.
-> The source videos, per-video working files, and finished reels are large
-> binary media that stay on the maintainer's machine only and are excluded
-> via `.gitignore` (so are the YouTube OAuth secrets, which are never
-> committed). If you're browsing this and wondering where the videos are:
-> they're not here by design — see "Where things live" below.
-
-This README stays simple on purpose — it explains the overall flow once. For
-the operational details, see `docs/`:
-
-- **`docs/WORKFLOW.md`** — the pipeline, step by step, with the actual tool
-  used at each step. Read this to re-orient quickly after time away.
-- **`docs/STYLE.md`** — the current house-style rules (fonts, colors, exact
-  video specs, safe zones). This changes in small ways often — expect this
-  project to keep getting tuned for a long time, not a one-time build.
-- **`docs/GUARDRAILS.md`** — things the assistant must never do without
-  explicit confirmation (destructive actions, secrets, scope creep). Read
-  this first if you're new to working on this project.
-- **`docs/SOURCES.md`** — a simple table of which source videos have been
-  processed and how many reels came from each.
-- **`docs/CHANGELOG.md`** — a running, dated log of what was tried, what
-  worked, and what didn't, across every session. Never edited after the
-  fact, only appended to.
+> **About this repository:** it holds only the scripts (`.py`) and docs
+> (`.md`) that run the pipeline. Videos and the YouTube login secrets stay on
+> the maintainer's machine and are never committed, so you won't find any
+> video files here.
 
 ---
 
-## The flow, in one line
+## The flow
 
-**Long discourse in → several short reels out → checked → uploaded.**
+**Long discourse in → short reels out → checked → you approve → uploaded.**
 
----
-
-## The flow, step by step
-
-1. **You share a YouTube link.** Optionally you can give exact timestamps for
-   a moment you already liked; otherwise the assistant finds good moments on
-   its own by reading the talk's captions.
-
-2. **Download.** The full video and its captions get downloaded once, into
-   `sources/<video-name>/` on this machine. (Not uploaded to GitHub — see
-   below.)
-
-3. **Find the moments.** The talk is scanned for self-contained teachings —
-   a complete thought with a clear hook and payoff, short enough to work as a
-   reel on its own. A single long talk usually produces several reels, not
-   just one.
-
-4. **Cut and style each reel.** Each chosen moment becomes a vertical 9:16
-   video: the background is reframed so nothing is cropped off the speaker, a
-   title card is added, spell-checked English subtitles are burned in, and
-   the channel watermark is placed in a spot that won't get hidden by
-   Instagram/YouTube's own on-screen buttons.
-
-5. **Check it, every time, before upload.** See the next section — nothing
-   gets uploaded without going through this.
-
-6. **Upload.** YouTube Shorts: automatic, goes live as public right away.
-   Instagram: posted by hand, using the title/description/hashtags the
-   assistant prepares alongside the video.
+1. **Share a YouTube link.** Add timestamps if you already have a moment in
+   mind; otherwise the assistant finds moments by reading the captions.
+2. **Download.** The full video and its captions are saved once on this machine.
+3. **Pick the moments.** The best reels are the speaker giving advice, or the
+   high point of a story: moments that end on a complete thought. Short
+   reels (~15s) are tried first.
+4. **Cut and style.** Each moment becomes a vertical 9:16 video, cropped
+   around the speaker, with a title, spell-checked English subtitles, a soft
+   fade at each end, and the channel watermark.
+5. **Check.** Every reel is checked before you see it (see below).
+6. **You review.** Nothing is uploaded until you approve it.
+7. **Upload.** YouTube Shorts goes live as public right away. Instagram is
+   posted by hand using the prepared title, description and hashtags. The
+   local copy is then deleted; the source video is kept.
 
 ---
 
-## What gets checked before a reel is uploaded
+## What gets checked
 
-Every reel goes through the same checks before it's considered finished:
-
-- **Right shape and length.** Confirms the video is proper vertical format and
-  not too long to count as a Short.
-- **Spelling.** Every word in the subtitles is checked. Sanskrit and Madhwa
-  names (Venkatachala, Vrishabhachala, and so on) are checked against a
-  growing reference list of correct spellings, so a wrong auto-captioned
-  spelling gets caught and fixed rather than slipping through. This list is
-  expected to keep growing — if you spot a name spelled wrong in a reel, that
-  gets added to the list so it's fixed everywhere, forever after.
-- **Clean cuts.** Checks that a reel doesn't start or end mid-sentence, cutting
-  off a word. This is checked against the talk's own captions, not just by
-  listening for a quiet moment, because the audio often has a constant
-  background drone that makes "listen for silence" unreliable on its own.
-- **A visual look.** A few frames from the finished reel are pulled and looked
-  at directly, to confirm the title and subtitles are readable, the watermark
-  is in place, and nothing overlaps badly.
-
-If any check finds something questionable, it gets looked at and fixed before
-the reel is called done — nothing goes out "good enough, probably."
+- **Shape and length:** vertical 1080x1920, and always **under 60 seconds**.
+- **Spelling:** every subtitle word, with Sanskrit and Madhwa names checked
+  against a growing list of correct spellings.
+- **Clean ending:** the reel doesn't cut off mid-word or mid-thought. This is
+  checked against the captions and by listening to the start and end, not
+  just by looking for silence (the recordings have a constant background
+  drone).
+- **A visual look:** a few frames are checked so the title, subtitles and
+  watermark are readable and nothing overlaps.
 
 ---
 
@@ -102,39 +55,31 @@ the reel is called done — nothing goes out "good enough, probably."
 
 ```
 madhwa reels/
-├── README.md             ← this file
-├── docs/                 ← the house style rulebook and the lessons log
-├── tools/                ← small shared scripts used across every video
-├── assets/               ← the channel watermark + brand icon
-├── upload/                ← the YouTube upload script
-├── sources/<slug>/       ← downloaded videos (large — not on GitHub)
-├── work/<slug>/          ← per-video working files (large — not on GitHub)
-└── reels/                ← finished reels (large — not on GitHub)
+├── README.md        ← this file
+├── docs/            ← how-to and rules (see below)
+├── tools/           ← shared scripts used for every video
+├── assets/          ← channel watermark + brand icon
+├── upload/          ← the YouTube upload script
+├── sources/<slug>/  ← downloaded videos (not on GitHub)
+├── work/<slug>/     ← per-video build scripts (on GitHub) and clips (not)
+└── reels/<slug>/    ← finished reels awaiting upload (not on GitHub)
 ```
 
-**What's on GitHub and what isn't:** the actual scripts that run this
-pipeline (plain `.py` files in `tools/`, `work/<slug>/`, and `upload/`) are
-small text files and are tracked normally. The downloaded source videos,
-per-video working files, and finished reels are large video files that
-change constantly — those stay local on this machine only and are excluded
-via `.gitignore`, so they never get pushed to GitHub.
+**Docs:**
 
-**The two files that keep improving over time:**
-
-- **`docs/STYLE.md`** — the exact rulebook: fonts, colors, video specs, safe
-  zones, how cuts get placed, what the checks look for. This is the file to
-  edit whenever the look or the rules need to change.
+- `docs/WORKFLOW.md`: the steps, in order. Start here.
+- `docs/STYLE.md`: the exact look and rules (fonts, colors, sizes, safe zones).
+- `docs/GUARDRAILS.md`: what the assistant must never do without asking.
+- `docs/SOURCES.md`: every reel made, with its YouTube link.
+- `docs/CHANGELOG.md`: dated log of what was tried and what was learned.
 
 ---
 
-## Honest limitations, worth knowing
+## Worth knowing
 
-- The English subtitles come from YouTube's own automatic captioning and
-  translation of the Kannada audio — not a transcript made specifically for
-  this project. They're cleaned up for spelling and readability, but for
-  anything where the exact wording matters (a precise philosophical point, a
-  Sanskrit quotation), treat them as a close paraphrase rather than a
-  word-for-word translation.
-- Good moments are found by reading text, not by watching the video — a
-  striking visual moment with little speech could be missed. Sharing a
-  timestamp directly always works as a fallback.
+- The English subtitles come from YouTube's automatic captions and
+  translation of the Kannada audio. They are cleaned up for spelling, but
+  treat them as a close paraphrase, not a word-for-word translation.
+- Moments are found by reading the captions, not by watching the video, so a
+  strong visual moment with little speech can be missed. Sharing a timestamp
+  always works.

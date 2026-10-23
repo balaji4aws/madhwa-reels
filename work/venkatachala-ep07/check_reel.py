@@ -4,7 +4,7 @@
 Same canonical pattern as venkatachala-ep01/ep06's check_reel.py (a per-slug
 copy, NOT a reimplementation of the shared cut logic -- it imports
 load_cues/inside_cue from tools/clip_cutter.py, same as every other slug):
-  1. SPECS   -- 1080x1920, duration (warn if > 60s for a Short).
+  1. SPECS   -- 1080x1920, duration (hard FAIL at 60s or longer).
   2. SPELL   -- every subtitle word in the system dictionary OR the
                 known-names allowlist; a KNOWN-WRONG transliteration (from
                 tools/sanskrit_terms.py) is a hard FAIL, unknowns are WARNs.
@@ -150,9 +150,11 @@ def main():
     ok_dims = (w == 1080 and h == 1920)
     print(f"[{'PASS' if ok_dims else 'FAIL'}] dimensions {w}x{h} (want 1080x1920)")
     failed |= not ok_dims
-    short_ok = dur <= 60.5
-    print(f"[{'PASS' if short_ok else 'WARN'}] duration {dur:.1f}s "
-          f"({'ok for Short' if short_ok else '>60s, not a Short'})")
+    # Strict rule (owner, 2026-10-23): every reel MUST be under 60s -> hard FAIL.
+    short_ok = dur < 60.0
+    print(f"[{'PASS' if short_ok else 'FAIL'}] duration {dur:.1f}s "
+          f"({'under 60s' if short_ok else '60s or longer -- re-cut shorter'})")
+    failed |= not short_ok
 
     dictionary = load_dict()
     bad, wrong_hits = spell_check(subs, dictionary)

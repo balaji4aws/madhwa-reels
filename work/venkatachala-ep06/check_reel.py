@@ -4,7 +4,7 @@
 Same checks as venkatachala-ep01/check_reel.py (that's the canonical
 pattern -- this is a per-slug copy, not a reimplementation of its shared
 logic):
-  1. SPECS   — 1080x1920, duration (warn if > 60s for a Short).
+  1. SPECS   — 1080x1920, duration (hard FAIL at 60s or longer).
   2. SPELL   — every subtitle word is in the system dictionary OR the
                known-names allowlist; otherwise flagged for review.
   3. CUTS    — caption-boundary based odd-cut check (NOT loudness -- these
@@ -159,9 +159,11 @@ def main():
     ok_dims = (w == 1080 and h == 1920)
     print(f"[{'PASS' if ok_dims else 'FAIL'}] dimensions {w}x{h} (want 1080x1920)")
     failed |= not ok_dims
-    short_ok = dur <= 60.5
-    print(f"[{'PASS' if short_ok else 'WARN'}] duration {dur:.1f}s "
-          f"({'ok for Short' if short_ok else '>60s, not a Short'})")
+    # Strict rule (owner, 2026-10-23): every reel MUST be under 60s -> hard FAIL.
+    short_ok = dur < 60.0
+    print(f"[{'PASS' if short_ok else 'FAIL'}] duration {dur:.1f}s "
+          f"({'under 60s' if short_ok else '60s or longer -- re-cut shorter'})")
+    failed |= not short_ok
 
     dictionary = load_dict()
     bad, wrong_hits = spell_check(subs, dictionary)

@@ -43,8 +43,8 @@ internal/disposable. A machine-loaded copy also lives in
 
 - **Output spec:** 1080x1920 (9:16 vertical), 30fps, H.264 high profile,
   yuv420p, ~6 Mbps video, AAC 192k/48k, `+faststart`.
-- **Reframe (current, crop-based):** `tools`/`work`'s shared
-  `crop_reframe_filter()` (in `overlays_lib.py`) crops a vertical slice of
+- **Reframe (current, crop-based):** the shared
+  `crop_reframe_filter()` (in `tools/overlays_lib.py`) crops a vertical slice of
   the 1920x1080 source centered on the speaker, scaled uniformly (no
   distortion) to 1080 wide, with any leftover vertical margin filled by a
   blurred, scaled mirror of the full frame. Default crop size is
@@ -266,10 +266,12 @@ madhwa reels/
 │   ├── WORKFLOW.md               #   the pipeline, step by step
 │   ├── SOURCES.md                #   which source videos -> how many reels
 │   ├── GUARDRAILS.md             #   things the assistant must never do
-│   ├── CHANGELOG.md              #   dated log of what worked/didn't, per run
-│   └── archive/                  #   superseded planning docs, kept for history
+│   └── CHANGELOG.md              #   dated log of what worked/didn't, per run
 ├── tools/                        # shared machinery, used across ALL source videos:
+│   ├── overlays_lib.py           #   reframe + title/subtitle PNG rendering
 │   ├── clip_cutter.py            #   shared cut-boundary tool
+│   ├── fade_clip.py              #   cut-transition fade helper
+│   ├── sanskrit_terms.py         #   confirmed Sanskrit/Madhwa spellings
 │   └── reel_numbering.py         #   per-source auto-incrementing reel numbers
 ├── assets/                      # reusable: watermark.png + make_watermark.py
 │                                  # generator, channels4_profile.jpg brand icon
@@ -283,9 +285,9 @@ madhwa reels/
 └── upload/                      # YouTube uploader + its isolated venv
 ```
 
-- **Slug** = short kebab-case id for the source video (e.g. `venkatachala-ep01`).
+- **Slug** = short kebab-case id for the source video (e.g. `venkatachala-ep07`).
 - Finished reel naming: `reels/<slug>/<slug>_NN_<topic>.mp4`
-  (e.g. `reels/venkatachala-ep01/venkatachala-ep01_01_four-names.mp4`).
+  (e.g. `reels/venkatachala-ep07/venkatachala-ep07_01_god-does-all-work.mp4`).
 - **Reel numbering auto-increments per source, never restarts or collides.**
   Before assigning a number to a new reel, call
   `tools/reel_numbering.py`'s `next_reel_number(slug)` — it scans

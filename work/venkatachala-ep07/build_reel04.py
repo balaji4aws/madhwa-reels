@@ -58,7 +58,7 @@ import os
 import sys
 import subprocess
 
-sys.path.insert(0, os.path.join("..", "venkatachala-ep01"))
+sys.path.insert(0, os.path.join("..", "..", "tools"))
 from overlays_lib import render_sub, crop_reframe_filter  # noqa: E402
 
 sys.path.insert(0, os.path.join("..", "..", "tools"))

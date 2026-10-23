@@ -11,8 +11,8 @@ later.
 Usage:
     from reel_numbering import next_reel_number, reel_dir
 
-    n = next_reel_number("venkatachala-ep01")   # -> e.g. 8, if 01-07 exist
-    out_dir = reel_dir("venkatachala-ep01")      # -> reels/venkatachala-ep01/
+    n = next_reel_number("venkatachala-ep07")   # -> e.g. 5, if 01-04 exist
+    out_dir = reel_dir("venkatachala-ep07")      # -> reels/venkatachala-ep07/
 """
 import os
 import re
