@@ -93,6 +93,29 @@ def set_privacy(video_id, privacy):
     print("Watch:", f"https://youtu.be/{video_id}")
 
 
+def update_description(video_id, caption_path):
+    """Replace an already-uploaded video's description + tags with the ones in
+    its .caption.txt, IN PLACE (same video ID/URL, views kept, no re-upload).
+    The live title and category are left exactly as they are."""
+    _, description, tags = parse_caption(caption_path)
+    if not description:
+        sys.exit(f"No DESCRIPTION found in {caption_path}")
+    yt = get_service()
+    items = yt.videos().list(part="snippet", id=video_id).execute().get("items", [])
+    if not items:
+        sys.exit(f"Video {video_id} not found on this channel.")
+    snippet = items[0]["snippet"]
+    body = {"id": video_id, "snippet": {
+        "title": snippet["title"],                 # unchanged
+        "categoryId": snippet["categoryId"],       # unchanged
+        "description": description,
+        "tags": tags[:40],
+    }}
+    yt.videos().update(part="snippet", body=body).execute()
+    print(f"Updated description of {video_id} ({snippet['title']!r}).")
+    print("Watch:", f"https://youtu.be/{video_id}")
+
+
 def delete_video(video_id):
     """Permanently delete an uploaded video. NOT reversible."""
     yt = get_service()
@@ -124,7 +147,21 @@ def main():
                          "and a re-upload). Prompts for confirmation unless "
                          "--yes is also given. The replacement gets a NEW "
                          "video ID/URL -- YouTube has no in-place file swap.")
+    ap.add_argument("--update-description", metavar="VIDEO_ID",
+                    help="replace an already-uploaded video's description and "
+                         "tags with the ones in --caption (or the given "
+                         "video's sidecar). Same video/URL, no re-upload; the "
+                         "title is not changed.")
     args = ap.parse_args()
+
+    if args.update_description:
+        cap = args.caption or (os.path.splitext(args.video)[0] + ".caption.txt"
+                               if args.video else None)
+        if not cap or not os.path.exists(cap):
+            sys.exit("--update-description needs --caption <file.caption.txt> "
+                     "(or the reel .mp4 path, to use its sidecar).")
+        update_description(args.update_description, cap)
+        return
 
     if args.set_privacy:
         set_privacy(args.set_privacy, args.privacy)
