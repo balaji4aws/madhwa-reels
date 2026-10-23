@@ -1697,3 +1697,30 @@ the owner to confirm that specific video.
   Applies to new builds; live reels keep what they have.
 - **Shlokas:** owner chose (a). Kannada script on the Kannada line, English
   meaning below; split long verses at the half-verse; never guess words.
+
+---
+
+## 2026-10-23 (owner feedback) — Bilingual sample looked blurry and small; diagnosis
+
+Owner compared the bilingual sample (`4EIHc6yLA5k`) with an English-only reel
+(`i9-Zr9mhojs`) on YouTube: in the bilingual one the text and watermark looked
+low-resolution, and he offered to go back to English only.
+
+**What was checked:** YouTube serves both videos at the same full 1080x1920
+(formats 137/399). Downloaded YouTube's own 1080p copy of each and compared the
+subtitle/watermark area pixel for pixel:
+- The **watermark is identical** in both, sharp at 1080p.
+- The real difference is that **the English line was smaller**: 36px in the
+  bilingual layout (shrunk to make room for Kannada) vs 46px in English-only
+  reels. On a phone, small text breaks up more under YouTube's compression.
+- In the owner's screenshot the speaker's face and the source banner are
+  blurry too, so the player was also streaming a low-quality version at that
+  moment (common for the first hours after upload, while YouTube is still
+  processing higher resolutions). That affected the whole frame, not our
+  text specifically.
+
+**Fix:** English back to 46px (same as English-only reels), Kannada to 46px,
+layout moved up slightly (Kannada band at y=1436, 24px gap); still fits above
+the watermark (English band ends at y≈1621). Verified on a real frame next to
+YouTube's English-only reel: English text now the same size. Not rebuilt or
+re-uploaded: waiting for the owner to choose between bilingual and English only.

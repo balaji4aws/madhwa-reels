@@ -167,8 +167,8 @@ manually using this file; YouTube may be automated later.
 - **Kannada + English subtitles on every new reel (owner rule from
   2026-10-23).** Kannada goes on top (the speaker's own words, Noto Sans Kannada
   Bold 44px), English below (Noto Sans Bold 36px, same family as the Kannada). Each line has its own dark band
-  with a clear 26px gap between them (never crammed), the Kannada band's
-  top edge is at y=1452 (below the source banner), and the watermark sits
+  with a clear 24px gap between them (never crammed), the Kannada band's
+  top edge is at y=1436 (below the source banner), and the watermark sits
   below with its own gap. Each language must fit on one line. Kannada needs
   complex text shaping (raqm), which is available here. Without it,
   conjuncts like ನ್ನ/ಕ್ತಿ/ಶ್ರೀ break.

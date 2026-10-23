@@ -211,9 +211,11 @@ def render_sub(outdir, idx, text):
 # like ನ್ನ / ಕ್ತಿ / ಶ್ರೀ break apart -- Pillow here has raqm (checked 2026-10-23).
 FONT_KN_BOLD = "/System/Library/Fonts/NotoSansKannada.ttc"
 FONT_KN_BOLD_INDEX = 6        # "Noto Sans Kannada" Bold face in the .ttc
-KN_SIZE, EN_SIZE = 44, 36
-KN_TOP = 1452                 # top of the Kannada pill
-PILL_GAP = 26                 # clear space between the two pills
+# Both 46px: English back to the size of the English-only reels (it was cut to
+# 36px for the bilingual layout and read small/soft on phones, owner 2026-10-23).
+KN_SIZE, EN_SIZE = 46, 46
+KN_TOP = 1436                 # top of the Kannada pill
+PILL_GAP = 24                 # clear space between the two pills
 PAD_X, PAD_Y = 30, 14
 MAX_TEXT_W = W - 150
 
