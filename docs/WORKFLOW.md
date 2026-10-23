@@ -24,6 +24,18 @@ and need to remember the actual mechanics, not the pitch.
 - Process: read the captions for self-contained teachings — a complete
   thought with a hook and a payoff, short enough to work as a standalone
   reel. A single long talk usually yields several such moments.
+- **Skim the transcript specifically for the TWO STRONGEST candidate shapes
+  (channel-owner feedback, 2026-10-23 — see `docs/STYLE.md`'s "Clip
+  selection"):**
+  1. **the speaker giving advice / an exhortation to people or society** (a
+     complete "how to live" teaching that resolves on its own), and
+  2. **the speaker narrating a great / high / peak moment of a story** (a
+     dramatic climax told as a self-contained arc).
+  Both RESOLVE on their own, so they don't feel abruptly cut. Deliberately
+  AVOID picking mid-narrative explanation / connective material with no
+  self-contained resolution — those feel abrupt no matter how the cut is
+  placed, because the thought itself hasn't finished (ep07 reels 02 & 03
+  failed this way; reel 04, an exhortation, worked — see `docs/CHANGELOG.md`).
 - Output: a list of candidate `(start_time, end_time, topic)` windows in
   source-video seconds. No file artifact yet — this is a reading/judgment
   step, recorded directly into the next step's cut decisions.

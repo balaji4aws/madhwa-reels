@@ -1261,3 +1261,62 @@ listening to the actual ending.
 (Cross-check also done this session: confirmed all 4 reels physically present in
 `reels/venkatachala-ep06/` — 03/04/05/06 — are each uploaded and live on
 YouTube; nothing in that folder is un-uploaded.)
+
+---
+
+## 2026-10-23 (ep07 review) — The real abrupt-cut lesson: candidate CONTENT, not just silence margin
+
+The channel owner reviewed all 4 ep07 reels and gave the single most useful
+piece of guidance in this project so far. Measured + recorded here.
+
+**Owner's verdicts:**
+- reel 02 (god-steps-down, narrative): "very terrible cut, abruptly ends." Delete.
+- reel 03 (vishwakarma-humility, mid-explanation): "topic was good, but ends
+  abruptly." Delete.
+- reel 04 (give-humbly, closing exhortation + dedication): GOOD. Uploaded
+  (https://youtu.be/9HO-4rvRlJ4, video ID 9HO-4rvRlJ4).
+
+**The measurement that reframed the whole problem:** ran the new
+finished-file trailing-settle check on 03 and 04.
+- reel 03: 49.6s clip, last speech ends ~48.86s → 0.74s trailing quiet.
+- reel 04 (the GOOD one): 54.03s clip, last speech ends 53.78s → only **0.25s**
+  trailing quiet — essentially the SAME tight tail as reel 02 (0.23s), the one
+  called "terrible."
+
+So trailing-silence margin ALONE does not explain the owner's like/dislike
+split: the good reel had the tightest tail of the three. What actually
+separated them was the CONTENT SHAPE of the moment:
+- reel 04 ended on a COMPLETE rhetorical unit — a closing exhortation ("give
+  humbly... I have done only this much") + the traditional dedication. It
+  resolves on its own, so even a tight tail reads as intentional and finished.
+- reels 02 and 03 ended in the MIDDLE of narrative/explanatory delivery — a
+  story beat and a humility explanation that were still unfolding. No amount of
+  trailing silence or fade makes an unresolved thought feel finished.
+
+**The owner's rule, now the primary candidate-selection guidance** (added to
+STYLE.md "Clip selection", WORKFLOW.md Step 2, and the steering file): the two
+strongest reel candidates are (1) the speaker GIVING ADVICE / an exhortation to
+people or society, and (2) the speaker narrating a GREAT / HIGH / PEAK moment of
+a story. Both are self-resolving. After transcription, skim specifically for
+these two shapes and AVOID cutting on mid-narrative explanation with no
+self-contained resolution.
+
+**How this updates the prior (2026-10-23 "trailing-settle") lesson:** that
+lesson is still correct (re-measure the finished file; a fade can't rescue a
+cut on live speech) but it was INCOMPLETE — it treated abruptness as purely a
+silence/boundary problem. The fuller truth: abruptness is a
+content-resolution problem first. A reel must end on a thought that is
+COMPLETE. Picking a self-resolving moment (advice / story-peak) is the upstream
+fix; trailing-settle + fade is the downstream polish. Both matter; the content
+choice matters more.
+
+**Actions taken this session:**
+- Uploaded reel 04 (good) — public, live.
+- Deleted reels 02 and 03 (`venkatachala-ep07_02_god-steps-down-for-devotee.mp4`
+  + `.caption.txt`, `venkatachala-ep07_03_vishwakarma-humility.mp4` +
+  `.caption.txt`) by EXACT filename at the owner's explicit request, AFTER
+  recording these lessons (the owner's condition for deletion was "provided you
+  have learnt the lessons"). Not rebuilt — the owner explicitly said no need to
+  recreate them. reel 01 was NOT touched (still built, awaiting review).
+- Note on numbering: reel_numbering.py never reuses a number, so a future ep07
+  reel will be 05+, not a refill of the deleted 02/03 slots.

@@ -164,6 +164,28 @@ manually using this file; YouTube may be automated later.
 - **Auto-pick moments by default.** Scan the source captions for self-contained,
   "did you know" / quotable teachings that stand alone in 20-45s. Prefer a
   complete thought with a clear hook and payoff over a mid-explanation fragment.
+- **THE TWO STRONGEST CANDIDATE TYPES (added 2026-10-23, from direct
+  channel-owner feedback on ep07 — the reels that work vs. the ones that
+  don't).** After getting the transcript, skim it specifically hunting for
+  these two shapes; they consistently make the best reels because they
+  RESOLVE on their own and so never feel abruptly cut:
+  1. **The speaker giving advice / an exhortation to people or society** — a
+     direct "here is how you should live / what you should do" teaching. It is
+     a complete rhetorical unit with its own built-in ending, so it lands as
+     "finished" even on a tight tail. (ep07 reel 04 "give humbly, dedicate to
+     God" is exactly this — the channel owner called it good.)
+  2. **The speaker narrating a great / high / peak moment of a story** — the
+     emotional or dramatic climax of a narrative beat (the turning point, the
+     miracle, the revelation), told as a self-contained arc with its own
+     payoff.
+  Conversely, AVOID cutting on mid-narrative *explanation* or connective
+  story-telling that has no self-contained resolution — a clip of the speaker
+  still working through an explanation will feel abrupt no matter where you end
+  it or how much fade/silence margin you add, because the THOUGHT itself hasn't
+  resolved (ep07 reels 02 and 03 failed exactly this way — see
+  `docs/CHANGELOG.md`'s 2026-10-23 entry). Abruptness is as much a
+  content-resolution problem as a boundary/silence problem: a reel must end on
+  a thought that is COMPLETE, not merely on a detected pause.
 - **Produce MULTIPLE clips from one long discourse** whenever there are several
   good moments — don't stop at one. A 20+ minute talk usually yields several
   reels. Number them per source: `<slug>_01_<topic>.mp4`, `<slug>_02_<topic>.mp4`.
