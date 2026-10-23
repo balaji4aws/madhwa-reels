@@ -105,7 +105,7 @@ madhwa reels/
 ├── README.md             ← this file
 ├── docs/                 ← the house style rulebook and the lessons log
 ├── tools/                ← small shared scripts used across every video
-├── assets/               ← the channel watermark
+├── assets/               ← the channel watermark + brand icon
 ├── upload/                ← the YouTube upload script
 ├── sources/<slug>/       ← downloaded videos (large — not on GitHub)
 ├── work/<slug>/          ← per-video working files (large — not on GitHub)

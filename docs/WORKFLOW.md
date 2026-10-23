@@ -60,6 +60,14 @@ and need to remember the actual mechanics, not the pitch.
   overlay` to composite: reframed video + title card + subtitle + watermark.
 - Exact visual rules (crop vs. fill, safe zones, fonts, colors) live in
   `docs/STYLE.md` — this step always reads that file first.
+- **Watermark (updated 2026-10-23):** the watermark PNG shows the full
+  channel URL `https://www.youtube.com/@madhwa16` plus the brand icon
+  (`assets/channels4_profile.jpg`) to its left — see the "Watermark" section
+  in `docs/STYLE.md`. If `assets/watermark.png` still carries the old bare
+  `@madhwa16` handle, regenerate it with `assets/make_watermark.py` and
+  visually verify the URL+icon layout against a real rendered frame (the URL
+  is wide — confirm it stays centered and clear of the right-edge safe zone)
+  before compositing it into a shipped reel.
 - Output: `reels/<slug>_NN_<topic>.mp4` + a matching
   `<slug>_NN_<topic>.caption.txt` sidecar (title/description/hashtags).
 
