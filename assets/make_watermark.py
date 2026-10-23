@@ -32,7 +32,9 @@ W, H = 1080, 1920
 ACCENT = (245, 166, 35, 255)   # saffron
 WHITE = (255, 255, 255, 235)
 
-FONT_BOLD = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
+# Noto Sans Bold -- same family as the title and subtitles (owner 2026-10-23:
+# "not Arial"). Official OFL font kept in assets/fonts/.
+FONT_BOLD = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "NotoSans-Variable.ttf")
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ICON_PATH = os.path.join(HERE, "channels4_profile.jpg")
@@ -51,6 +53,7 @@ WM_Y = 1700        # vertical baseline band, same as the prior handle watermark:
 img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
 d = ImageDraw.Draw(img)
 fnt = ImageFont.truetype(FONT_BOLD, URL_FONT_PX)
+fnt.set_variation_by_name("Bold")
 
 # Measure the URL text.
 bbox = d.textbbox((0, 0), URL_TEXT, font=fnt)

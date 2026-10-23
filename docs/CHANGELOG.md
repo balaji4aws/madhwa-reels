@@ -1681,3 +1681,19 @@ the owner to confirm that specific video.
   immediately for the owner's review (not scheduled). Checked through the API:
   the new video is public and `5kLI-taTWyY` is gone. SOURCES.md updated. Kept
   the existing English description (Kannada descriptions start with future reels).
+
+---
+
+## 2026-10-23 (owner Q&A, cont.) — Date column, watermark font, shloka rule
+
+- **SOURCES.md** now has a Date column (Source | Reel | Date | YouTube). Dates
+  read from the YouTube API for all 21 videos: when each went public, in IST,
+  or "goes live DATE, 6 PM IST" for scheduled ones. reel_numbering re-tested.
+- **Watermark font → Noto Sans Bold** (owner: not Arial). Owner suggested
+  Amazon Ember; it is installed on this laptop but is Amazon's proprietary brand
+  typeface licensed for Amazon work, so it was not used on a personal public
+  channel. Noto Sans keeps the one-family rule. Compared old and new on a clean
+  frame (no burned-in watermark): centred, legible, clear of the right edge.
+  Applies to new builds; live reels keep what they have.
+- **Shlokas:** owner chose (a). Kannada script on the Kannada line, English
+  meaning below; split long verses at the half-verse; never guess words.

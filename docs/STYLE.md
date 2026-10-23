@@ -130,6 +130,17 @@ text out of those zones:
 - Reels built before these rules keep their original look (two-line Georgia
   title, English-only Arial subtitles) unless the owner asks for a rebuild.
 
+- **Watermark font: Noto Sans Bold** (owner: "not Arial", 2026-10-23), the
+  same family as everything else. Amazon Ember was suggested but not used:
+  it's Amazon's proprietary brand typeface, licensed for Amazon work, not a
+  personal public channel. Use only OFL/free-licence fonts on reels.
+- **Sanskrit shlokas in a clip (owner choice (a), 2026-10-23):** show the shloka
+  in **Kannada script** on the Kannada line, exactly as recited, with its
+  **English meaning** on the English line below (a meaning, not a
+  transliteration). If the shloka is too long for one line, split it at
+  its natural half-verse (pada) across consecutive subtitles. Never guess a
+  word of the shloka; if the auto-caption is unclear, flag it for the owner.
+
 ## Speaker credit (owner direction, 2026-10-23)
 
 - Every reel's description credits the speaker by his respectful full name,

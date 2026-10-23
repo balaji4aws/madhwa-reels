@@ -170,6 +170,9 @@ direction, 2026-10-23); the owner reviews on the channel.
 
 - **Keep** the uploaded reel and its `.caption.txt` in `reels/<slug>/`. Do not
   delete them. Keep `sources/` and `work/` too.
+- In `docs/SOURCES.md` the columns are Source | Reel | **Date** | YouTube.
+  Date = the day it went public (IST); for a scheduled reel write
+  *goes live DATE, 6 PM IST*.
 - Add the reel's YouTube link to its row in `docs/SOURCES.md` as soon as the
   upload finishes. The link exists right away even for a scheduled reel.
   Add *(goes live DATE, 6 PM IST)* after it until that date. No link means
