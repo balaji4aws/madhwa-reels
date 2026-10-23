@@ -1516,3 +1516,26 @@ Tiruchanur, Padma Sarovar, Yashoda, Shani, Ugadi, Phalguna Amavasya,
 Madhwacharya, darshan), and the unconfirmed speaker credit on the new
 source. These reels are now live, so fixing any of these means a re-upload,
 which only happens if the owner names the reel.
+
+---
+
+## 2026-10-23 (owner Q&A) — Speaker credit; 6 older reels restored locally
+
+- **Speaker credit.** The owner confirmed the Madhwa Jayanti talk
+  (`madhwacharya-avatara`) is by Sri Satyatmateertha Shripadangalavaru and
+  gave its English title. Added a standing STYLE.md rule to credit the speaker
+  by full respectful name in every description. Updated that source's
+  `reels.json` and regenerated its 5 local `.caption.txt` files (used for
+  Instagram). The 5 live YouTube videos were not changed: the owner asked for
+  future descriptions, and editing live ones would need him to name them.
+- **Restored local copies** of the 6 reels deleted under the old
+  delete-after-upload rule (ep06 03–06, ep07 01, 04), for Instagram posting.
+  Re-rendered from their own build scripts and raw clips, using the ORIGINAL
+  `@madhwa16` handle watermark (the new URL watermark was swapped out for
+  the build, then restored and checksum-verified), so they match what is
+  live. Durations match the live videos (44.2/54.8/45.1/55.2/24.6/54.0s).
+  ep06 03/04 have no fade, as live. Their 6 `.caption.txt` files were
+  restored word-for-word from the live versions.
+- ep06 `build_reel01.py`/`build_reel02.py` called `next_reel_number()`
+  instead of pinning a number, so a rebuild would now give 12/13. Pinned them
+  to 03/04.

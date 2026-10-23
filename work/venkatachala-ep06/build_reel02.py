@@ -116,7 +116,9 @@ def build():
     dur = clip_duration(CLIP)
     sub_paths = [(render_sub(outdir, i, t), s, e) for i, (t, s, e) in enumerate(subs, 1)]
 
-    num = next_reel_number(SLUG)
+    # PINNED to the live reel number (04). Numbers are never reused, so
+    # next_reel_number() would now return a new number (2026-10-23).
+    num = 4
     num_str = format_reel_number(num)
     out_dir = reel_dir(SLUG)
     out_name = f"{SLUG}_{num_str}_{TOPIC}.mp4"

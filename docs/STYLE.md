@@ -107,6 +107,18 @@ text out of those zones:
   and below the subtitle pill with clear separation from it.
 - Nothing critical in the bottom ~280px or hard against the right edge.
 
+## Speaker credit (owner direction, 2026-10-23)
+
+- Every reel's description credits the speaker by his respectful full name,
+  e.g. **Sri Satyatmateertha Shripadangalavaru**, with the discourse title in
+  English and the channel (Sri Uttaradi Math Adhyatmavani). Add the hashtag
+  `#SatyatmateerthaShripadangalavaru`.
+- If a source's captions don't name the speaker, ask the owner. Don't guess.
+- Kannada source titles are given in English in the credit (owner supplies or
+  confirms the translation). `madhwacharya-avatara` = "The Divine Glory of
+  Jagadguru Sriman Madhvacharya's Incarnation | Extraordinary Literary Works |
+  His Incomparable Contribution to the World".
+
 ## Caption + hashtag sidecar (for the algorithm)
 
 For every finished reel, also write a sidecar text file
