@@ -1602,3 +1602,9 @@ still with the subtitle "who knows the Lord better than me?" and no card.
 The live video `PH6Wj-ClHtw` still has the glitch. Swapping it needs
 `--replace` (delete + re-upload, new URL, views lost), so it waits for the
 owner's go-ahead.
+
+- **Replaced live (owner approved, 2026-10-23):** `--replace PH6Wj-ClHtw`
+  deleted the glitched video and uploaded the fixed reel 10 as
+  **`i9-Zr9mhojs`** (https://youtu.be/i9-Zr9mhojs). Checked through the API:
+  the new video is public, its title is unchanged and the speaker is
+  credited; `PH6Wj-ClHtw` is gone. SOURCES.md now has the new link.
