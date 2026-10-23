@@ -85,15 +85,12 @@ as-is, new reels use the spec + builder.) In order, it does:
    `crop_x` for every new source; never reuse another source's value.
 2. **Title card** at the top. Check one frame first: if the title touches the
    speaker's forehead, use a per-source `title_compact.py` (see ep06/ep07).
-3. **Subtitles, Kannada + English** (owner rule from 2026-10-23): add the
-   Kannada line as the 4th item of each subtitle in `reels.json`
-   (`["English", start, end, "ಕನ್ನಡ"]`). Kannada goes on top in Noto Sans Kannada
-   Bold 44px, English below in Noto Sans Bold 36px (same family as the Kannada). Each line gets its own band with
-   a 26px gap between them, and each must fit on one line. Take the Kannada
-   from `source.kn.vtt` (the speaker's own words) and clean up only obvious
-   auto-caption errors. If a line is garbled, rebuild it faithfully and
-   record it in the reel's `note`. (Older English-only reels use one line
-   at `SUB_Y = 1560`.)
+3. **Subtitles: English only** (owner decision 2026-10-23): one line at a time,
+   Noto Sans Bold 46px, at `SUB_Y = 1560`. Set `"look": "v2"` in `reels.json`
+   to get the one-line title + Noto subtitles. Must fit one line (builder
+   checks). In the caption, add `description_kn` (Kannada version of the
+   description) and `hashtags_kn` (Kannada hashtags); the builder checks the
+   Kannada is well-formed.
 4. **Watermark:** `assets/watermark.png` (channel URL + brand icon).
 5. **Fade:** 0.2s fade in/out on the finished picture **and** the audio,
    applied after everything is composited so it all fades together.

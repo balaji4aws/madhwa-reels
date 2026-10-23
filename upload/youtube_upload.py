@@ -116,6 +116,25 @@ def update_description(video_id, caption_path):
     print("Watch:", f"https://youtu.be/{video_id}")
 
 
+LEDGER = os.path.join(HERE, "schedule_ledger.json")
+
+
+def _read_ledger():
+    import json
+    if os.path.exists(LEDGER):
+        with open(LEDGER) as f:
+            return json.load(f)
+    return {}
+
+
+def _record_slot(video_id, when, path):
+    import json
+    led = _read_ledger()
+    led[video_id] = {"publish_at": when.isoformat(), "file": os.path.relpath(path, os.path.join(HERE, ".."))}
+    with open(LEDGER, "w") as f:
+        json.dump(led, f, indent=2)
+
+
 DAILY_SLOT_IST = (18, 0)          # owner rule 2026-10-23: one reel a day, 6:00 PM IST
 
 
@@ -145,6 +164,11 @@ def next_daily_slot(yt):
             when = v["status"].get("publishAt") or v["snippet"].get("publishedAt")
             if when:
                 taken.add(datetime.fromisoformat(when.replace("Z", "+00:00")).astimezone(ist).date())
+    # YouTube's uploads list does NOT show a just-scheduled private video right
+    # away (found 2026-10-23: 10 back-to-back uploads got 2 per day). So also
+    # read our own ledger of every slot we've booked.
+    for v in _read_ledger().values():
+        taken.add(datetime.fromisoformat(v["publish_at"]).astimezone(ist).date())
     now = datetime.now(ist)
     day = now.date()
     slot = now.replace(hour=DAILY_SLOT_IST[0], minute=DAILY_SLOT_IST[1], second=0, microsecond=0)
@@ -297,6 +321,8 @@ def main():
         if status:
             print(f"  {int(status.progress() * 100)}%")
     vid = resp["id"]
+    if publish_at:
+        _record_slot(vid, publish_at, args.video)
     print("Done. Video ID:", vid)
     print("Watch:", f"https://youtu.be/{vid}")
     if publish_at:

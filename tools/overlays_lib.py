@@ -311,3 +311,24 @@ def render_sub_bilingual(outdir, idx, kn, en):
     path = os.path.join(outdir, f"ov_sub_{idx:02d}.png")
     img.save(path)
     return path, bottom
+
+
+# --- English-only subtitle, current look (owner 2026-10-23: back to English
+#     subtitles only; keep Noto Sans + one-line title) ---
+EN_SUB_SIZE = 46              # same size as the original English-only reels
+
+
+def en_sub_fits(text):
+    d = ImageDraw.Draw(Image.new("RGBA", (W, 200)))
+    return d.textlength(text, font=en_font(EN_SUB_SIZE)) <= MAX_TEXT_W
+
+
+def render_sub_en(outdir, idx, text):
+    """One English line, Noto Sans Bold 46px, in a pill whose top is at
+    SUB_Y - 18 (same position as the original English-only subtitles)."""
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    _pill_line(d, text, en_font(EN_SUB_SIZE), SUB_Y - 18)
+    path = os.path.join(outdir, f"ov_sub_{idx:02d}.png")
+    img.save(path)
+    return path

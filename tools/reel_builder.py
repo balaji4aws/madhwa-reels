@@ -47,6 +47,7 @@ ROOT = os.path.abspath(os.path.join(HERE, ".."))
 sys.path.insert(0, HERE)
 from overlays_lib import (render_sub, crop_reframe_filter, _font, _wrap,  # noqa: E402
                           render_sub_bilingual, bilingual_fits, render_title_line,
+                          render_sub_en, en_sub_fits,
                           FONT_BOLD, W, H, ACCENT, WHITE)
 from kannada_check import check as kannada_check  # noqa: E402
 from reel_numbering import reel_dir, format_reel_number  # noqa: E402
@@ -113,9 +114,29 @@ def edge_quiet(path, dur):
 
 
 def write_caption(path, cap):
+    """English description, then the Kannada one (if given) after a blank
+    line; English hashtags then Kannada hashtags (owner 2026-10-23:
+    descriptions and hashtags in both languages)."""
+    desc = cap["description"]
+    if cap.get("description_kn"):
+        desc += "\n\n" + cap["description_kn"]
+    tags = cap["hashtags"]
+    if cap.get("hashtags_kn"):
+        tags += " " + cap["hashtags_kn"]
     with open(path, "w", encoding="utf-8") as f:
-        f.write(f"TITLE\n{cap['title']}\n\nDESCRIPTION\n{cap['description']}\n\n"
-                f"HASHTAGS\n{cap['hashtags']}\n")
+        f.write(f"TITLE\n{cap['title']}\n\nDESCRIPTION\n{desc}\n\nHASHTAGS\n{tags}\n")
+
+
+def check_caption_kannada(nn, cap, kn_vtt):
+    """Kannada description + hashtags must be well-formed Kannada script."""
+    from kannada_check import orthography_errors
+    errs = []
+    if cap.get("description_kn"):
+        errs += orthography_errors(cap["description_kn"])
+    for tag in cap.get("hashtags_kn", "").split():
+        errs += orthography_errors(tag.lstrip("#"))
+    if errs:
+        raise ValueError(f"{nn}: Kannada description/hashtag errors: " + "; ".join(errs))
 
 
 def build(spec, reel):
@@ -129,8 +150,14 @@ def build(spec, reel):
     # subs entries: [english, start, end] or [english, start, end, kannada]
     subs_in = [(t[0], t[1], t[2], t[3] if len(t) > 3 else "") for t in reel["subs"]]
     bilingual = any(kn for _, _, _, kn in subs_in)
+    # "look": "v2" = current look (Noto Sans one-line title + English-only Noto
+    # subtitles). Bilingual subs also use the v2 title. Older reels: "v1".
+    v2 = bilingual or spec.get("look") == "v2" or reel.get("look") == "v2"
     for text, s, e, kn in subs_in:
-        if bilingual:
+        if v2 and not bilingual:
+            if not en_sub_fits(text):
+                raise ValueError(f"{nn}: subtitle too long for one line: {text!r}")
+        elif bilingual:
             ok_kn, ok_en = bilingual_fits(kn, text)
             if not ok_kn:
                 raise ValueError(f"{nn}: Kannada subtitle too long for one line: {kn!r}")
@@ -140,6 +167,7 @@ def build(spec, reel):
             raise ValueError(f"{nn}: subtitle wraps to 2 lines, shorten it: {text!r}")
         if not (0 <= s < e <= length + 0.01):
             raise ValueError(f"{nn}: subtitle timing {s}-{e} outside clip 0-{length:.2f}: {text!r}")
+    check_caption_kannada(nn, reel["caption"], os.path.join(ROOT, "sources", slug, "source.kn.vtt"))
     kn_review = []
     if bilingual:
         kn_lines = [kn for _, _, _, kn in subs_in]
@@ -191,13 +219,15 @@ def build(spec, reel):
     os.makedirs(ov, exist_ok=True)
     # Current style (Kannada+English subs) uses the single-line Noto Sans title;
     # older English-only reels keep their original two-line compact title.
-    if bilingual:
+    if v2:
         title = render_title_line(ov, reel["title_lead"], reel["title_main"])
     else:
         title = render_title_compact(ov, reel["title_lead"], reel["title_main"])
     if bilingual:
         subs = [(render_sub_bilingual(ov, i, kn, t)[0], s, e)
                 for i, (t, s, e, kn) in enumerate(subs_in, 1)]
+    elif v2:
+        subs = [(render_sub_en(ov, i, t), s, e) for i, (t, s, e, _) in enumerate(subs_in, 1)]
     else:
         subs = [(render_sub(ov, i, t), s, e) for i, (t, s, e, _) in enumerate(subs_in, 1)]
 

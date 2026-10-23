@@ -1724,3 +1724,43 @@ layout moved up slightly (Kannada band at y=1436, 24px gap); still fits above
 the watermark (English band ends at y≈1621). Verified on a real frame next to
 YouTube's English-only reel: English text now the same size. Not rebuilt or
 re-uploaded: waiting for the owner to choose between bilingual and English only.
+
+---
+
+## 2026-10-23 (batch 3) — Back to English subtitles; 10 reels from Ep-05 and Satyaparayana talk, scheduled daily
+
+**Owner decision:** subtitles go back to **English only** (Noto Sans Bold 46px,
+one-line Noto title, Noto watermark — `"look": "v2"` in reels.json). Descriptions
+and hashtags are **English + Kannada** (`description_kn`, `hashtags_kn`; the
+builder checks the Kannada is well-formed). New `overlays_lib.render_sub_en`.
+Length guidance from the owner: no need to force 15s; ~30s is a good average,
+15s when a moment allows, never 60s+.
+
+**Sources (new):** `venkatachala-ep05` (8lYvO6Z6d6c, 1990s, crop_x=513) and
+`satyaparayana-mahime` (STkFaeM7YQg, 632s, "Glory of Shri Satyaparayanateertharu",
+crop_x=522). Durations matched YouTube; full glitch scans clean apart from
+intros/outros; crop_x from gridded frames + rendered crops.
+
+**10 reels**, picked for advice / story-peak, cut from the Kannada captions at
+real pauses: Ep-05 — No One Works Faster Than Rama (45.6s), Respect the Gods on
+the Way (37.3s), Begin Every Task With a Bow (15.4s), Who Makes a Good Marriage
+Happen? (38.6s), The Lord's Wondrous Disguise (33.6s). Satyaparayana — 564
+Sutras in One Word (39.8s), Debt or Not, Feed Everyone (41.9s), "You Are My
+Refuge" (31.7s), Devoted to Truth, Not to Money (41.7s), A Prayer for Every
+Devotee (18.1s). Two tails were under 0.4s (0.34, 0.32) and were extended into
+the real pause and rebuilt (now 0.47, 0.48). All pass size, <60s, spelling
+(English), Kannada caption check, glitch scan; frames checked.
+
+**Speaker:** Ep-05 credits Sri Satyatmateertha Shripadangalavaru (in its YouTube
+title). The Satyaparayana talk's title/description name no speaker, so no
+credit was added — pending owner confirmation.
+
+**Scheduling bug found and fixed:** 10 back-to-back `--schedule-daily` uploads
+landed two per day, because YouTube's uploads list doesn't show a just-scheduled
+private video immediately. All 10 were still private; their publish times were
+moved (status update only, no delete/re-upload) to one per day, 24 Oct – 2 Nov,
+6 PM IST, and verified through the API. The uploader now keeps
+`upload/schedule_ledger.json` (video ID, publish time, file — no secrets) and
+counts it as taken; next free slot correctly reports 3 Nov.
+
+SOURCES.md: 10 rows added with "goes live DATE, 6 PM IST".
