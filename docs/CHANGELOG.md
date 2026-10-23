@@ -993,3 +993,211 @@ wildcard deletes — the only deletions (ep06's 4 old abrupt files; ep07's 2
 stale duplicate reels) were done by exact filename, stated before deleting,
 and only after the replacements were verified. No Whisper/STT tooling
 reintroduced.
+
+---
+
+## 2026-10-23 (review approved) — Abrupt-cuts fade fix + venkatachala-ep07: independent review PASSED, user-held for review
+
+This entry records the independent review outcome for the work logged in the
+"Abrupt cuts, part 2" entry above (ep06 05/06 fade rebuild + the 4 new ep07
+reels). The build was summarized in `work/build-notes.md`; the independent
+reviewer's full write-up is `work/review.md`. The review is now **APPROVED**.
+The entry below consolidates the fade technique, the per-clip perceptual
+findings, and — flagged for future sessions — the now user-confirmed lesson
+that the margin-only fix is insufficient on its own.
+
+### The fade technique chosen (exact approach + why 0.2s)
+
+- **Video:** ffmpeg `fade=t=in:st=0:d=0.2` at the head and
+  `fade=t=out:st=<dur-0.2>:d=0.2` at the tail — a fade to/from **black** (the
+  plain `fade` filter is a pixel-level dissolve; this machine's ffmpeg has no
+  `drawtext`, but `fade` is not a text feature and works fine). Fade-to-black
+  reads as a deliberate edit rather than a glitch.
+- **Audio:** matching `afade=t=in:st=0:d=0.2` / `afade=t=out:st=<dur-0.2>:d=0.2`
+  so the amplitude ramps in/out instead of starting/stopping on a hard edge.
+- **Duration 0.2s (200ms), and why that value:** chosen by prototyping on a
+  real raw clip and inspecting the actual rendered first/last frames and the
+  audio RMS ramp. At 200ms the fade is clearly *perceptible* as a deliberate
+  transition — the first frame renders solid black and the audio RMS ramps up
+  from near-silence (~-57 dB) at the start and back down (~-56 dB) at the end —
+  yet it is short enough to fit inside the already-tight silence margins on
+  every existing boundary (the ep06 boundaries carry ~0.4-1.2s of margin, so a
+  0.2s fade never encroaches on spoken content). One duration, one method,
+  applied consistently to all 6 clips for a uniform house feel — not re-tuned
+  per clip. The review's independent luminance measurement confirmed a clean
+  monotonic ramp over ~6 frames (0.2s at 30fps) on every clip, matching the
+  intended duration.
+- **Placement (critical):** the fade is applied to the FINAL COMPOSITED frame
+  — the tail of each build script's `filter_complex`, on the `[vout]`/
+  post-overlay label AFTER title + subtitle + watermark are composited — and
+  the `afade` to the mapped audio the same way. It is NOT applied to the raw
+  clip before compositing (doing that leaves the full-opacity title/watermark
+  PNGs floating over a fading-to-black background — the overlay-desync artifact
+  that was hit and fixed during the build). The reviewer independently
+  confirmed on extracted fade frames that title, accent text, current
+  subtitle, and the `@madhwa16` watermark all dim in sync with the background
+  on every clip.
+
+### The fade is ADDITIVE, not a replacement, for the margin + VTT placement
+
+Explicit confirmation (build notes §2, review §1): the fade is layered ON TOP
+OF the already-working silence-margin + VTT sentence-boundary cut placement
+from the prior 05/06 attempt — it does not replace it. The ep06 05/06 cut
+boundaries are UNCHANGED (111.5-156.6s and 2674.8-2730.0s); only the fade was
+added. The margin approach fixes the cut POINT (no mid-word cut); the fade
+fixes the cut's TRANSITION (the jump-cut feel). Both are kept; the review
+confirmed the boundaries were not disturbed.
+
+### Independent per-clip jump-cut-feel inspection (the decisive section)
+
+The reviewer did NOT trust the build's self-reported table — they independently
+extracted per-frame luminance (signalstats YAVG) across the first/last ~0.34s,
+looked at the actual composited first/last frames, and measured audio
+mean_volume ramping at both ends. Every clip showed (a) a monotonic brightness
+ramp from near-black up and back down, (b) overlays dimming in sync with the
+background, and (c) an audio ramp rather than a hard amplitude edge. Per clip:
+
+| Clip | Reviewer verdict | Evidence |
+|------|------------------|----------|
+| ep06-05 dharmadevi-name-meaning | **smooth** | luminance 16->74 in / 75->25 out; title + subtitle("...name meaningful.") + watermark dim in sync |
+| ep06-06 bakuladevi-humility | **smooth** | luminance 16->74 / 71->25; title "Don't Take Credit for God's Own Work" + watermark dim with background |
+| ep07-01 god-does-all-work | **smooth** | ramp present (first frame ~26, caught slightly into the ramp — still clearly dim); title "Who Really Gets the Credit?" + watermark uniformly dim; audio -76 dB first 0.08s |
+| ep07-02 god-steps-down-for-devotee | **smooth** | luminance 16->76 / 75->28; fade-out frame: title + subtitle("...wordless silence.") + watermark all dim together |
+| ep07-03 vishwakarma-humility | **smooth** | luminance 16->73 / 78->28; title "Accused in Public, He Chose Humility" + watermark dim with background; audio -17.3 -> -23.8 -> -26.8 dB into the end |
+| ep07-04 give-humbly-dedicate-to-god | **smooth** | luminance 27->73 / 80->28; title + dedication subtitle("Haraye Namah — Shri Krishna Arpanamastu.") + watermark all dim together; dedication lands before the fade completes |
+
+**All 6 now read as a deliberate, unhurried fade at both ends rather than a
+hard jump cut.** The reviewer's independent judgment agreed with the coder's on
+all 6, but was formed from the reviewer's own frame/waveform inspection — this
+is the perceptual step the earlier (PASS-but-still-abrupt) 05/06 review
+skipped. **Verdict: APPROVED, no blocking findings.**
+
+### New source venkatachala-ep07 — crop_x + title-collision check
+
+- **crop_x = 523, freshly derived** (NOT reused from ep06's 573). Grid-overlay
+  on a 1920-scaled probe frame put the speaker's face-center at x~955, so
+  crop_x = 955 - 864//2 = 523, verified against 3 real probe frames
+  (10/50/90% of the talk). It genuinely differs from ep06's value even though
+  it is the same speaker/series — confirming the fresh-derivation rule was
+  warranted, not a formality. Reviewer confirmed 523 is hardcoded in all four
+  ep07 build scripts and backed by the documented frame check.
+- **Title-collision check: POSITIVE, handled proactively BEFORE building.**
+  Compositing the shared `render_title()` band over a real crop_x=523 frame
+  landed the band on the speaker's tilak/hairline (same near-zero-headroom
+  issue as ep06), so a per-slug `work/venkatachala-ep07/title_compact.py` was
+  built up front (same verified geometry as ep06: band_top=8, 26/34px fonts,
+  line_h=38). Reviewer confirmed the compact title clears the tilak with margin
+  on all four reels — discovered and fixed before building, not after.
+
+### The 4 new candidate moments and why each is self-contained
+
+1. **01 — "God does all the work"** (source 87.9-112.5s, 24.6s). All good
+   outcomes — praise, fame, success, even our humanity — are God's mercy, not
+   our achievement. Hook ("who really gets the credit?") + payoff (it is all
+   grace). Opens the talk; needs no prior context.
+2. **02 — God steps down for His devotee** (1055.2-1081.9s, 26.7s). The Lord
+   gets down from His own chariot, walks out to greet Brahma, raises him from
+   his bow, embraces him, and they stand in wordless silence. Hook (God Himself
+   steps down) + payoff (the silent embrace). A single complete scene.
+3. **03 — Vishwakarma's humility** (1306.6-1356.2s, 49.6s). Indra demands
+   Vishwakarma be removed; instead of defending himself, Vishwakarma answers
+   with humility and self-correction, and the Lord blesses it. Hook (public
+   accusation) + payoff (humble response, divine acceptance). Complete arc.
+4. **04 — closing moral + dedication** (3272.3-3326.3s, 54.0s). "What greater
+   blessing than the Lord leading us to liberation?" + the practical teaching
+   to give humbly, never arrogantly, closed by "Haraye Namah, Shri Krishna
+   Arpanamastu." The recurring closing-moral + shloka category; self-contained.
+
+### Cut-boundary resolutions (all 6 clips)
+
+- **ep06-05 (reel05):** source 111.5-156.6s — UNCHANGED from the prior verified
+  build; only the fade was added.
+- **ep06-06 (reel06):** source 2674.8-2730.0s — UNCHANGED from the prior
+  verified build; only the fade was added.
+- **ep07-01 (cand1):** BOTH boundaries came back **CLEAN** from clip_cutter.py.
+  Start 87.9s (~0.66s before "God" at 88.559s); end 112.5s (just after
+  "...him." at 112.396s, before the unrelated "Immediately,").
+- **ep07-02 (cand2):** both flagged review-manually (coarse cue). Resolved:
+  start 1055.2s at the "When he heard..." sentence boundary; end 1081.9s inside
+  a real ~0.46s post-sentence pause after "...nine minutes of silence.", before
+  a garbled next line (deliberately excluded).
+- **ep07-03 (cand3):** both flagged review-manually. Resolved: start 1306.6s at
+  "Indra said, 'Remove him from my work.'" (word 1306.943s); end 1356.2s just
+  after "...build the assembly right now." (word 1355.909s).
+- **ep07-04 (cand4):** both flagged review-manually. Start moved from an initial
+  3272.0s — which began MID-WORD inside "...salvation and saying" (caught by the
+  odd-cut check + a word-tag read) — to **3272.3s**, so the clip opens cleanly
+  on "What greater blessing..." (word 3272.48s); end 3326.3s at the tail of
+  "...Shri Krishna Arpanamastu", before the long "Rama Rama..." chant (excluded).
+
+### New Sanskrit terms added to tools/sanskrit_terms.py
+
+- **Srinivasa** — a name of Venkateshwara; already used in ep06's reels via
+  that slug's allowlist, promoted to the shared list as a recurring confirmed
+  channel spelling.
+- **Vishwakarma** — the divine architect; a standard, unambiguous single-
+  spelling proper noun.
+
+Deliberately NOT added/guessed: the auto-caption's closing "Hare Namah". The
+channel's confirmed spelling of that dedication phrase is already
+**Haraye Namah** in `sanskrit_terms.py`, so reel04's subtitle uses that
+confirmed spelling (using an existing confirmed term — NOT inventing a new one).
+No uncertain transliteration was burned into any subtitle. The reviewer
+independently confirmed `Vishwakarma`, `Haraye Namah`, and `Arpanamastu` are
+present as confirmed single-spelling entries and that the garbled "Hare Namah"
+was not used.
+
+### check_reel.py results (all 6 reels)
+
+| Reel | dims | duration | spelling | odd-cut (caption-boundary) |
+|------|------|----------|----------|----------------------------|
+| ep06-05 dharmadevi-name-meaning | PASS 1080x1920 | PASS 45.1s | PASS | WARN start+end (documented coarse-cue false positives; boundaries unchanged + previously verified) |
+| ep06-06 bakuladevi-humility | PASS 1080x1920 | PASS 55.2s | PASS | WARN start+end (same documented false positives) |
+| ep07-01 god-does-all-work | PASS 1080x1920 | PASS 24.6s | PASS | PASS start, WARN end (coarse cue; hand-verified clean) |
+| ep07-02 god-steps-down-for-devotee | PASS 1080x1920 | PASS 26.7s | PASS | PASS start, WARN end (hand-verified clean) |
+| ep07-03 vishwakarma-humility | PASS 1080x1920 | PASS 49.6s | PASS | PASS start, WARN end (hand-verified clean) |
+| ep07-04 give-humbly-dedicate-to-god | PASS 1080x1920 | PASS 54.0s | PASS | WARN start+end (hand-verified clean; start corrected from an earlier mid-word placement) |
+
+No FAILs on any reel. Every odd-cut WARN is the known coarse-run-on-cue
+false-positive pattern for these sources, each hand-verified against the VTT
+word-level tags + silencedetect.
+
+### LESSON (flagged for future sessions) — the margin-only fix is INSUFFICIENT on its own
+
+> **Do not re-attempt the silence-margin-only approach for abrupt cuts as if it
+> were untried.** The prior session's 05/06 fix placed the cut deliberately
+> *inside* the detected silence window (a margin away from the nearest word) and
+> verified it with silencedetect + VTT sentence boundaries. The user watched
+> those reels and confirmed they STILL felt abruptly cut. That approach is **not
+> wrong — it is incomplete**: it correctly fixes WHERE the cut lands (no mid-word
+> truncation, a real sentence boundary, breathing room in the pause) but does
+> NOTHING about the cut's TRANSITION SHAPE — the hard audio amplitude edge and
+> the instant visual start/stop that read as a jump cut regardless of how much
+> silence surrounds the boundary.
+>
+> This is now USER-CONFIRMED, not a hypothesis. The fix that actually worked is
+> the margin placement PLUS the 0.2s audio+video fade described above — the two
+> are additive and both are required. A future session seeing "abrupt cuts"
+> feedback should NOT re-litigate or re-run the margin-only method expecting it
+> to solve the feel; the margin is a prerequisite that is already in place, and
+> the next lever is the fade (lengthen 0.2s -> 0.3-0.4s before changing the fade
+> method), never reverting to margin-tuning alone.
+
+### Scope / guardrails (review confirmed)
+
+Nothing was uploaded, deleted-on-channel, replaced, or privacy-changed on
+YouTube in the build or this review. ep06 reels 03/04 (live) and
+venkatachala-ep01 were not touched. STYLE.md was NOT edited — the fade house
+rule remains a PROPOSED addition (0.2s, applied to the composited frame +
+audio, additive to the margin placement, lengthen before changing method),
+pending the user's explicit confirmation before anyone edits STYLE.md. The only
+deletions (ep06's 4 old abrupt files; ep07's 2 stale duplicate reels) were by
+exact filename, stated before deleting, and only after the verified
+replacements existed. No Whisper/STT tooling reintroduced.
+
+**Caveat carried to the user (not a blocker):** the perceptual evidence here is
+objective (measured ramps + synced overlays) and is a real improvement over the
+no-fade 05/06, but the ultimate test is the user's own reaction on watching the
+finished reels — the same loop that was fooled once by a structural-only PASS.
+If 0.2s still reads as slightly abrupt, the first lever is lengthening the fade
+to 0.3-0.4s before changing the method.

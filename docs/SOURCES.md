@@ -6,8 +6,8 @@ processed, or when reels are added/removed/changed for an existing one.
 | Slug | Source title | Source link | Date added | Reels made | Status |
 |------|-------------|-------------|-------------|------------|--------|
 | `venkatachala-ep01` | Glory of Venkatachala — Ep. 01 (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=tNPyEd-FJ4I | 2026-10-16 | 7 (see below) | In progress — styling being revised |
-| `venkatachala-ep06` | Glory of Venkatachala \| Ep - 06 \| ವೇಂಕಟಾಚಲ ಮಹಿಮೆ \| By Sri Satyatmateertha Shripadangalavaru (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=DoHq0Eh9Rvo | 2026-10-23 | 4 built (03-06): 2 uploaded, 2 awaiting review | Reels 03/04 uploaded, public and live; reels 05/06 REBUILT with the audio+video fade fix (abrupt-cuts, part 2) and awaiting user review before any upload |
-| `venkatachala-ep07` | Glory of Venkatachala \| Ep - 07 \| ವೇಂಕಟಾಚಲ ಮಹಿಮೆ \| By Sri Satyatmateertha Shripadangalavaru (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=9IDCabMthdQ | 2026-10-23 | 4 built (01-04) | All 4 built with the fade fix from the start; finished, awaiting user review before any upload |
+| `venkatachala-ep06` | Glory of Venkatachala \| Ep - 06 \| ವೇಂಕಟಾಚಲ ಮಹಿಮೆ \| By Sri Satyatmateertha Shripadangalavaru (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=DoHq0Eh9Rvo | 2026-10-23 | 4 built (03-06): 2 uploaded, 2 awaiting review | Reels 03/04 uploaded, public and live; reels 05/06 are a REBUILD of a previously-rejected version — the user rejected the earlier silence-margin-only build as still abrupt, so they were rebuilt with the audio+video fade fix, independently reviewed and APPROVED, and now await the user's own re-review before any upload |
+| `venkatachala-ep07` | Glory of Venkatachala \| Ep - 07 \| ವೇಂಕಟಾಚಲ ಮಹಿಮೆ \| By Sri Satyatmateertha Shripadangalavaru (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=9IDCabMthdQ | 2026-10-23 | 4 built (01-04) | New source, 4 new reels built with the audio+video fade fix from the start; independently reviewed and APPROVED. Built — not yet uploaded, awaiting user review before any upload |
 
 ## `venkatachala-ep01` — reel detail
 
@@ -36,17 +36,17 @@ before any future upload.
 |---|------|-------|--------|
 | 03 | `venkatachala-ep06_03_no-friend-like-mother.mp4` | "There is no friend like a mother" — Dharmadevi's teaching on parents and children trusting each other with love | Uploaded, public — https://youtu.be/eHx0uUuX354 (video ID `eHx0uUuX354`, 2026-10-23) |
 | 04 | `venkatachala-ep06_04_chakra-conch-meaning.mp4` | Why the Lord carries the Sudarshana chakra and conch (destroying ignorance / giving knowledge of truth) | Uploaded, public — https://youtu.be/sDJX6yPxhS0 (video ID `sDJX6yPxhS0`, 2026-10-23) |
-| 05 | `venkatachala-ep06_05_dharmadevi-name-meaning.mp4` | Why Dharani Devi's disguise is named "Dharmadevi" — the name as the Lord's own promise to preserve Padmavati's dharma | REBUILT with fade fix (same cut boundaries) — not yet uploaded, awaiting user review |
-| 06 | `venkatachala-ep06_06_bakuladevi-humility.mp4` | "Don't take credit for God's work" — Bakuladevi's humility teaching on grace vs. self-effort | REBUILT with fade fix (same cut boundaries) — not yet uploaded, awaiting user review |
+| 05 | `venkatachala-ep06_05_dharmadevi-name-meaning.mp4` | Why Dharani Devi's disguise is named "Dharmadevi" — the name as the Lord's own promise to preserve Padmavati's dharma | **REBUILD of a previously-rejected version** — the user rejected the earlier silence-margin-only build as still feeling abruptly cut; this is a fresh rebuild with the audio+video fade fix applied (same cut boundaries, 0.2s fade added). Independently reviewed and APPROVED (perceptual verdict: smooth). Not yet uploaded — awaiting the user's own re-review before any upload |
+| 06 | `venkatachala-ep06_06_bakuladevi-humility.mp4` | "Don't take credit for God's work" — Bakuladevi's humility teaching on grace vs. self-effort | **REBUILD of a previously-rejected version** — the user rejected the earlier silence-margin-only build as still feeling abruptly cut; this is a fresh rebuild with the audio+video fade fix applied (same cut boundaries, 0.2s fade added). Independently reviewed and APPROVED (perceptual verdict: smooth). Not yet uploaded — awaiting the user's own re-review before any upload |
 
 ## `venkatachala-ep07` — reel detail
 
 | # | File | Topic | Status |
 |---|------|-------|--------|
-| 01 | `venkatachala-ep07_01_god-does-all-work.mp4` | "God does all the work" — praise, fame, success, even our humanity are all God's mercy, not our own achievement | Built with fade fix — not yet uploaded, awaiting user review |
-| 02 | `venkatachala-ep07_02_god-steps-down-for-devotee.mp4` | The Lord steps down from His own chariot and walks out to greet Brahma, then embraces him in a long wordless silence | Built with fade fix — not yet uploaded, awaiting user review |
-| 03 | `venkatachala-ep07_03_vishwakarma-humility.mp4` | Publicly accused by Indra, Vishwakarma answers with humility (no merit before them; even an ordinary person's raised eyebrow is enough to self-correct) | Built with fade fix — not yet uploaded, awaiting user review |
-| 04 | `venkatachala-ep07_04_give-humbly-dedicate-to-god.mp4` | Closing moral + dedication shloka: give humbly ("I have done only this much"), never arrogantly; offer every act to God | Built with fade fix — not yet uploaded, awaiting user review |
+| 01 | `venkatachala-ep07_01_god-does-all-work.mp4` | "God does all the work" — praise, fame, success, even our humanity are all God's mercy, not our own achievement | Built — not yet uploaded, awaiting user review (built with the fade fix; independently reviewed, perceptual verdict smooth) |
+| 02 | `venkatachala-ep07_02_god-steps-down-for-devotee.mp4` | The Lord steps down from His own chariot and walks out to greet Brahma, then embraces him in a long wordless silence | Built — not yet uploaded, awaiting user review (built with the fade fix; independently reviewed, perceptual verdict smooth) |
+| 03 | `venkatachala-ep07_03_vishwakarma-humility.mp4` | Publicly accused by Indra, Vishwakarma answers with humility (no merit before them; even an ordinary person's raised eyebrow is enough to self-correct) | Built — not yet uploaded, awaiting user review (built with the fade fix; independently reviewed, perceptual verdict smooth) |
+| 04 | `venkatachala-ep07_04_give-humbly-dedicate-to-god.mp4` | Closing moral + dedication shloka: give humbly ("I have done only this much"), never arrogantly; offer every act to God | Built — not yet uploaded, awaiting user review (built with the fade fix; independently reviewed, perceptual verdict smooth) |
 
 **Note:** `crop_x=523` was freshly derived for this source (different from
 ep06's 573 — same speaker/series but the fresh derivation was required and
