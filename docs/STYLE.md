@@ -1,0 +1,291 @@
+# Madhwa Reels — House Style & Production Rules
+
+This is the single source of truth for how reels are made for the **Madhwa16**
+YouTube channel (https://www.youtube.com/@madhwa16/). The editor/assistant
+reads this before making any reel. This file lives at `docs/STYLE.md` —
+`docs/` holds everything a human should read, review, or edit; `tools/` holds
+shared machinery (currently just the cut-boundary tool) used across every
+source video; `work/<slug>/` and `sources/<slug>/` are per-video,
+internal/disposable. A machine-loaded copy also lives in
+`.kiro/steering/madhwa-reels.md` so these rules apply automatically.
+
+## Channel
+
+- **Channel name / handle:** Madhwa16 (`@madhwa16`)
+- **URL:** https://www.youtube.com/@madhwa16/
+- **Content:** Madhwa / Dvaita devotional discourses (pravachana), often in
+  Kannada, by swamijis and scholars. Source videos frequently come from
+  channels like Sri Uttaradi Math Adhyatmavani.
+
+## Watermark
+
+- Every reel gets the **`@madhwa16`** watermark, bottom-center, above the lower
+  safe area (`assets/watermark.png`).
+- White text, soft shadow, semi-transparent so it never fights the content.
+
+## Visual style (the "house look")
+
+- **Output spec:** 1080x1920 (9:16 vertical), 30fps, H.264 high profile,
+  yuv420p, ~6 Mbps video, AAC 192k/48k, `+faststart`.
+- **Reframe (current, crop-based):** `tools`/`work`'s shared
+  `crop_reframe_filter()` (in `overlays_lib.py`) crops a vertical slice of
+  the 1920x1080 source centered on the speaker, scaled uniformly (no
+  distortion) to 1080 wide, with any leftover vertical margin filled by a
+  blurred, scaled mirror of the full frame. Default crop size is
+  `crop_w=864, crop_h=1080`. **`crop_x` has NO safe default and MUST be
+  re-derived for every new source video** — it depends on exactly where
+  that speaker sits in that camera's framing, which varies from source to
+  source. Reusing a previous source's `crop_x` produced a visibly
+  off-center speaker (caught 2026-10 — see `docs/CHANGELOG.md`). To derive
+  it: extract a frame, overlay a grid
+  (`ffmpeg -vf drawgrid=w=100:h=100:t=1:c=yellow@0.5`), find the speaker's
+  face-center x-coordinate, then `crop_x = face_center_x - crop_w // 2`.
+  Verify by rendering the crop against a real frame and looking at it
+  before using it in any build.
+- **Accent color:** saffron `#F5A623` (devotional feel). Used for the key line /
+  payoff and the title's main word.
+- **Fonts (system, absolute paths):**
+  - Titles: **Georgia Bold** (`/System/Library/Fonts/Supplemental/Georgia Bold.ttf`)
+  - Lists / labels / captions: **Arial Bold** (`/System/Library/Fonts/Supplemental/Arial Bold.ttf`)
+- **Title card:** top of frame, dark rounded band behind it, two lines — a lead
+  ("The 4 Names of") in white + the subject ("Venkatachala") in saffron.
+  **Font sizes are 54px (lead) / 70px (main)** — reduced from an earlier
+  64/82px (2026-10, user feedback: the larger sizes crowded the title text
+  down onto the speaker's hairline/forehead once the crop filled more of
+  the frame). Keep title text short enough to need at most 2 lines at
+  these sizes.
+- **Lower-third / lists:** single-line subtitles only (see "Subtitles /
+  captions rules" below) — no build-up/multi-line reveal band.
+
+## CRITICAL: text rendering
+
+This machine's **ffmpeg has NO `drawtext` / `subtitles` / `ass` filter**
+(no freetype/libass/fontconfig compiled in). So:
+
+- **Never** try to burn text with `drawtext` or the `subtitles` filter — it fails
+  with "No such filter".
+- **Always** render text (titles, lists, captions, watermark) as transparent
+  **PNG overlays with Pillow (Python)**, then composite with ffmpeg `overlay`.
+- Burned-in spoken-word subtitles are rendered the same way: one PNG per caption
+  cue (or a few words at a time), overlaid with `enable='between(t,start,end)'`.
+
+## Safe zones (CRITICAL for mobile)
+
+Instagram/YouTube overlay their own UI (caption, like/share buttons, handle)
+over the **bottom ~15% and the right edge** of a reel. Keep all our important
+text out of those zones:
+
+- **Spoken-word subtitles sit at `SUB_Y = 1560`** (in `overlays_lib.py`).
+  This has moved twice as the reframe style changed — originally ~1280
+  under the old blurred-fill layout, then 1460 when the crop-based reframe
+  was introduced, then to **1560** (2026-10, user feedback): under the
+  crop (which fills to y~1350), 1460 sat right at the video/margin seam
+  with barely any breathing room below the speaker. 1560 gives clear
+  separation from that seam while staying above the bottom ~280px
+  platform-UI zone and the watermark below it. **Always re-verify this
+  value visually against a real rendered frame whenever the crop size
+  changes** — it's defined relative to where the sharp crop ends, not an
+  absolute constant that's safe to assume forever.
+- **Lists / payoff** — not used; see "single-line subtitles only" above.
+- **Watermark** at ~y1700 (not y1840), still clearly in frame above the UI,
+  and below the subtitle pill with clear separation from it.
+- Nothing critical in the bottom ~280px or hard against the right edge.
+
+## Caption + hashtag sidecar (for the algorithm)
+
+For every finished reel, also write a sidecar text file
+`<reel-name>.caption.txt` containing a ready-to-paste **title**, **description**,
+and **hashtag block**. Accurate description + relevant hashtags help the
+Instagram and YouTube algorithms surface the reel. Hashtags mix broad devotional
+tags with specific ones (deity, concept, channel). The user posts to Instagram
+manually using this file; YouTube may be automated later.
+
+## Subtitles / captions rules
+
+- **Burn in English spoken-word subtitles on every reel**, timed to the speech,
+  as a single line (via `overlays_lib.py`'s `render_sub`), positioned per
+  "Safe zones" above. **Single-line style only — no build-up/multi-line
+  reveal band** (an earlier reel used a growing multi-line list; the user
+  explicitly prefers one subtitle line at a time, 2026-10).
+- If a stretch of the clip has no new spoken content to subtitle (e.g. a
+  pause, a repeated restatement already covered by the previous line), it's
+  fine to leave no subtitle visible rather than inventing text that wasn't
+  said — check the actual audio/VTT for that stretch before assuming it
+  needs filler.
+- **Transcript source (be honest about this):** the English/Kannada captions
+  come from `sources/<slug>/source.en.vtt` / `source.kn.vtt` — YouTube's own
+  auto-generated + auto-translated captions, not a transcription this project
+  produced. They are a machine paraphrase of the Kannada speech; clean the
+  spelling, but don't present them as exact quotes. A local Whisper model
+  (`faster-whisper`) was evaluated on 2026-10-22 specifically to see if it
+  could give cleaner cut-boundary *timing* than the VTT. **Result: evaluated
+  and NOT adopted** — on this source's audio it did not improve boundary
+  precision (it reproduced the same ~4-5s early-boundary error a human had to
+  catch and fix by hand) and, for the only variant with word-level timestamps,
+  would take roughly 2 hours to run over a 21-minute source. See
+  `docs/CHANGELOG.md`'s 2026-10-22 entry for the full comparison. The evaluation
+  tool and its isolated venv were removed from the project afterward (not
+  adopted, no need to keep the ~200MB dependency around) — if a better Kannada
+  speech-to-text model is worth evaluating in the future, rebuild the tool
+  fresh rather than expect it to still exist. The VTT + `tools/clip_cutter.py`
+  approach below remains the standard, and no Whisper output is used as input
+  to any reel's cut boundaries. Even a better transcript would still need
+  independent human verification against the original Kannada meaning, which
+  has not been done for any transcript source used so far — treat that as a
+  separate, still-open concern.
+- **SPELL-CHECK EVERY TIME.** Source auto-captions are machine translations and
+  are rough. Before burning in:
+  - Fix spelling and obvious transcription errors.
+  - Keep **proper nouns / Sanskrit terms correctly spelled** (e.g. Venkatachala,
+    Vrishabhachala, Anjanachala, Seshachala, Yuga, Shatananda, Janaka). Prefer
+    clean readable transliteration over raw auto-caption spellings.
+  - Keep lines short (≈ 4–7 words) for vertical readability.
+- Sanskrit, when shown as a term, follows the user's IAST preference where
+  practical, but caption readability for a general audience comes first.
+
+## Clip selection
+
+- **Auto-pick moments by default.** Scan the source captions for self-contained,
+  "did you know" / quotable teachings that stand alone in 20-45s. Prefer a
+  complete thought with a clear hook and payoff over a mid-explanation fragment.
+- **Produce MULTIPLE clips from one long discourse** whenever there are several
+  good moments — don't stop at one. A 20+ minute talk usually yields several
+  reels. Number them per source: `<slug>_01_<topic>.mp4`, `<slug>_02_<topic>.mp4`.
+- The **user may also supply timestamps**; when given, use those.
+- Target length **20–45s**; 15–60s acceptable. Instagram Reels / YouTube Shorts.
+- When a reel is explicitly meant for Instagram Reels / Gen-Z-paced
+  consumption, target the shorter **15–30s** end of the range: one hook in
+  the first 1–2s, one payoff, no multi-part list. The 20–45s band remains the
+  default for YouTube-first or multi-point teachings (e.g. the 4-names list
+  format).
+- Discourses often end with a short summary line + a Sanskrit dedication
+  shloka. Treat this as its own recurring candidate-moment category when
+  auto-picking moments — it is usually self-contained and short.
+
+## Cut placement
+
+- Use `tools/clip_cutter.py` as the standard cut-boundary tool for every
+  source video (not just one slug) — it proposes a silence-snapped boundary
+  near a rough timestamp and cross-checks it against the VTT cue boundaries,
+  emitting a confidence flag (`clean` / `snapped-low-confidence` /
+  `review-manually`) per boundary. Run it before committing a cut; always
+  review `review-manually` flags by reading the caption text at that
+  timestamp, same as the existing odd-cut check.
+- `ffmpeg silencedetect` is allowed and useful for *choosing where to snap* a
+  rough cut point to a real pause in speech. It must never be used as the
+  final pass/fail check on a finished cut — that stays caption-boundary based
+  (`check_reel.py`'s `inside_cue` check), because the constant background
+  drone on these recordings makes loudness alone unreliable as a verifier.
+- `check_reel.py`'s caption-boundary cut check (`inside_cue`/`load_cues`) is
+  implemented once in `tools/clip_cutter.py` and imported by `check_reel.py` —
+  do not re-implement this logic a second time in a new per-slug script;
+  import the shared module.
+
+## Background audio (PLANNED — not built yet)
+
+The user will later supply background audio tracks to fuse under the speech at
+**very low volume**. When those arrive: mix the bed under the original audio
+(e.g. ffmpeg `amix`/`sidechaincompress`), bed gain low (around -20 to -26 dB
+relative, i.e. `volume=0.08`-ish), looped/trimmed to clip length, ducked under
+speech. Keep the speech clearly dominant. Nothing to do until the user shares
+the files.
+
+## Source handling
+
+- **Always download the COMPLETE source video — never a trimmed/partial
+  segment.** Never use `yt-dlp --download-sections` or any time-limited
+  download flag. Download the whole talk once into `sources/<slug>/`, then
+  do all cutting locally from that full file. Confirm the downloaded
+  duration matches the video's published duration before treating the
+  download as done.
+- The source's own baked-in banner (channel lower-third) **may be cropped
+  out of frame** under the current crop-based reframe style (see "Visual
+  style" above) — this is a confirmed, deliberate reversal of an earlier
+  "never crop the banner" rule, not an oversight.
+- Download with `yt-dlp` using `--cookies-from-browser chrome` (this machine
+  needs cookies to pass bot detection). Pull `kn` + `en` subs when available.
+
+## Folder structure
+
+```
+madhwa reels/
+├── docs/                        # EVERYTHING a human should read/review/edit:
+│   ├── STYLE.md                  #   this file
+│   ├── WORKFLOW.md               #   the pipeline, step by step
+│   ├── SOURCES.md                #   which source videos -> how many reels
+│   ├── GUARDRAILS.md             #   things the assistant must never do
+│   ├── CHANGELOG.md              #   dated log of what worked/didn't, per run
+│   └── archive/                  #   superseded planning docs, kept for history
+├── tools/                        # shared machinery, used across ALL source videos:
+│   ├── clip_cutter.py            #   shared cut-boundary tool
+│   └── reel_numbering.py         #   per-source auto-incrementing reel numbers
+├── assets/                      # reusable: watermark.png, generators
+├── sources/<video-slug>/        # downloaded source.mp4 + .en.vtt + .kn.vtt
+│                                  # (ALWAYS the full video, never trimmed)
+├── work/<video-slug>/           # per-video scratch: raw clips, overlay PNGs,
+│                                  # build scripts, check_reel.py, cut_report_*.json
+├── reels/<video-slug>/          # finished reels for THIS source, one subfolder
+│                                  # per source video -- NEVER dump reels flat
+│                                  # into reels/ itself
+└── upload/                      # YouTube uploader + its isolated venv
+```
+
+- **Slug** = short kebab-case id for the source video (e.g. `venkatachala-ep01`).
+- Finished reel naming: `reels/<slug>/<slug>_NN_<topic>.mp4`
+  (e.g. `reels/venkatachala-ep01/venkatachala-ep01_01_four-names.mp4`).
+- **Reel numbering auto-increments per source, never restarts or collides.**
+  Before assigning a number to a new reel, call
+  `tools/reel_numbering.py`'s `next_reel_number(slug)` — it scans
+  `reels/<slug>/` for the highest existing `NN` and returns the next one.
+  Never hardcode a starting number in a build script; if a source already
+  has reels 01-07 and more are made later (same or a different session),
+  the next one must be 08, not restart at 01.
+
+## Verification (automated checks + visual)
+
+Run `work/<slug>/check_reel.py` on every finished reel. It checks:
+
+1. **Dimensions** 1080x1920 (hard FAIL if wrong) and **duration** (WARN if >60s,
+   i.e. not a valid Short).
+2. **Spelling** — every subtitle word must be in the macOS dictionary
+   (`/usr/share/dict/words`, with plural/verb-form handling) OR the known-names
+   ALLOWLIST in the script. Add new Sanskrit/Madhwa proper nouns to that
+   allowlist as they appear. Flags unknown words for review.
+3. **Odd-cut detection** — does the clip start/end mid-sentence? This is checked
+   against the SOURCE CAPTION BOUNDARIES (pass `--vtt` + `--src-start/--src-end`),
+   NOT by audio loudness. IMPORTANT: a loudness threshold does NOT work on these
+   sources — devotional recordings carry a constant background drone (tanpura/
+   shruti box), so even a genuine pause reads "loud". Place cuts using
+   `ffmpeg silencedetect` on the speech, then verify against captions.
+
+Known limitation: YouTube auto-caption cues on these sources are long run-on
+cues, so the cut check produces FALSE-POSITIVE warnings even on clean sentence
+cuts. Treat its WARN as "look at this", not "it's broken" — confirm by reading
+the caption text at the cut point. The check still reliably catches a clip that
+ends several words before a sentence finishes (that is a real early-cut; fix it
+by extending to the sentence's end pause).
+
+Then also extract a few preview frames and visually confirm composition (title,
+captions legible, watermark present, safe zones respected, no collisions) before
+calling a reel done.
+
+## Work-folder cleanup policy
+
+Once reels from a `work/<slug>/` folder are finalized and verified, apply this
+rule rather than leaving every scratch file forever:
+
+- **Safe to delete:** one-off preview/check JPEGs, superseded/duplicate overlay
+  PNG sets left over from iteration (check which set the *current* build script
+  actually imports/reads before deleting — don't guess), one-off scratch text
+  files no longer referenced by any current script (grep for the filename first),
+  `__pycache__` folders.
+- **Keep for now (disposable but convenient):** per-reel raw trimmed clips
+  (e.g. `clip02_senses.mp4`) — re-cutting from the full source is slower than
+  re-using an already-trimmed clip if a reel needs revision.
+- **Must keep (reusable logic, not scratch):** each slug's build scripts and
+  `check_reel.py`, plus the shared tool `tools/clip_cutter.py` and
+  `cut_report_*.json` (an audit trail of cut decisions).
+- `sources/<slug>/source.mp4` is fully re-downloadable from the original
+  YouTube URL and could be deleted once all reels from that source are
+  finished — but only once no more reels are planned from it; re-downloading
+  costs time, so don't delete it speculatively.

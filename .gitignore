@@ -1,0 +1,35 @@
+# Secrets — never commit
+upload/client_secret.json
+upload/token.json
+
+# Virtual env
+upload/.venv/
+
+# Large media and per-video scratch — never commit (these hold big .mp4s
+# and are regenerated/rebuilt, not meant to live in version control).
+# The actual workflow logic (.py scripts in tools/ and work/<slug>/) is
+# plain text and small, so it IS tracked — only the large/binary and
+# per-video-scratch content in these folders is excluded.
+reels/
+sources/
+# All media/scratch anywhere under work/<slug>/ (including nested scratch
+# dirs like reframe_scratch/, reframe_scratch2/) — the ** glob catches any
+# depth, unlike work/*/*.png which only matched one level down and let
+# nested preview frames slip through.
+work/**/*.mp4
+work/**/*.png
+work/**/*.jpg
+work/**/*.jpeg
+work/**/*.json
+
+# Python bytecode / caches — never commit (regenerated on every run)
+__pycache__/
+*.pyc
+*.pyo
+
+# Transient workflow scratch / review notes — internal, not project docs
+docs/.review-*.md
+work/build-notes.md
+
+# macOS
+.DS_Store
