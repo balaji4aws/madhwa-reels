@@ -30,6 +30,8 @@ __pycache__/
 # Transient workflow scratch / review notes — internal, not project docs
 docs/.review-*.md
 work/build-notes.md
+work/review.md
+work/review.json
 
 # macOS
 .DS_Store

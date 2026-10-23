@@ -5,11 +5,18 @@ processed, or when reels are added/removed/changed for an existing one.
 
 | Slug | Source title | Source link | Date added | Reels made | Status |
 |------|-------------|-------------|-------------|------------|--------|
-| `venkatachala-ep01` | Glory of Venkatachala — Ep. 01 (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=tNPyEd-FJ4I | 2026-10-16 | 7 (see below) | In progress — styling being revised |
+| `venkatachala-ep01` | Glory of Venkatachala — Ep. 01 (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=tNPyEd-FJ4I | 2026-10-16 | early-style attempt — superseded | **Superseded / to be revisited.** This was the project's first source, built before the current crop/subtitle/fade house style existed. Nothing from ep01 is live on the channel (the one reel ever uploaded was deleted — see below), and its reels do not follow the current style, so they are NOT current finished output. Kept here only as historical record; ep01 needs a from-scratch rebuild in the current style before any of it is treated as shippable. The per-reel sub-table below reflects the OLD build and is pending that revisit |
 | `venkatachala-ep06` | Glory of Venkatachala \| Ep - 06 \| ವೇಂಕಟಾಚಲ ಮಹಿಮೆ \| By Sri Satyatmateertha Shripadangalavaru (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=DoHq0Eh9Rvo | 2026-10-23 | 4 built (03-06): 2 uploaded, 2 awaiting review | Reels 03/04 uploaded, public and live; reels 05/06 are a REBUILD of a previously-rejected version — the user rejected the earlier silence-margin-only build as still abrupt, so they were rebuilt with the audio+video fade fix, independently reviewed and APPROVED, and now await the user's own re-review before any upload |
 | `venkatachala-ep07` | Glory of Venkatachala \| Ep - 07 \| ವೇಂಕಟಾಚಲ ಮಹಿಮೆ \| By Sri Satyatmateertha Shripadangalavaru (Sri Uttaradi Math Adhyatmavani) | https://www.youtube.com/watch?v=9IDCabMthdQ | 2026-10-23 | 4 built (01-04) | New source, 4 new reels built with the audio+video fade fix from the start; independently reviewed and APPROVED. Built — not yet uploaded, awaiting user review before any upload |
 
 ## `venkatachala-ep01` — reel detail
+
+> **Superseded — read before trusting this table.** These 7 rows describe
+> the project's earliest builds, made before the current crop/subtitle/fade
+> house style existed. The "Built — not yet uploaded" statuses below are from
+> that old style and should NOT be read as current, shippable output — ep01
+> is pending a from-scratch rebuild (see its top-table row). Nothing here is
+> live on the channel. To be revisited.
 
 | # | File | Topic | Status |
 |---|------|-------|--------|
