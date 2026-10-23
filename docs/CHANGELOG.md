@@ -1539,3 +1539,18 @@ which only happens if the owner names the reel.
 - ep06 `build_reel01.py`/`build_reel02.py` called `next_reel_number()`
   instead of pinning a number, so a rebuild would now give 12/13. Pinned them
   to 03/04.
+
+---
+
+## 2026-10-23 (owner Q&A, cont.) — Speaker credit added to 5 live videos
+
+- The owner asked for the speaker credit on the 5 live Madhwa Jayanti reels.
+  Added `--update-description VIDEO_ID --caption FILE` to
+  `upload/youtube_upload.py`: it reads the live snippet and replaces only the
+  description and tags, so the title, category, video ID/URL and views stay.
+  Tried it on one video first (`q_4YeVTasDw`) and read the live description
+  back through the API. Then updated the other four (`VVFpld8lLsk`,
+  `8RZ2tsgzLw8`, `V2OHIoGtvg4`, `zDrkEcRbv84`). All 5 still public, all
+  name Sri Satyatmateertha Shripadangalavaru, titles unchanged.
+- Owner confirmed Instagram uses the same `.caption.txt` as YouTube; no
+  separate Instagram text needed.

@@ -128,7 +128,12 @@ direction, 2026-10-23); the owner reviews on the channel.
 - **Daily limit:** exact number unknown (20 went through on 2026-10-23;
   resets at midnight Pacific). Upload one at a time; on the first quota
   refusal, stop and upload the rest the next day.
-- Instagram is posted by hand by the owner using the same `.caption.txt`.
+- Instagram is posted by hand by the owner using the same `.caption.txt`
+  as-is (owner confirmed 2026-10-23: no separate Instagram version needed).
+- **Fixing a live video's description** (no re-upload, same link and views):
+  edit its `.caption.txt`, then
+  `upload/.venv/bin/python upload/youtube_upload.py --update-description VIDEO_ID --caption <file>.caption.txt`.
+  The title is left unchanged. Only do this for videos the owner names.
 
 ## 8. Record
 
