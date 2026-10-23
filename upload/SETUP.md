@@ -73,8 +73,9 @@ upload/.venv/bin/python upload/youtube_upload.py --set-privacy <VIDEO_ID> --priv
 
 ## Notes & limits
 
-- **Quota:** a fresh project allows roughly **6 uploads/day** (uploads cost
-  ~1600 quota units; default daily quota is 10,000). Enough for our pace. You
+- **Quota:** Google's docs suggest roughly **6 uploads/day** on a fresh
+  project (~1600 units each, 10,000/day). In practice 20 went through on
+  2026-10-23 with no refusal, so treat 6 as a floor. You
   can request more in the Cloud console if needed.
 - **Secrets:** `client_secret.json` and `token.json` are private. They are
   gitignored and must never be committed or shared.

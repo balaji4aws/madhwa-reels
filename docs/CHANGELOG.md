@@ -1482,3 +1482,37 @@ To be moved into the shared list once confirmed.
 **check_reel.py:** all 15 PASS dimensions, duration (<60s) and spelling.
 Cut-placement WARNs are against the run-on English cues and expected (see
 above). Nothing uploaded — all 15 await owner review in `reels/<slug>/`.
+
+---
+
+## 2026-10-23 (uploads) — Three rule changes; all 15 batch reels uploaded
+
+**Rule changes (owner direction):**
+1. **No human review gate.** A reel that passes every check uploads directly;
+   the owner reviews on the channel. Updated STYLE.md ("Upload and keep"),
+   WORKFLOW.md (steps 7–8), README, the steering file, and a scoped note in
+   GUARDRAILS.md (covers new uploads only; delete/replace/privacy changes
+   still need the owner to name the video).
+2. **Keep reels after upload.** Replaces the earlier delete-after-upload rule.
+   The reels already deleted locally (ep06 03–06, ep07 01/04) can be re-rendered
+   from their build scripts if ever needed; nothing was rebuilt now.
+3. **SOURCES.md is a simple table:** source, reel title, YouTube link. No link
+   means not uploaded. `tools/reel_numbering.py` row pattern updated for the
+   new "NN · Title" column; re-tested (next: ep06 12, ep07 10, new source 06).
+
+**Uploads:** all 15 reels uploaded one at a time, shortest first, ready to
+stop at the first quota refusal. None came, so all 15 went public. Checked
+each on YouTube afterwards with yt-dlp: public, Madhwa16, correct title and
+length. Links are in SOURCES.md, and the local files are kept in `reels/<slug>/`.
+
+**Quota note corrected:** docs said ~6 uploads/day (from Google's 1,600-unit
+estimate). Twenty uploads went through today (5 this morning + 15 here) with
+no refusal, so the docs now say the limit is unknown, with 6 as a floor.
+The stop-at-first-refusal rule stays.
+
+**Still open from the batch:** owner confirmation of the URL + icon watermark,
+the pending name spellings (Rudra, Rudradeva, Shukacharya, Tirumala,
+Tiruchanur, Padma Sarovar, Yashoda, Shani, Ugadi, Phalguna Amavasya,
+Madhwacharya, darshan), and the unconfirmed speaker credit on the new
+source. These reels are now live, so fixing any of these means a re-upload,
+which only happens if the owner names the reel.

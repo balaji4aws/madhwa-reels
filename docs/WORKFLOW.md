@@ -4,8 +4,8 @@ How one YouTube discourse becomes live reels. Follow the steps in order.
 Visual rules (fonts, colors, sizes) are in `docs/STYLE.md`; things never to
 do are in `docs/GUARDRAILS.md`.
 
-**At a glance:** download → pick moments → cut → style → check → owner
-reviews → upload → clean up.
+**At a glance:** download → pick moments → cut → style → check → upload →
+record the link.
 
 **Run everything from the project folder** (`madhwa reels/`) with the Python
 that has Pillow: `/Users/venkyb/envs/bie-work/bin/python3`.
@@ -116,25 +116,26 @@ Then check by hand:
 - **Look** at a few frames: title, subtitles and watermark readable, nothing
   overlapping, speaker's face clear.
 
-## 7. Owner review
+## 7. Upload (no review gate)
 
-Tell the owner the reel is ready and where it is. **Nothing is uploaded until
-the owner approves that specific reel.**
-
-## 8. Upload (after approval)
+Once step 6 passes, upload directly. No owner review is needed (owner
+direction, 2026-10-23); the owner reviews on the channel.
 
 - From the project folder:
   `upload/.venv/bin/python upload/youtube_upload.py reels/<slug>/<reel>.mp4`
 - It goes live as **public** immediately and reads title/description/hashtags
   from the `.caption.txt`.
+- **Daily limit:** exact number unknown (20 went through on 2026-10-23;
+  resets at midnight Pacific). Upload one at a time; on the first quota
+  refusal, stop and upload the rest the next day.
 - Instagram is posted by hand by the owner using the same `.caption.txt`.
 
-## 9. Clean up and record
+## 8. Record
 
-- Delete the uploaded reel's `.mp4` and `.caption.txt` from `reels/<slug>/`
-  (exact file names). **Keep** `sources/` and `work/` (build scripts, cut
-  reports, raw clips).
-- Add or update the reel's row in `docs/SOURCES.md` with its YouTube link.
+- **Keep** the uploaded reel and its `.caption.txt` in `reels/<slug>/`. Do not
+  delete them. Keep `sources/` and `work/` too.
+- Add the reel's YouTube link to its row in `docs/SOURCES.md`. No link means
+  not uploaded.
 - Add a dated note to `docs/CHANGELOG.md` for anything learned.
 - Commit and push the doc/script changes to GitHub.
 

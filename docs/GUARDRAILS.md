@@ -78,6 +78,10 @@ these came directly from a close call during this project's own history (see
 - Never make a live upload/delete/replace call as a side effect of an
   unrelated task (e.g. a documentation or style-discussion task) unless the
   channel owner is specifically working on uploading in that conversation.
+  (Standing exception, owner direction 2026-10-23: uploading a newly built
+  reel that passed every check is part of the reel-making task itself and
+  needs no separate approval. This covers new uploads only. Delete, replace
+  and privacy changes still need the owner to name the video.)
 - Instagram has **no automated posting** — never attempt it, even
   experimentally. The channel owner posts by hand; the assistant's job ends
   at producing the finished video + caption text.

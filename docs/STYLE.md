@@ -382,27 +382,27 @@ Then also extract a few preview frames and visually confirm composition (title,
 captions legible, watermark present, safe zones respected, no collisions) before
 calling a reel done.
 
-## Post-upload cleanup (finished reels)
+## Upload and keep (finished reels)
 
-**Added 2026-10-23, channel-owner direction.** Once a reel has been **uploaded
-to YouTube after the owner's approval**, delete that reel's finished output
-from local storage:
+**Updated 2026-10-23 (later), channel-owner direction — replaces the earlier
+"delete after upload" rule.**
 
-- Delete the uploaded reel's `reels/<slug>/<reel>.mp4` AND its matching
-  `.caption.txt` sidecar — by EXACT filename, never a wildcard (per
-  `docs/GUARDRAILS.md`), and only after the upload has succeeded (the
-  `youtu.be/...` link is confirmed). The reel is now live on YouTube and the
-  local finished file is just taking up disk — it can be re-rendered from the
-  slug's build script if ever needed.
-- **Keep the sources.** `sources/<slug>/` (the full `source.mp4` + `.vtt`
-  captions) stays — do NOT delete it as part of post-upload cleanup. More
-  reels are often cut from the same source later, and re-downloading is slow.
-- **Keep the build scripts and cut reports** (`work/<slug>/`) — same reason,
-  the reel is reproducible from them.
-- Only delete a reel that was BOTH approved AND successfully uploaded. A reel
-  that is merely built, or rejected, or awaiting review is NOT cleaned up this
-  way — leave it for review (and a rejected reel is deleted only on explicit
-  owner instruction, as happened with ep07 02/03).
+- **No human review gate.** Once a reel is built and passes every check in
+  "Verification" below (automated + the finished-file ending check + a visual
+  look at frames), upload it to YouTube directly. The owner reviews on the
+  channel instead.
+- **Respect YouTube's daily limit.** The exact limit isn't known: 20 uploads
+  went through on 2026-10-23 with no refusal, more than the ~6/day the
+  documented quota suggests. It resets at midnight Pacific. Upload one
+  reel at a time; on the first `quotaExceeded` refusal, stop — do not retry or
+  work around it. The rest are uploaded the next day.
+- **Keep the reels.** After upload, the finished `reels/<slug>/<reel>.mp4`
+  and its `.caption.txt` STAY in the reels folder. Do not delete them.
+- Sources and `work/` are kept as before.
+- A reel the owner later rejects is deleted only on the owner's explicit
+  instruction for that reel.
+- Record each upload's link in `docs/SOURCES.md`. A reel with no link there
+  has not been uploaded.
 
 ## Work-folder cleanup policy
 
@@ -423,6 +423,5 @@ rule rather than leaving every scratch file forever:
 - `sources/<slug>/source.mp4` is fully re-downloadable from the original
   YouTube URL and could in principle be deleted once all reels from that source
   are finished — but the channel owner's standing preference (2026-10-23) is to
-  **keep the sources**: post-upload cleanup removes finished reels, not
-  sources. Don't delete a source unless the owner explicitly says so for a
+  **keep the sources** (and, since 2026-10-23, the finished reels too). Don't delete a source unless the owner explicitly says so for a
   specific slug; re-downloading costs time and more reels are often cut later.

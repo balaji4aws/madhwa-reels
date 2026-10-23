@@ -7,7 +7,7 @@ automatically and to Instagram Reels by hand.
 
 This is a personal project. An AI coding assistant acts as the video editor:
 you share a YouTube link, and it finds the strong moments, cuts them into
-reels in a consistent style, checks them, and uploads the ones you approve.
+reels in a consistent style, checks them, and uploads them.
 
 > **About this repository:** it holds only the scripts (`.py`) and docs
 > (`.md`) that run the pipeline. Videos and the YouTube login secrets stay on
@@ -18,7 +18,7 @@ reels in a consistent style, checks them, and uploads the ones you approve.
 
 ## The flow
 
-**Long discourse in → short reels out → checked → you approve → uploaded.**
+**Long discourse in → short reels out → checked → uploaded.**
 
 1. **Share a YouTube link.** Add timestamps if you already have a moment in
    mind; otherwise the assistant finds moments by reading the captions.
@@ -29,11 +29,11 @@ reels in a consistent style, checks them, and uploads the ones you approve.
 4. **Cut and style.** Each moment becomes a vertical 9:16 video, cropped
    around the speaker, with a title, spell-checked English subtitles, a soft
    fade at each end, and the channel watermark.
-5. **Check.** Every reel is checked before you see it (see below).
-6. **You review.** Nothing is uploaded until you approve it.
-7. **Upload.** YouTube Shorts goes live as public right away. Instagram is
-   posted by hand using the prepared title, description and hashtags. The
-   local copy is then deleted; the source video is kept.
+5. **Check.** Every reel is checked before it goes out (see below).
+6. **Upload.** Reels that pass go straight to YouTube Shorts as public, up to
+   YouTube's daily upload limit (anything over it goes the next day). Instagram
+   is posted by hand using the prepared title, description and hashtags. All
+   reels and source videos are kept on this machine.
 
 ---
 

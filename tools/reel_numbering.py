@@ -40,7 +40,7 @@ def existing_reel_numbers(slug):
     would restart numbering at 01 and collide with reels already live. So this
     takes the union of three records:
       1. reels/<slug>/<slug>_NN_*.mp4           (built, not yet uploaded)
-      2. docs/SOURCES.md rows "| [<slug>](...) | NN |"  (every live reel)
+      2. docs/SOURCES.md rows "| [<slug>](...) | NN · Title |" (every reel)
       3. work/<slug>/ files: build_reelNN.py, clipNN_*.mp4, reels.json "num"
     """
     nums = set()
@@ -51,7 +51,7 @@ def existing_reel_numbers(slug):
             nums.add(int(m.group("num")))
     sources_md = os.path.join(ROOT, "docs", "SOURCES.md")
     if os.path.exists(sources_md):
-        row = re.compile(r"^\|\s*\[?" + re.escape(slug) + r"\]?(?:\([^)]*\))?\s*\|\s*(\d{2,})\s*\|")
+        row = re.compile(r"^\|\s*\[?" + re.escape(slug) + r"\]?(?:\([^)]*\))?\s*\|\s*(\d{2,})\b")
         with open(sources_md, encoding="utf-8") as f:
             for line in f:
                 m = row.match(line)
