@@ -1361,3 +1361,21 @@ Note: these cleanup/length rules are going forward. The already-uploaded reels'
 local files (ep06 03-06, ep07 04) have NOT yet been cleaned up under rule 3 —
 left in place for now; they can be removed per rule 3 on the owner's go-ahead
 since all are confirmed live.
+
+---
+
+## 2026-10-23 (cleanup) — ep06 local reels removed; utsarjana-upakarma source removed
+
+- **ep06 post-upload cleanup.** Owner: "if you have uploaded all, then remove
+  them." Verified all 4 ep06 reels were live first (03 `eHx0uUuX354`, 04
+  `sDJX6yPxhS0`, 05 `32QeRaBse_M`, 06 `S51yo8rFRXg`), then deleted the 4 `.mp4`
+  + 4 `.caption.txt` by exact filename and removed the empty
+  `reels/venkatachala-ep06/` folder. `sources/venkatachala-ep06/` and
+  `work/venkatachala-ep06/` kept.
+- **utsarjana-upakarma source removed.** At the owner's explicit request,
+  deleted `sources/utsarjana-upakarma/source.mp4`, `source.en.vtt`,
+  `source.kn.vtt` (exact filenames) and the empty folder. This is a deliberate,
+  owner-directed exception to the "keep sources" preference for this one slug.
+  Re-downloadable from YouTube if ever needed. NOT touched (not part of the
+  request): `work/utsarjana-upakarma/` (build script, raw clip, overlay PNGs).
+  This slug was never listed in `docs/SOURCES.md`.
