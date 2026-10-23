@@ -1675,3 +1675,9 @@ the owner to confirm that specific video.
   (single-line title clear of the tilak; Kannada and English bands in matching
   type; gap visible; glitch scan clean). Still waiting for the owner to
   confirm replacing the live `5kLI-taTWyY`.
+- **Bilingual sample live (owner approved replacing it):** `--replace 5kLI-taTWyY`
+  deleted the English-only ep06 reel 07 and uploaded the Kannada + English
+  version as **`4EIHc6yLA5k`** (https://youtu.be/4EIHc6yLA5k), public
+  immediately for the owner's review (not scheduled). Checked through the API:
+  the new video is public and `5kLI-taTWyY` is gone. SOURCES.md updated. Kept
+  the existing English description (Kannada descriptions start with future reels).

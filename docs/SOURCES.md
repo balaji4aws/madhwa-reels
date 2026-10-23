@@ -10,7 +10,7 @@ YouTube makes it public at that time.
 | [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 04 · Why the Lord Carries the Chakra & Conch | [youtu.be/sDJX6yPxhS0](https://youtu.be/sDJX6yPxhS0) |
 | [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 05 · What Does the Name "Dharmadevi" Mean? | [youtu.be/32QeRaBse_M](https://youtu.be/32QeRaBse_M) |
 | [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 06 · Don't Take Credit for God's Work | [youtu.be/S51yo8rFRXg](https://youtu.be/S51yo8rFRXg) |
-| [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 07 · A Prayer for Steady Devotion | [youtu.be/5kLI-taTWyY](https://youtu.be/5kLI-taTWyY) |
+| [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 07 · A Prayer for Steady Devotion | [youtu.be/4EIHc6yLA5k](https://youtu.be/4EIHc6yLA5k) |
 | [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 08 · Who Is a True Devotee? | [youtu.be/nM_rp91_ONY](https://youtu.be/nM_rp91_ONY) |
 | [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 09 · The Sage Who Danced for God | [youtu.be/pshf469lC8o](https://youtu.be/pshf469lC8o) |
 | [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 10 · Even the Guru of the Gods Was Humble | [youtu.be/i9-Zr9mhojs](https://youtu.be/i9-Zr9mhojs) |
