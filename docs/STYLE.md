@@ -390,6 +390,16 @@ the caption text at the cut point. The check still reliably catches a clip that
 ends several words before a sentence finishes (that is a real early-cut; fix it
 by extending to the sentence's end pause).
 
+5. **Glitch frames, checked on EVERY frame (added 2026-10-23).** Run
+   `tools/glitch_scan.py` on each source after download and on every finished
+   reel. It samples the whole video at 5fps and flags frozen non-speaker
+   frames (editor placeholders like "Missing File", black or solid flashes,
+   title cards). Learned from ep06 reel 10: the uploader's source had a 1.6s
+   "Missing File" card at 1673.0–1674.6s, our reel included it, and the
+   one-preview-frame check missed it. A preview frame is not proof the reel
+   is clean. Cover an unavoidable source glitch with `hold_frames` (holds the
+   last good frame while the audio plays); never cut the words out.
+
 Then also extract a few preview frames and visually confirm composition (title,
 captions legible, watermark present, safe zones respected, no collisions) before
 calling a reel done.

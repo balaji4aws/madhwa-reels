@@ -18,6 +18,13 @@ that has Pillow: `/Users/venkyb/envs/bie-work/bin/python3`.
 - Get the **full** video with `yt-dlp --cookies-from-browser chrome`, plus
   English and Kannada captions. Never download a trimmed section.
 - Check the downloaded length matches the length on YouTube.
+- **Scan the whole source for glitches:**
+  `python3 tools/glitch_scan.py sources/<slug>/source.mp4`. Uploaders'
+  videos can contain editor placeholders ("Missing File"), black or solid
+  flashes, or frozen cards. Flags in the first/last few seconds are normal
+  intros and outros. Note any flag in the middle and don't cut across it,
+  or cover it with `hold_frames` in `reels.json` (holds the last good frame
+  while the audio continues).
 - Pick a short **slug** for this source (e.g. `venkatachala-ep07`). It is
   used in every file name from here on.
 - **Already in `docs/SOURCES.md`?** Then it's a repeat on purpose. Skip the
@@ -94,8 +101,7 @@ reels are deleted locally and `reels/<slug>/` alone would restart at 01.)
   `.caption.txt` (TITLE / DESCRIPTION / HASHTAGS)
 
 > **Watermark:** `assets/watermark.png` now holds the URL + icon version
-> (rendered 2026-10-23, checked on real frames). It is pending the owner's
-> OK as part of reviewing the 2026-10-23 batch.
+> (rendered 2026-10-23, approved by the owner the same day).
 
 ## 6. Check the reel
 
@@ -105,6 +111,10 @@ Run `work/<slug>/check_reel.py`. A reel is not ready until all of these pass:
 - **Spelling:** dictionary + `tools/sanskrit_terms.py`. Never guess a
   Sanskrit name; flag it if it isn't in the list.
 - **Cut placement:** start and end sit on caption sentence boundaries.
+- **Every frame, not a sample:** `tools/glitch_scan.py` on the finished
+  reel. `reel_builder.py` runs it automatically and stops on any flag. Spot
+  frames missed a 1.6s "Missing File" card that was in ep06's source (reel
+  10, 2026-10-23).
 
 Then check by hand:
 

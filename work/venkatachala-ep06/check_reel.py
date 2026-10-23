@@ -46,8 +46,8 @@ ALLOWLIST = all_correct_lower() | {
     # the quoted Sanskrit verse (transcribed as heard, not a channel proper
     # noun to standardize -- see build_reel01.py's subs comment)
     "nachamatrasamam", "mitram", "putrinam", "nandini", "asthi",
-    # reels 07-11 (2026-10-23 batch) -- PENDING OWNER CONFIRMATION; not yet
-    # in the shared tools/sanskrit_terms.py (see docs/CHANGELOG.md):
+    # reels 07-11 (2026-10-23 batch) -- confirmed by owner 2026-10-23; now also
+    # in the shared tools/sanskrit_terms.py:
     "rudra", "shukacharya", "tirumala", "tiruchanur", "padma", "sarovar",
     "yashoda", "vishnu",
 }

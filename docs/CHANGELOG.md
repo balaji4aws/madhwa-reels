@@ -1554,3 +1554,51 @@ which only happens if the owner names the reel.
   name Sri Satyatmateertha Shripadangalavaru, titles unchanged.
 - Owner confirmed Instagram uses the same `.caption.txt` as YouTube; no
   separate Instagram text needed.
+
+---
+
+## 2026-10-23 (owner Q&A, cont.) — "Missing File" glitch in ep06 reel 10; every-frame scan added
+
+**Owner answers recorded:** URL + icon watermark approved. Spellings confirmed
+and moved into the shared `tools/sanskrit_terms.py` (Rudra, Rudradeva,
+Shukacharya, Tirumala, Tiruchanur, Padma Sarovar, Yashoda, Shani, Ugadi,
+Phalguna Amavasya, darshan). "Madhwacharya" is the channel's preferred
+spelling. "Madhvacharya" is also correct, so it was added as accepted, not wrong.
+The new endings are good, so the Kannada-caption cut placement is working.
+
+**The glitch.** The owner spotted a red "Missing File" card for about a
+second in https://youtube.com/shorts/PH6Wj-ClHtw (ep06 reel 10, "Even the
+Guru of the Gods Was Humble"), at about 9.5–11.1s.
+- **Source, not us:** frame sampling of `sources/venkatachala-ep06/source.mp4`
+  shows the card in the uploader's own video at 1673.0–1674.6s (1.6s). It's
+  an editing-software "media offline" placeholder left in their export. Our
+  title, subtitle and watermark are on top of it, as the screenshot shows.
+- **Why we missed it:** check_reel.py checks size, length, spelling and cut
+  placement, and the visual check looked at ONE frame per reel (at 6s). Nothing
+  looked at every frame, and the source was never scanned. A single preview
+  frame was wrongly taken as proof the whole reel was clean.
+
+**Fix (process):**
+- New `tools/glitch_scan.py`: samples a whole video at 5fps with ffmpeg
+  signalstats and flags (a) frozen frames unlike the speaker shot (cards,
+  placeholders, solid flashes) from 0.4s, and (b) any freeze of 1.5s or more.
+  The first version flagged 3 normal speaker pauses/jump cuts. It was tuned
+  so those are clean and the real card is still caught.
+- Full scan of all 3 sources: apart from intros and outros, the only real
+  glitch is ep06 1673.0–1674.6s. Scan of all 21 finished reels: only ep06
+  reel 10 is affected, the other 20 are clean.
+- `tools/reel_builder.py` now scans the source range before cutting (it
+  stops unless the flag is covered by `hold_frames`) and scans the finished
+  reel afterwards (it stops on any flag). Tested: it now refuses reel 10
+  as originally specified.
+- New `hold_frames` spec option: holds the last good frame over a source
+  glitch while the audio continues, so no words are lost.
+- Docs: STYLE.md verification #5, WORKFLOW.md steps 1 and 6, steering.
+
+**Fix (this reel):** rebuilt ep06 reel 10 locally with
+`hold_frames: [[1672.98, 1674.66]]`. Finished-reel scan is clean,
+check_reel.py passes, and the frames at 8.8–11.8s show the speaker held
+still with the subtitle "who knows the Lord better than me?" and no card.
+The live video `PH6Wj-ClHtw` still has the glitch. Swapping it needs
+`--replace` (delete + re-upload, new URL, views lost), so it waits for the
+owner's go-ahead.

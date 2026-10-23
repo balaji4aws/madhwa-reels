@@ -43,8 +43,8 @@ ALLOWLIST = all_correct_lower() | {
     "dvaita", "uttaradi", "math", "purana", "madhwa16", "shri",
     # this talk's own named figures (Ep-07 wedding-invitation narrative)
     "brahma", "indra", "vishwakarma", "bakula", "lakshmi",
-    # reels 05-09 (2026-10-23 batch) -- PENDING OWNER CONFIRMATION; not yet
-    # in the shared tools/sanskrit_terms.py (see docs/CHANGELOG.md):
+    # reels 05-09 (2026-10-23 batch) -- confirmed by owner 2026-10-23; now also
+    # in the shared tools/sanskrit_terms.py:
     "shani", "rudradeva", "vishnu", "puranas",
 }
 # Real English words web2 lacks (contractions / irregular forms), reels 05-09:

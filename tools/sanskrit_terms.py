@@ -165,6 +165,24 @@ TERMS = {
                  "builds the wedding assembly in the venkatachala-ep07 "
                  "narrative. Not an ambiguous auto-caption artifact.",
     },
+    # --- Confirmed by the channel owner 2026-10-23 (first used in that day's
+    #     15-reel batch). ---
+    "Rudra": {"wrong": [], "note": "Rudradeva (Shiva)."},
+    "Rudradeva": {"wrong": [], "note": "Rudra / Shiva; lord of detachment, knower of minds."},
+    "Shukacharya": {"wrong": ["sukacharya"], "note": "The sage Shuka, at Tiruchanur in the ep06 narrative."},
+    "Tirumala": {"wrong": [], "note": "The hill shrine of Srinivasa."},
+    "Tiruchanur": {"wrong": [], "note": "Town near Tirumala; Padmavati's shrine."},
+    "Padma Sarovar": {"wrong": [], "note": "The lotus lake at Tiruchanur."},
+    "Yashoda": {"wrong": [], "note": "Krishna's foster mother."},
+    "Shani": {"wrong": [], "note": "Saturn, one of the nine planetary deities."},
+    "Ugadi": {"wrong": [], "note": "New Year's day (Chaitra Shukla Pratipada)."},
+    "Phalguna Amavasya": {"wrong": [], "note": "New-moon day ending the lunar year."},
+    "Madhwacharya": {"wrong": [],
+                     "note": "Channel's preferred spelling (owner, 2026-10-23). "
+                             "'Madhvacharya' is also correct and acceptable; "
+                             "deliberately NOT listed as wrong."},
+    "Madhvacharya": {"wrong": [], "note": "Accepted alternative spelling; prefer Madhwacharya."},
+    "darshan": {"wrong": [], "note": "Sacred sight of the deity."},
 }
 
 

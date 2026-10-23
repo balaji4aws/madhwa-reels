@@ -48,6 +48,7 @@ sys.path.insert(0, HERE)
 from overlays_lib import (render_sub, crop_reframe_filter, _font, _wrap,  # noqa: E402
                           FONT_BOLD, W, H, ACCENT, WHITE)
 from reel_numbering import reel_dir, format_reel_number  # noqa: E402
+from glitch_scan import scan as glitch_scan  # noqa: E402
 
 FADE = 0.2            # owner-confirmed cut fade (docs/STYLE.md, "Cut placement")
 MAX_LEN = 60.0        # strict rule: every reel must be UNDER 60s
@@ -129,12 +130,41 @@ def build(spec, reel):
         if not (0 <= s < e <= length + 0.01):
             raise ValueError(f"{nn}: subtitle timing {s}-{e} outside clip 0-{length:.2f}: {text!r}")
 
+    # 0. glitch scan of the SOURCE range (added 2026-10-23: ep06 reel 10 went
+    #    live with a 1.6s "Missing File" card that was in the source video).
+    #    Every flagged range must be covered by a "hold_frames" entry
+    #    ([[src_start, src_end], ...]) or the build stops.
+    holds = reel.get("hold_frames", [])
+    flagged, _ = glitch_scan(src, reel["start"], reel["end"])
+    uncovered = [(a, b) for a, b in flagged
+                 if not any(h0 <= a + 0.01 and b - 0.01 <= h1 for h0, h1 in holds)]
+    if uncovered:
+        raise ValueError(f"{nn}: source has glitch frames at "
+                         + ", ".join(f"{a:.2f}-{b:.2f}s" for a, b in uncovered)
+                         + " -- pick a different cut, or cover them with hold_frames")
+
     # 1. raw clip (re-encode for a frame-accurate cut)
     clip = os.path.join(work, f"clip{nn}_{reel['topic']}.mp4")
     run(["ffmpeg", "-y", "-v", "error", "-ss", f"{reel['start']:.3f}", "-i", src,
          "-t", f"{length:.3f}", "-c:v", "libx264", "-preset", "fast", "-crf", "16",
          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", clip])
     dur = duration(clip)
+
+    # 1b. cover glitch ranges: hold the last good frame over them (audio keeps
+    #     playing underneath, so no words are lost).
+    for i, (h0, h1) in enumerate(holds):
+        a, b = h0 - reel["start"], h1 - reel["start"]
+        still = os.path.join(work, f"hold{nn}_{i}.png")
+        run(["ffmpeg", "-y", "-v", "error", "-ss", f"{max(a - 0.08, 0):.3f}", "-i", clip,
+             "-frames:v", "1", still])
+        patched = clip + ".patched.mp4"
+        run(["ffmpeg", "-y", "-v", "error", "-i", clip, "-loop", "1", "-i", still,
+             "-filter_complex",
+             f"[0:v][1:v]overlay=0:0:shortest=1:enable='between(t,{a:.3f},{b:.3f})'[v]",
+             "-map", "[v]", "-map", "0:a", "-c:v", "libx264", "-preset", "fast",
+             "-crf", "16", "-c:a", "copy", patched])
+        os.replace(patched, clip)
+        os.remove(still)
 
     # 2-5. overlays, rendered into a per-reel folder so reels never share PNGs
     ov = os.path.join(work, f"ov_{nn}")
@@ -174,7 +204,18 @@ def build(spec, reel):
         json.dump([t for t, _, _ in reel["subs"]], f, ensure_ascii=False, indent=2)
     final = duration(out)
     head, tail = edge_quiet(out, final)
-    print(f"Built {name}.mp4  {final:.1f}s  quiet: head {head:.2f}s / tail {tail:.2f}s")
+    # 9. glitch scan of the FINISHED reel, every frame at 5fps (not a spot
+    #    check). Held frames are frozen on purpose, so they are excluded.
+    held = [(h0 - reel["start"], h1 - reel["start"]) for h0, h1 in holds]
+    bad, _ = glitch_scan(out)
+    bad = [(a, b) for a, b in bad
+           if not any(h0 - 0.3 <= a and b <= h1 + 0.3 for h0, h1 in held)]
+    if bad:
+        raise RuntimeError(f"{nn}: finished reel has glitch frames at "
+                           + ", ".join(f"{a:.2f}-{b:.2f}s" for a, b in bad)
+                           + f" -- NOT ready to upload: {out}")
+    print(f"Built {name}.mp4  {final:.1f}s  quiet: head {head:.2f}s / tail {tail:.2f}s"
+          f"  glitch scan: clean{' (holds: ' + str(len(holds)) + ')' if holds else ''}")
     return out
 
 

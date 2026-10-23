@@ -41,8 +41,8 @@ ALLOWLIST = all_correct_lower() | {
     # general devotional / already-used-elsewhere terms
     "venkata", "tirupati", "yuga", "yugas", "srinivasa", "madhwa",
     "dvaita", "uttaradi", "math", "purana", "madhwa16", "shri",
-    # this talk's own terms (Madhwa Jayanti discourse) -- PENDING OWNER
-    # CONFIRMATION; not yet in the shared tools/sanskrit_terms.py:
+    # this talk's own terms (Madhwa Jayanti discourse) -- confirmed by owner
+    # (confirmed 2026-10-23, also in tools/sanskrit_terms.py):
     "madhwacharya", "ugadi", "phalguna", "amavasya", "darshan", "krishna",
     "karma",
 }
