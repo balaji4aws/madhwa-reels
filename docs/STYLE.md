@@ -275,6 +275,39 @@ Run `work/<slug>/check_reel.py` on every finished reel. It checks:
    shruti box), so even a genuine pause reads "loud". Place cuts using
    `ffmpeg silencedetect` on the speech, then verify against captions.
 
+4. **Trailing/leading SETTLE on the FINISHED file (added 2026-10-23, learned
+   from venkatachala-ep07 reel 02 — "very terrible cut, abruptly ends").**
+   Boundary-at-a-sentence-end + a 0.2s fade is NOT sufficient to prevent an
+   abrupt-feeling ending, and a fade does NOTHING for a cut that lands on
+   continuing speech — it only smooths a transition that already lands in
+   silence. The two prior abrupt-cut complaints both passed boundary+fade
+   verification yet still felt abrupt to the viewer. So, in addition to the
+   boundary check, run `ffmpeg silencedetect` ON THE FINISHED COMPOSITED REEL
+   (not just on the source during planning — the two can disagree, as ep07
+   reel 02 showed: source planning claimed a ~0.46s end pause, the delivered
+   file had only 0.23s) and confirm there is a REAL settle at each end:
+   - **At the end:** the speaker's last word must finish with clear audible
+     settle BEFORE the clip ends — aim for at least ~0.5-0.7s of genuine
+     trailing quiet after the final word, THEN the fade, so the reel doesn't
+     cut off while the voice is still trailing. If the finished file shows the
+     speaker still talking in the last ~0.5s (as ep07 reel 02 did — speech ran
+     to 26.47s of a 26.73s clip), the cut is too tight regardless of what the
+     VTT word-tag or the source-side silencedetect claimed. Extend the end
+     further into the real post-sentence pause, or pick a different payoff
+     line that actually settles.
+   - **At the start:** similarly confirm a brief lead-in before the first word
+     rather than opening mid-syllable.
+   - This is a PERCEPTUAL requirement: after the numeric check, actually
+     LISTEN to the first ~1s and last ~1.5s of the finished reel and judge
+     whether the ending feels settled or clipped. "The numbers passed" has
+     twice been insufficient — the human ear is the final gate, so budget for
+     it explicitly, don't skip to "approved" on measurements alone.
+   - VTT word-tags on these sources are NOT reliable timing truth: the next
+     caption line after a payoff is often garbled/glitched auto-caption, so
+     "the word-tag says the sentence ends here" must be cross-checked against
+     where the audio ACTUALLY goes quiet on the finished file, not trusted on
+     its own.
+
 Known limitation: YouTube auto-caption cues on these sources are long run-on
 cues, so the cut check produces FALSE-POSITIVE warnings even on clean sentence
 cuts. Treat its WARN as "look at this", not "it's broken" — confirm by reading

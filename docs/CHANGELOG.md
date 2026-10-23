@@ -1201,3 +1201,63 @@ no-fade 05/06, but the ultimate test is the user's own reaction on watching the
 finished reels — the same loop that was fooled once by a structural-only PASS.
 If 0.2s still reads as slightly abrupt, the first lever is lengthening the fade
 to 0.3-0.4s before changing the method.
+
+---
+
+## 2026-10-23 (later still) — Lesson: ep07 reel 02 abrupt ending; why boundary+fade verification kept passing bad cuts
+
+**What the user reported:** `venkatachala-ep07_02_god-steps-down-for-devotee.mp4`
+was "a very terrible cut — not watch-worthy, it abruptly ends." The user
+explicitly asked NOT to rebuild it, but to learn the lesson so future reels
+don't repeat it. (Reel is left as-is, not re-cut, not uploaded.)
+
+**Root cause, confirmed by measuring the FINISHED file (not the build notes):**
+ran `silencedetect` on the delivered 26.73s reel. The speaker is still talking
+until **26.468s**; the only trailing quiet is 26.468–26.70s = **0.23s**, and
+the 0.2s fade-out starts at 26.53s — i.e. the fade fires while the voice is
+still trailing. The ending clips the speaker mid-settle. That is the abruptness.
+
+**Why our verification kept green-lighting this** (this is the real lesson — it
+is now the SECOND abrupt-cut complaint that passed automated + reviewer checks):
+1. `clip_cutter.py` certifies the cut sits at a VTT *sentence boundary*. But the
+   VTT word-tags on these sources are unreliable — build_reel02.py's own note
+   calls the line right after the payoff "noticeably garbled" auto-caption. A
+   word-tag saying "sentence ends at 1081.27s" is not proof the audio settled
+   there.
+2. The `silencedetect` "~0.46s end pause" cited in the build note was measured
+   on the SOURCE during planning. The FINISHED file has only 0.23s. Nobody
+   re-measured the delivered output's tail — source-side and output-side
+   numbers disagreed and the disagreement went unnoticed.
+3. The 0.2s fade was treated as a general cure for abruptness. It is not: a fade
+   only smooths a transition that ALREADY lands in silence. It does nothing for
+   a cut that lands on live speech. "Fade applied" was conflated with "ending
+   feels settled."
+4. Both check_reel.py and the human-style review judged "smooth" from frames +
+   aggregate audio levels, but never asked the one question that matters for
+   this failure: *is the speaker still talking in the last half-second, and is
+   there real settle (not just a fade) after the final word?*
+
+**What changed as a result (rules, not a rebuild):**
+- Added a 4th verification requirement to `docs/STYLE.md` and the
+  `.kiro/steering/madhwa-reels.md` verification section: a TRAILING/LEADING
+  SETTLE check run on the FINISHED composited reel (not just source-side
+  planning numbers), requiring ~0.5–0.7s of genuine trailing quiet after the
+  last word before the fade, plus an explicit perceptual LISTEN to the first
+  ~1s / last ~1.5s as the final gate. Recorded that VTT word-tags are not
+  reliable timing truth and that source-side vs finished-file silence numbers
+  can disagree.
+- Did NOT change the fade itself (0.2s stays fine where the cut already lands in
+  real silence — see ep06 05/06, which the user accepted and which are live).
+  The fade was never the problem here; the cut landing on speech was.
+
+**Meta-lesson for future sessions:** when the user reports an abrupt cut, the
+first move is to `silencedetect` the FINISHED file's tail and check whether
+speech runs into the last ~0.5s — not to re-read the build script's own
+boundary justification (which describes intent, not delivered reality), and not
+to add more fade. Measurements on the source or in the plan are not evidence
+about the delivered file. And a passing numeric check is not a substitute for
+listening to the actual ending.
+
+(Cross-check also done this session: confirmed all 4 reels physically present in
+`reels/venkatachala-ep06/` — 03/04/05/06 — are each uploaded and live on
+YouTube; nothing in that folder is un-uploaded.)
