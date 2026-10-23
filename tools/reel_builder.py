@@ -46,7 +46,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
 sys.path.insert(0, HERE)
 from overlays_lib import (render_sub, crop_reframe_filter, _font, _wrap,  # noqa: E402
-                          render_sub_bilingual, bilingual_fits,
+                          render_sub_bilingual, bilingual_fits, render_title_line,
                           FONT_BOLD, W, H, ACCENT, WHITE)
 from kannada_check import check as kannada_check  # noqa: E402
 from reel_numbering import reel_dir, format_reel_number  # noqa: E402
@@ -189,7 +189,12 @@ def build(spec, reel):
     # 2-5. overlays, rendered into a per-reel folder so reels never share PNGs
     ov = os.path.join(work, f"ov_{nn}")
     os.makedirs(ov, exist_ok=True)
-    title = render_title_compact(ov, reel["title_lead"], reel["title_main"])
+    # Current style (Kannada+English subs) uses the single-line Noto Sans title;
+    # older English-only reels keep their original two-line compact title.
+    if bilingual:
+        title = render_title_line(ov, reel["title_lead"], reel["title_main"])
+    else:
+        title = render_title_compact(ov, reel["title_lead"], reel["title_main"])
     if bilingual:
         subs = [(render_sub_bilingual(ov, i, kn, t)[0], s, e)
                 for i, (t, s, e, kn) in enumerate(subs_in, 1)]

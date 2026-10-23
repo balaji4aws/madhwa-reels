@@ -63,7 +63,8 @@ internal/disposable. A machine-loaded copy also lives in
 - **Fonts (system, absolute paths):**
   - Titles: **Georgia Bold** (`/System/Library/Fonts/Supplemental/Georgia Bold.ttf`)
   - Lists / labels / captions: **Arial Bold** (`/System/Library/Fonts/Supplemental/Arial Bold.ttf`)
-- **Title card:** top of frame, dark rounded band behind it, two lines — a lead
+- **(New reels: single-line Noto Sans title — see "Current look for new
+  reels" below.)** Older reels: **Title card:** top of frame, dark rounded band behind it, two lines — a lead
   ("The 4 Names of") in white + the subject ("Venkatachala") in saffron.
   **Font sizes are 54px (lead) / 70px (main)** — reduced from an earlier
   64/82px (2026-10, user feedback: the larger sizes crowded the title text
@@ -107,6 +108,28 @@ text out of those zones:
   and below the subtitle pill with clear separation from it.
 - Nothing critical in the bottom ~280px or hard against the right edge.
 
+## Current look for new reels (owner rules, 2026-10-23)
+
+- **One font family for all text.** English (title + subtitles) uses
+  **Noto Sans Bold** and Kannada uses **Noto Sans Kannada Bold**, from the same
+  type family, so the two languages match. Noto Sans isn't shipped with macOS;
+  the official OFL variable font is in `assets/fonts/NotoSans-Variable.ttf`
+  (licence `assets/fonts/OFL.txt`).
+- **Title card: one English line**, Noto Sans Bold 38px (shrinks to 32px
+  minimum to fit), lead words in white and the key phrase in saffron, in a
+  slim band at the very top. Readable, not big. A title that won't fit in
+  one line at 32px must be shortened (the builder refuses it).
+- **Spell-check both languages before upload:** English against the
+  dictionary + `tools/sanskrit_terms.py`; Kannada with `tools/kannada_check.py`
+  (broken writing = FAIL; words not in the speaker's captions = review list).
+- **Descriptions and hashtags in Kannada too (from the next new reels; not
+  applied to existing ones).** Each description gets a Kannada version
+  alongside the English, plus Kannada hashtags (e.g. #ಕನ್ನಡ #ಪ್ರವಚನ
+  #ಶ್ರೀನಿವಾಸ #ಮಧ್ವ), kept with the English ones. The Kannada description
+  goes through `tools/kannada_check.py` like the subtitles.
+- Reels built before these rules keep their original look (two-line Georgia
+  title, English-only Arial subtitles) unless the owner asks for a rebuild.
+
 ## Speaker credit (owner direction, 2026-10-23)
 
 - Every reel's description credits the speaker by his respectful full name,
@@ -132,7 +155,7 @@ manually using this file; YouTube may be automated later.
 
 - **Kannada + English subtitles on every new reel (owner rule from
   2026-10-23).** Kannada goes on top (the speaker's own words, Noto Sans Kannada
-  Bold 44px), English below (Arial Bold 36px). Each line has its own dark band
+  Bold 44px), English below (Noto Sans Bold 36px, same family as the Kannada). Each line has its own dark band
   with a clear 26px gap between them (never crammed), the Kannada band's
   top edge is at y=1452 (below the source banner), and the watermark sits
   below with its own gap. Each language must fit on one line. Kannada needs
@@ -424,9 +447,9 @@ calling a reel done.
   "Verification" below (automated + the finished-file ending check + a visual
   look at frames), upload it to YouTube directly. The owner reviews on the
   channel instead.
-- **Post one reel a day, at 7:00 PM IST (owner rule, 2026-10-23).** Build in
+- **Post one reel a day, at 6:00 PM IST (owner rule, 2026-10-23).** Build in
   batches, but upload each reel with `--schedule-daily`. YouTube's scheduled
-  publishing releases one per day at 7:00 PM IST from its own servers, so a
+  publishing releases one per day at 6:00 PM IST from its own servers, so a
   sleeping or closed laptop never makes a day get missed. Evening is when the
   India audience is most active. Don't change the slot without asking.
 - **Respect YouTube's daily limit.** The exact limit isn't known: 20 uploads

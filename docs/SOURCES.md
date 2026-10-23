@@ -1,6 +1,8 @@
 # Sources
 
 Every reel made, one row per reel. **No YouTube link = not uploaded yet.**
+A link followed by *(goes live DATE, 6 PM IST)* = uploaded and scheduled;
+YouTube makes it public at that time.
 
 | Source | Reel | YouTube |
 |--------|------|---------|

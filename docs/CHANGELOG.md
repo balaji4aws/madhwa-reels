@@ -1649,3 +1649,29 @@ captions' ಉಪೇಕ್ಷ/ಭೋಗೇಚ್ಛ), and ಕಡೆ (line 6 rebui
 of the speaker and source banner, gap visible, conjuncts correct. Glitch scan
 clean. Not uploaded yet: replacing the live video (`5kLI-taTWyY`) waits for
 the owner to confirm that specific video.
+
+---
+
+## 2026-10-23 (owner Q&A, cont.) — 6 PM slot, one font family, single-line title, Kannada descriptions
+
+- **Daily slot moved to 6:00 PM IST** (owner). `--next-slot` → 2026-10-24
+  18:00 IST. A scheduled upload returns its video link immediately (the video
+  is private until publish time), so SOURCES.md gets the link right away with
+  "(goes live DATE, 6 PM IST)"; no link still means not uploaded.
+- **Same font family for both languages** (owner). English now uses Noto
+  Sans Bold to match Noto Sans Kannada Bold (it was Arial). Latin Noto Sans
+  isn't on macOS, so the official OFL variable font from google/fonts is in
+  `assets/fonts/` with its OFL.txt licence (Bold weight selected in code).
+- **Title card: one English line** (owner: single line, readable, not big).
+  New `overlays_lib.render_title_line`: Noto Sans Bold 38px (min 32px), lead in
+  white and key phrase in saffron, slim band at the top. The builder refuses a
+  title that won't fit. Older English-only reels keep their two-line title.
+- **Kannada descriptions + Kannada hashtags** for future reels (owner: not
+  retroactive). Recorded in STYLE.md; the Kannada text goes through
+  kannada_check.py too.
+- **Spell-check both languages before upload**: recorded as a rule (English:
+  dictionary + sanskrit_terms; Kannada: kannada_check.py).
+- Sample ep06 reel 07 rebuilt in the new look and checked in frames
+  (single-line title clear of the tilak; Kannada and English bands in matching
+  type; gap visible; glitch scan clean). Still waiting for the owner to
+  confirm replacing the live `5kLI-taTWyY`.

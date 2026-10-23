@@ -116,11 +116,11 @@ def update_description(video_id, caption_path):
     print("Watch:", f"https://youtu.be/{video_id}")
 
 
-DAILY_SLOT_IST = (19, 0)          # owner rule 2026-10-23: one reel a day, 7:00 PM IST
+DAILY_SLOT_IST = (18, 0)          # owner rule 2026-10-23: one reel a day, 6:00 PM IST
 
 
 def next_daily_slot(yt):
-    """Next 7:00 PM IST slot on a day that has no reel going public yet.
+    """Next 6:00 PM IST slot on a day that has no reel going public yet.
 
     Looks at the channel's uploads: a day is taken if a video was published
     on it, or a scheduled (private + publishAt) video is set for it. YouTube
@@ -187,7 +187,7 @@ def main():
                          "--yes is also given. The replacement gets a NEW "
                          "video ID/URL -- YouTube has no in-place file swap.")
     ap.add_argument("--schedule-daily", action="store_true",
-                    help="schedule for the next free 7:00 PM IST daily slot "
+                    help="schedule for the next free 6:00 PM IST daily slot "
                          "(one reel a day; YouTube publishes it automatically)")
     ap.add_argument("--publish-at", metavar="ISO_TIME",
                     help="schedule for an exact time, e.g. 2026-10-25T19:00:00+05:30")

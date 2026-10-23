@@ -88,7 +88,7 @@ as-is, new reels use the spec + builder.) In order, it does:
 3. **Subtitles, Kannada + English** (owner rule from 2026-10-23): add the
    Kannada line as the 4th item of each subtitle in `reels.json`
    (`["English", start, end, "ಕನ್ನಡ"]`). Kannada goes on top in Noto Sans Kannada
-   Bold 44px, English below in Arial Bold 36px. Each line gets its own band with
+   Bold 44px, English below in Noto Sans Bold 36px (same family as the Kannada). Each line gets its own band with
    a 26px gap between them, and each must fit on one line. Take the Kannada
    from `source.kn.vtt` (the speaker's own words) and clean up only obvious
    auto-caption errors. If a line is garbled, rebuild it faithfully and
@@ -145,11 +145,11 @@ Then check by hand:
 Once step 6 passes, upload directly. No owner review is needed (owner
 direction, 2026-10-23); the owner reviews on the channel.
 
-- **One reel a day, at 7:00 PM IST** (owner rule, 2026-10-23). Upload each
+- **One reel a day, at 6:00 PM IST** (owner rule, 2026-10-23). Upload each
   finished reel as scheduled, one at a time, from the project folder:
   `upload/.venv/bin/python upload/youtube_upload.py reels/<slug>/<reel>.mp4 --schedule-daily`
   It takes the next day with no reel going public and schedules this reel
-  for 7:00 PM IST that day. YouTube publishes it on its own servers, so the
+  for 6:00 PM IST that day. YouTube publishes it on its own servers, so the
   laptop can be asleep or off. `--next-slot` shows the next free day
   without uploading. Each upload's `.caption.txt` supplies the
   title/description/hashtags.
@@ -170,7 +170,9 @@ direction, 2026-10-23); the owner reviews on the channel.
 
 - **Keep** the uploaded reel and its `.caption.txt` in `reels/<slug>/`. Do not
   delete them. Keep `sources/` and `work/` too.
-- Add the reel's YouTube link to its row in `docs/SOURCES.md`. No link means
+- Add the reel's YouTube link to its row in `docs/SOURCES.md` as soon as the
+  upload finishes. The link exists right away even for a scheduled reel.
+  Add *(goes live DATE, 6 PM IST)* after it until that date. No link means
   not uploaded.
 - Add a dated note to `docs/CHANGELOG.md` for anything learned.
 - Commit and push the doc/script changes to GitHub.

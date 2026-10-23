@@ -223,8 +223,55 @@ def kn_font(size=KN_SIZE):
                               layout_engine=ImageFont.Layout.RAQM)
 
 
+# English uses Noto Sans Bold, the SAME type family as Noto Sans Kannada, so
+# the two subtitle lines match (owner rule 2026-10-23: English and Kannada in
+# the same/related font family). Noto Sans (Latin) isn't shipped with macOS,
+# so the official OFL variable font lives in assets/fonts/ (licence beside it).
+FONT_EN_NOTO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..",
+                            "assets", "fonts", "NotoSans-Variable.ttf")
+
+
 def en_font(size=EN_SIZE):
-    return ImageFont.truetype(FONT_BOLD, size, layout_engine=ImageFont.Layout.RAQM)
+    f = ImageFont.truetype(FONT_EN_NOTO, size, layout_engine=ImageFont.Layout.RAQM)
+    f.set_variation_by_name("Bold")
+    return f
+
+
+# --- Single-line English title (owner rule 2026-10-23) ---
+TITLE_SIZE, TITLE_MIN_SIZE = 38, 32   # readable but not big; shrink only if needed
+TITLE_TOP = 8                         # hugs the top edge (speakers have no headroom)
+
+
+def render_title_line(outdir, lead, main):
+    """One line, Noto Sans Bold: `lead` in white, `main` in saffron, inside a
+    slim dark band at the top. Shrinks from 38px down to 32px to fit; raises
+    if it still doesn't fit (shorten the title)."""
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    lead = lead.strip()
+    gap = " " if lead else ""
+    for size in range(TITLE_SIZE, TITLE_MIN_SIZE - 1, -1):
+        fnt = en_font(size)
+        if d.textlength(lead + gap + main, font=fnt) <= W - 180:
+            break
+    else:
+        raise ValueError(f"title too long for one line: {lead + gap + main!r}")
+    full = lead + gap + main
+    bb = d.textbbox((0, 0), full, font=fnt)
+    tw, th = bb[2] - bb[0], bb[3] - bb[1]
+    x0 = (W - tw) // 2
+    _band(d, x0 - 30, TITLE_TOP, x0 + tw + 30, TITLE_TOP + th + 26, 16, (0, 0, 0, 140))
+    y = TITLE_TOP + 13 - bb[1]
+    x = x0 - bb[0]
+    lead_w = d.textlength(lead + gap, font=fnt)
+    for dx, dy, col_lead, col_main in ((2, 2, (0, 0, 0, 190), (0, 0, 0, 190)),
+                                       (0, 0, WHITE, ACCENT)):
+        if lead:
+            d.text((x + dx, y + dy), lead + gap, font=fnt, fill=col_lead)
+        d.text((x + lead_w + dx, y + dy), main, font=fnt, fill=col_main)
+    path = os.path.join(outdir, "ov_title.png")
+    img.save(path)
+    return path
 
 
 def _pill_line(d, text, fnt, top):
