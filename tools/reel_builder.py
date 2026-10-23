@@ -46,7 +46,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
 sys.path.insert(0, HERE)
 from overlays_lib import (render_sub, crop_reframe_filter, _font, _wrap,  # noqa: E402
+                          render_sub_bilingual, bilingual_fits,
                           FONT_BOLD, W, H, ACCENT, WHITE)
+from kannada_check import check as kannada_check  # noqa: E402
 from reel_numbering import reel_dir, format_reel_number  # noqa: E402
 from glitch_scan import scan as glitch_scan  # noqa: E402
 
@@ -124,11 +126,29 @@ def build(spec, reel):
     length = reel["end"] - reel["start"]
     if length >= MAX_LEN:
         raise ValueError(f"{nn}: cut is {length:.1f}s -- must be under {MAX_LEN:.0f}s")
-    for text, s, e in reel["subs"]:
-        if sub_line_count(text) > 1:
+    # subs entries: [english, start, end] or [english, start, end, kannada]
+    subs_in = [(t[0], t[1], t[2], t[3] if len(t) > 3 else "") for t in reel["subs"]]
+    bilingual = any(kn for _, _, _, kn in subs_in)
+    for text, s, e, kn in subs_in:
+        if bilingual:
+            ok_kn, ok_en = bilingual_fits(kn, text)
+            if not ok_kn:
+                raise ValueError(f"{nn}: Kannada subtitle too long for one line: {kn!r}")
+            if not ok_en:
+                raise ValueError(f"{nn}: English subtitle too long for one line: {text!r}")
+        elif sub_line_count(text) > 1:
             raise ValueError(f"{nn}: subtitle wraps to 2 lines, shorten it: {text!r}")
         if not (0 <= s < e <= length + 0.01):
             raise ValueError(f"{nn}: subtitle timing {s}-{e} outside clip 0-{length:.2f}: {text!r}")
+    kn_review = []
+    if bilingual:
+        kn_lines = [kn for _, _, _, kn in subs_in]
+        if not all(kn_lines):
+            raise ValueError(f"{nn}: bilingual reel but some subtitles have no Kannada line")
+        kn_errors, kn_review = kannada_check(
+            kn_lines, os.path.join(ROOT, "sources", slug, "source.kn.vtt"))
+        if kn_errors:
+            raise ValueError(f"{nn}: Kannada orthography errors: " + "; ".join(kn_errors))
 
     # 0. glitch scan of the SOURCE range (added 2026-10-23: ep06 reel 10 went
     #    live with a 1.6s "Missing File" card that was in the source video).
@@ -170,7 +190,11 @@ def build(spec, reel):
     ov = os.path.join(work, f"ov_{nn}")
     os.makedirs(ov, exist_ok=True)
     title = render_title_compact(ov, reel["title_lead"], reel["title_main"])
-    subs = [(render_sub(ov, i, t), s, e) for i, (t, s, e) in enumerate(reel["subs"], 1)]
+    if bilingual:
+        subs = [(render_sub_bilingual(ov, i, kn, t)[0], s, e)
+                for i, (t, s, e, kn) in enumerate(subs_in, 1)]
+    else:
+        subs = [(render_sub(ov, i, t), s, e) for i, (t, s, e, _) in enumerate(subs_in, 1)]
 
     inputs = ["-i", clip, "-i", title]
     for p, _, _ in subs:
@@ -201,7 +225,10 @@ def build(spec, reel):
     # 7-8. sidecar + subtitle text for check_reel.py
     write_caption(os.path.join(out_dir, name + ".caption.txt"), reel["caption"])
     with open(os.path.join(work, f"subs_{nn}.json"), "w", encoding="utf-8") as f:
-        json.dump([t for t, _, _ in reel["subs"]], f, ensure_ascii=False, indent=2)
+        json.dump([t for t, _, _, _ in subs_in], f, ensure_ascii=False, indent=2)
+    if bilingual:
+        with open(os.path.join(work, f"subs_kn_{nn}.json"), "w", encoding="utf-8") as f:
+            json.dump([kn for _, _, _, kn in subs_in], f, ensure_ascii=False, indent=2)
     final = duration(out)
     head, tail = edge_quiet(out, final)
     # 9. glitch scan of the FINISHED reel, every frame at 5fps (not a spot
@@ -216,6 +243,10 @@ def build(spec, reel):
                            + f" -- NOT ready to upload: {out}")
     print(f"Built {name}.mp4  {final:.1f}s  quiet: head {head:.2f}s / tail {tail:.2f}s"
           f"  glitch scan: clean{' (holds: ' + str(len(holds)) + ')' if holds else ''}")
+    if bilingual:
+        print("  Kannada orthography: PASS"
+              + (f"; review (not in source captions): {kn_review}" if kn_review
+                 else "; all words found in source captions"))
     return out
 
 

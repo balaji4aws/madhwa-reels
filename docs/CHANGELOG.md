@@ -1608,3 +1608,44 @@ owner's go-ahead.
   **`i9-Zr9mhojs`** (https://youtu.be/i9-Zr9mhojs). Checked through the API:
   the new video is public, its title is unchanged and the speaker is
   credited; `PH6Wj-ClHtw` is gone. SOURCES.md now has the new link.
+
+---
+
+## 2026-10-23 (owner Q&A, cont.) — One reel a day; Kannada + English subtitles
+
+**Posting rhythm (owner rule):** post one reel a day, in a fixed slot, and
+don't skip a day if the laptop was asleep. Chose **7:00 PM IST** (India
+evening). Used YouTube's own scheduled publishing (`status.publishAt`)
+rather than a timer on the laptop: the reel is uploaded ahead as private +
+scheduled, and YouTube makes it public at the slot on its servers, so sleep
+or the laptop being off doesn't matter. New uploader options:
+`--schedule-daily` (finds the next day with nothing published or scheduled,
+from the channel's uploads), `--publish-at`, and `--next-slot` (dry run).
+Tested `--next-slot` → 2026-10-24 19:00 IST, correct since reels went live today.
+
+**Bilingual subtitles (owner rule):** Kannada + English on every new reel,
+not crammed. Kannada on top (Noto Sans Kannada Bold 44px; checked first that
+Pillow has raqm/HarfBuzz, without which conjuncts break; compared three
+installed Kannada fonts and Noto Bold shaped every conjunct correctly),
+English below (Arial Bold 36px). Each line has its own band with a 26px gap,
+and the watermark has its own gap below. New `overlays_lib.render_sub_bilingual`.
+`reel_builder.py` takes an optional 4th Kannada field per subtitle and
+refuses lines that would wrap.
+
+**Spell-check, honestly:** the owner asked whether both languages are
+checked. Before today, only English was. New `tools/kannada_check.py`, run by
+the builder: hard FAIL on broken writing (word starting with a vowel sign or
+virama, stacked vowel signs, double virama, Latin letters in a Kannada line),
+plus a review list of every word not found in the speaker's own Kannada
+captions. Self-tested with good and deliberately broken lines. No Kannada
+dictionary is installed or reliable, so this does NOT catch a well-formed but
+wrongly spelled word. The review list and the owner's read cover that.
+
+**Sample reel:** rebuilt ep06 reel 07 ("A Prayer for Steady Devotion") with
+Kannada lines from `source.kn.vtt`. Kannada writing check PASS. Review list:
+ಚೂರು (split from ಒಂದುಚೂರು), ಉಪೇಕ್ಷೆ and ಭೋಗೇಚ್ಛೆ (standard forms of the
+captions' ಉಪೇಕ್ಷ/ಭೋಗೇಚ್ಛ), and ಕಡೆ (line 6 rebuilt as "ದಯಮಾಡಿ ನನ್ನ
+ಕಡೆ ನೋಡು" because the caption was garbled). Frame check: both bands clear
+of the speaker and source banner, gap visible, conjuncts correct. Glitch scan
+clean. Not uploaded yet: replacing the live video (`5kLI-taTWyY`) waits for
+the owner to confirm that specific video.

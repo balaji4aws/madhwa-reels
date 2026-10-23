@@ -85,7 +85,15 @@ as-is, new reels use the spec + builder.) In order, it does:
    `crop_x` for every new source; never reuse another source's value.
 2. **Title card** at the top. Check one frame first: if the title touches the
    speaker's forehead, use a per-source `title_compact.py` (see ep06/ep07).
-3. **Subtitles:** one line at a time, spell-checked, at `SUB_Y = 1560`.
+3. **Subtitles, Kannada + English** (owner rule from 2026-10-23): add the
+   Kannada line as the 4th item of each subtitle in `reels.json`
+   (`["English", start, end, "ಕನ್ನಡ"]`). Kannada goes on top in Noto Sans Kannada
+   Bold 44px, English below in Arial Bold 36px. Each line gets its own band with
+   a 26px gap between them, and each must fit on one line. Take the Kannada
+   from `source.kn.vtt` (the speaker's own words) and clean up only obvious
+   auto-caption errors. If a line is garbled, rebuild it faithfully and
+   record it in the reel's `note`. (Older English-only reels use one line
+   at `SUB_Y = 1560`.)
 4. **Watermark:** `assets/watermark.png` (channel URL + brand icon).
 5. **Fade:** 0.2s fade in/out on the finished picture **and** the audio,
    applied after everything is composited so it all fades together.
@@ -108,8 +116,14 @@ reels are deleted locally and `reels/<slug>/` alone would restart at 01.)
 Run `work/<slug>/check_reel.py`. A reel is not ready until all of these pass:
 
 - **Size and length:** 1080x1920 and **under 60s**. Either failing is a hard FAIL.
-- **Spelling:** dictionary + `tools/sanskrit_terms.py`. Never guess a
+- **English spelling:** dictionary + `tools/sanskrit_terms.py`. Never guess a
   Sanskrit name; flag it if it isn't in the list.
+- **Kannada spelling:** `tools/kannada_check.py`, run automatically by
+  `reel_builder.py`. A broken word (one starting with a vowel sign or
+  virama, two signs stacked, stray Latin letters) is a hard FAIL. Any word not
+  found in the speaker's own Kannada captions is listed for review: read
+  each one. There is no full Kannada dictionary check (none is installed or
+  reliable), so the review list plus the owner's read are the real check.
 - **Cut placement:** start and end sit on caption sentence boundaries.
 - **Every frame, not a sample:** `tools/glitch_scan.py` on the finished
   reel. `reel_builder.py` runs it automatically and stops on any flag. Spot
@@ -131,10 +145,17 @@ Then check by hand:
 Once step 6 passes, upload directly. No owner review is needed (owner
 direction, 2026-10-23); the owner reviews on the channel.
 
-- From the project folder:
-  `upload/.venv/bin/python upload/youtube_upload.py reels/<slug>/<reel>.mp4`
-- It goes live as **public** immediately and reads title/description/hashtags
-  from the `.caption.txt`.
+- **One reel a day, at 7:00 PM IST** (owner rule, 2026-10-23). Upload each
+  finished reel as scheduled, one at a time, from the project folder:
+  `upload/.venv/bin/python upload/youtube_upload.py reels/<slug>/<reel>.mp4 --schedule-daily`
+  It takes the next day with no reel going public and schedules this reel
+  for 7:00 PM IST that day. YouTube publishes it on its own servers, so the
+  laptop can be asleep or off. `--next-slot` shows the next free day
+  without uploading. Each upload's `.caption.txt` supplies the
+  title/description/hashtags.
+- Uploading without `--schedule-daily` publishes immediately. Use that only
+  when the owner asks for a reel to go live now, e.g. a review sample or a
+  replacement.
 - **Daily limit:** exact number unknown (20 went through on 2026-10-23;
   resets at midnight Pacific). Upload one at a time; on the first quota
   refusal, stop and upload the rest the next day.

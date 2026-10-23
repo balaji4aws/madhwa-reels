@@ -202,3 +202,63 @@ def render_sub(outdir, idx, text):
     path = os.path.join(outdir, f"ov_sub_{idx:02d}.png")
     img.save(path)
     return path
+
+
+# --- Bilingual subtitles (owner direction 2026-10-23: Kannada + English) ---
+# Kannada on top (larger, the speaker's own words), English below (smaller),
+# each in its OWN pill with a clear gap between them, so they never look
+# crammed. Kannada needs complex text shaping (raqm/HarfBuzz) or conjuncts
+# like ನ್ನ / ಕ್ತಿ / ಶ್ರೀ break apart -- Pillow here has raqm (checked 2026-10-23).
+FONT_KN_BOLD = "/System/Library/Fonts/NotoSansKannada.ttc"
+FONT_KN_BOLD_INDEX = 6        # "Noto Sans Kannada" Bold face in the .ttc
+KN_SIZE, EN_SIZE = 44, 36
+KN_TOP = 1452                 # top of the Kannada pill
+PILL_GAP = 26                 # clear space between the two pills
+PAD_X, PAD_Y = 30, 14
+MAX_TEXT_W = W - 150
+
+
+def kn_font(size=KN_SIZE):
+    return ImageFont.truetype(FONT_KN_BOLD, size, index=FONT_KN_BOLD_INDEX,
+                              layout_engine=ImageFont.Layout.RAQM)
+
+
+def en_font(size=EN_SIZE):
+    return ImageFont.truetype(FONT_BOLD, size, layout_engine=ImageFont.Layout.RAQM)
+
+
+def _pill_line(d, text, fnt, top):
+    """Draw one centred line in its own rounded pill whose top edge is `top`.
+    Uses the real ink bbox so Kannada's tall vowel signs and below-base
+    conjuncts sit inside the pill. Returns the pill's bottom y."""
+    bb = d.textbbox((0, 0), text, font=fnt)
+    tw, th = bb[2] - bb[0], bb[3] - bb[1]
+    x = (W - tw) // 2 - bb[0]
+    y = top + PAD_Y - bb[1]
+    bottom = top + th + 2 * PAD_Y
+    _band(d, (W - tw) // 2 - PAD_X, top, (W + tw) // 2 + PAD_X, bottom, 22, (0, 0, 0, 160))
+    d.text((x + 2, y + 2), text, font=fnt, fill=(0, 0, 0, 190))
+    d.text((x, y), text, font=fnt, fill=WHITE)
+    return bottom
+
+
+def bilingual_fits(kn, en):
+    """True if both lines fit on ONE line each (no wrapping allowed)."""
+    d = ImageDraw.Draw(Image.new("RGBA", (W, 200)))
+    ok_kn = (not kn) or d.textlength(kn, font=kn_font()) <= MAX_TEXT_W
+    ok_en = (not en) or d.textlength(en, font=en_font()) <= MAX_TEXT_W
+    return ok_kn, ok_en
+
+
+def render_sub_bilingual(outdir, idx, kn, en):
+    """Kannada line in one pill, English line in a second pill below it.
+    Returns (png_path, english_pill_bottom_y)."""
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    y = KN_TOP
+    if kn:
+        y = _pill_line(d, kn, kn_font(), y) + PILL_GAP
+    bottom = _pill_line(d, en, en_font(), y) if en else y
+    path = os.path.join(outdir, f"ov_sub_{idx:02d}.png")
+    img.save(path)
+    return path, bottom

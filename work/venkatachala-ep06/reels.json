@@ -16,64 +16,76 @@
         [
           "Where Your merciful glance falls,",
           0.3,
-          2.3
+          2.3,
+          "ಶ್ರೀನಿವಾಸ, ನಿನ್ನ ಕೃಪಾದೃಷ್ಟಿ ಇದ್ದರೆ"
         ],
         [
           "there is true detachment",
           2.4,
-          4.0
+          4.0,
+          "ಪರಮ ವೈರಾಗ್ಯ"
         ],
         [
           "and devotion to Vishnu.",
           4.0,
-          5.8
+          5.8,
+          "ವಿಷ್ಣು ಭಕ್ತಿ ಇರುತ್ತದೆ."
         ],
         [
           "Turn away even a little,",
           5.9,
-          7.8
+          7.8,
+          "ನೀ ಒಂದು ಚೂರು ಉಪೇಕ್ಷೆ ಮಾಡಿದರೆ"
         ],
         [
           "and desire creeps back in.",
           7.8,
-          9.8
+          9.8,
+          "ಭೋಗೇಚ್ಛೆ ಬರುತ್ತದೆ."
         ],
         [
           "Kindly look upon me.",
           9.9,
-          11.8
+          11.8,
+          "ದಯಮಾಡಿ ನನ್ನ ಕಡೆ ನೋಡು."
         ],
         [
           "Even Rudra, lord of detachment,",
           11.9,
-          14.6
+          14.6,
+          "ವೈರಾಗ್ಯಾಧಿಪತಿಗಳು ರುದ್ರದೇವರು"
         ],
         [
           "prays to Srinivasa:",
           14.6,
-          16.9
+          16.9,
+          "ಶ್ರೀನಿವಾಸನಿಗೆ ಹೇಳುತ್ತಾರೆ:"
         ],
         [
           "“For my detachment to stay firm,",
           17.0,
-          18.5
+          18.5,
+          "“ನನ್ನ ವೈರಾಗ್ಯ ಸ್ಥಿರವಾಗಿರಬೇಕಾದರೆ,"
         ],
         [
           "for my devotion to stay steady,",
           18.5,
-          21.0
+          21.0,
+          "ನಿನ್ನ ಭಕ್ತಿ ನನ್ನಲ್ಲಿ ಸ್ಥಿರವಾಗಿರಬೇಕಾದರೆ,"
         ],
         [
           "let Your grace rest on me.”",
           21.0,
-          23.4
+          23.4,
+          "ನಿನ್ನ ಕೃಪಾದೃಷ್ಟಿ ನನ್ನ ಮೇಲೆ ಇರಲಿ.”"
         ]
       ],
       "caption": {
         "title": "A Prayer for Steady Devotion 🙏 | Madhwa16",
         "description": "Where the Lord's merciful glance falls, there is true detachment and devotion. Turn away from it even a little, and desire creeps back in. That is why even Rudradeva, the lord of detachment, prays to Srinivasa: \"For my detachment to stay firm and my devotion to stay steady, let your merciful glance rest on me.\" A one-line prayer worth keeping. 🙏 From \"Glory of Venkatachala | Ep - 06\" by Sri Satyatmateertha Shripadangalavaru (Sri Uttaradi Math Adhyatmavani).",
         "hashtags": "#Madhwa16 #Venkatachala #Srinivasa #Bhakti #Vairagya #Prayer #SriUttaradiMath #Adhyatmavani #SatyatmateerthaShripadangalavaru #Pravachana #Dvaita #SanatanaDharma #HinduWisdom #Devotional #Shorts"
-      }
+      },
+      "note": "Bilingual sample (Kannada + English), owner review 2026-10-23. Kannada cleaned from source.kn.vtt; line 6 'ದಯಮಾಡಿ ನನ್ನ ಕಡೆ ನೋಡು' reconstructed (auto-caption garbled: 'ದಯಮಾಡಿ ನನ್ನ ಮೇಲೆ ಉಪ ನೋಡಿದರೆ')."
     },
     {
       "num": 8,

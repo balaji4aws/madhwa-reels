@@ -116,6 +116,45 @@ def update_description(video_id, caption_path):
     print("Watch:", f"https://youtu.be/{video_id}")
 
 
+DAILY_SLOT_IST = (19, 0)          # owner rule 2026-10-23: one reel a day, 7:00 PM IST
+
+
+def next_daily_slot(yt):
+    """Next 7:00 PM IST slot on a day that has no reel going public yet.
+
+    Looks at the channel's uploads: a day is taken if a video was published
+    on it, or a scheduled (private + publishAt) video is set for it. YouTube
+    itself makes scheduled videos public at publishAt, so the laptop can be
+    asleep or off at that time."""
+    from datetime import datetime, timedelta, timezone
+    ist = timezone(timedelta(hours=5, minutes=30))
+    ch = yt.channels().list(part="contentDetails", mine=True).execute()["items"][0]
+    uploads = ch["contentDetails"]["relatedPlaylists"]["uploads"]
+    ids, token = [], None
+    while len(ids) < 300:
+        r = yt.playlistItems().list(part="contentDetails", playlistId=uploads,
+                                    maxResults=50, pageToken=token).execute()
+        ids += [it["contentDetails"]["videoId"] for it in r["items"]]
+        token = r.get("nextPageToken")
+        if not token:
+            break
+    taken = set()
+    for i in range(0, len(ids), 50):
+        r = yt.videos().list(part="status,snippet", id=",".join(ids[i:i + 50])).execute()
+        for v in r["items"]:
+            when = v["status"].get("publishAt") or v["snippet"].get("publishedAt")
+            if when:
+                taken.add(datetime.fromisoformat(when.replace("Z", "+00:00")).astimezone(ist).date())
+    now = datetime.now(ist)
+    day = now.date()
+    slot = now.replace(hour=DAILY_SLOT_IST[0], minute=DAILY_SLOT_IST[1], second=0, microsecond=0)
+    if now >= slot - timedelta(minutes=30):   # too close to (or past) today's slot
+        day += timedelta(days=1)
+    while day in taken:
+        day += timedelta(days=1)
+    return datetime(day.year, day.month, day.day, *DAILY_SLOT_IST, tzinfo=ist)
+
+
 def delete_video(video_id):
     """Permanently delete an uploaded video. NOT reversible."""
     yt = get_service()
@@ -147,12 +186,23 @@ def main():
                          "and a re-upload). Prompts for confirmation unless "
                          "--yes is also given. The replacement gets a NEW "
                          "video ID/URL -- YouTube has no in-place file swap.")
+    ap.add_argument("--schedule-daily", action="store_true",
+                    help="schedule for the next free 7:00 PM IST daily slot "
+                         "(one reel a day; YouTube publishes it automatically)")
+    ap.add_argument("--publish-at", metavar="ISO_TIME",
+                    help="schedule for an exact time, e.g. 2026-10-25T19:00:00+05:30")
+    ap.add_argument("--next-slot", action="store_true",
+                    help="just print the next free daily slot and exit")
     ap.add_argument("--update-description", metavar="VIDEO_ID",
                     help="replace an already-uploaded video's description and "
                          "tags with the ones in --caption (or the given "
                          "video's sidecar). Same video/URL, no re-upload; the "
                          "title is not changed.")
     args = ap.parse_args()
+
+    if args.next_slot:
+        print("Next free daily slot:", next_daily_slot(get_service()).strftime("%Y-%m-%d %H:%M IST"))
+        return
 
     if args.update_description:
         cap = args.caption or (os.path.splitext(args.video)[0] + ".caption.txt"
@@ -225,6 +275,18 @@ def main():
     }
 
     yt = get_service()
+    publish_at = None
+    if args.schedule_daily:
+        publish_at = next_daily_slot(yt)
+    elif args.publish_at:
+        from datetime import datetime
+        publish_at = datetime.fromisoformat(args.publish_at)
+    if publish_at:
+        # YouTube's scheduled publishing: the video is private until
+        # publishAt, then YouTube itself makes it public.
+        body["status"]["privacyStatus"] = "private"
+        body["status"]["publishAt"] = publish_at.isoformat()
+        args.privacy = f"scheduled for {publish_at.strftime('%Y-%m-%d %H:%M %Z')}"
     media = MediaFileUpload(args.video, chunksize=-1, resumable=True,
                             mimetype="video/mp4")
     print(f"Uploading '{title}' as {args.privacy} ...")
@@ -237,7 +299,10 @@ def main():
     vid = resp["id"]
     print("Done. Video ID:", vid)
     print("Watch:", f"https://youtu.be/{vid}")
-    if args.privacy == "public":
+    if publish_at:
+        print(f"(Scheduled: goes public automatically at "
+              f"{publish_at.strftime('%Y-%m-%d %H:%M')} IST — no need for this laptop to be on.)")
+    elif args.privacy == "public":
         print("(Privacy: public — live on the channel now.)")
     else:
         print(f"(Privacy: {args.privacy} — make it public when you're happy with it, "

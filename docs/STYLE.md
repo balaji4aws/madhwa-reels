@@ -130,7 +130,18 @@ manually using this file; YouTube may be automated later.
 
 ## Subtitles / captions rules
 
-- **Burn in English spoken-word subtitles on every reel**, timed to the speech,
+- **Kannada + English subtitles on every new reel (owner rule from
+  2026-10-23).** Kannada goes on top (the speaker's own words, Noto Sans Kannada
+  Bold 44px), English below (Arial Bold 36px). Each line has its own dark band
+  with a clear 26px gap between them (never crammed), the Kannada band's
+  top edge is at y=1452 (below the source banner), and the watermark sits
+  below with its own gap. Each language must fit on one line. Kannada needs
+  complex text shaping (raqm), which is available here. Without it,
+  conjuncts like ನ್ನ/ಕ್ತಿ/ಶ್ರೀ break.
+  Verification: English is dictionary-checked; Kannada is checked for
+  broken writing (hard fail) and for words not in the speaker's captions
+  (review list). There is no full Kannada dictionary check.
+- (Older reels, English only:) **Burn in English spoken-word subtitles on every reel**, timed to the speech,
   as a single line (via `overlays_lib.py`'s `render_sub`), positioned per
   "Safe zones" above. **Single-line style only — no build-up/multi-line
   reveal band** (an earlier reel used a growing multi-line list; the user
@@ -413,6 +424,11 @@ calling a reel done.
   "Verification" below (automated + the finished-file ending check + a visual
   look at frames), upload it to YouTube directly. The owner reviews on the
   channel instead.
+- **Post one reel a day, at 7:00 PM IST (owner rule, 2026-10-23).** Build in
+  batches, but upload each reel with `--schedule-daily`. YouTube's scheduled
+  publishing releases one per day at 7:00 PM IST from its own servers, so a
+  sleeping or closed laptop never makes a day get missed. Evening is when the
+  India audience is most active. Don't change the slot without asking.
 - **Respect YouTube's daily limit.** The exact limit isn't known: 20 uploads
   went through on 2026-10-23 with no refusal, more than the ~6/day the
   documented quota suggests. It resets at midnight Pacific. Upload one
