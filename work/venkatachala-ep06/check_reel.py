@@ -46,7 +46,14 @@ ALLOWLIST = all_correct_lower() | {
     # the quoted Sanskrit verse (transcribed as heard, not a channel proper
     # noun to standardize -- see build_reel01.py's subs comment)
     "nachamatrasamam", "mitram", "putrinam", "nandini", "asthi",
+    # reels 07-11 (2026-10-23 batch) -- PENDING OWNER CONFIRMATION; not yet
+    # in the shared tools/sanskrit_terms.py (see docs/CHANGELOG.md):
+    "rudra", "shukacharya", "tirumala", "tiruchanur", "padma", "sarovar",
+    "yashoda", "vishnu",
 }
+# Real English words web2 lacks (contractions / irregular forms), reels 07-11:
+_EXTRA_BATCH2 = {"can't", "began", "i'm", "wouldn't", "planned", "couldn't",
+                 "isn't", "lifespans", "beginningless"}
 
 KNOWN_WRONG = correct_variants()
 
@@ -104,7 +111,7 @@ def _known(w, vocab):
 
 
 def spell_check(subs, dictionary):
-    vocab = dictionary | ALLOWLIST | EXTRA_OK
+    vocab = dictionary | ALLOWLIST | EXTRA_OK | _EXTRA_BATCH2
     bad = []
     wrong_hits = []
     for s in subs:

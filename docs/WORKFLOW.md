@@ -20,6 +20,10 @@ that has Pillow: `/Users/venkyb/envs/bie-work/bin/python3`.
 - Check the downloaded length matches the length on YouTube.
 - Pick a short **slug** for this source (e.g. `venkatachala-ep07`). It is
   used in every file name from here on.
+- **Already in `docs/SOURCES.md`?** Then it's a repeat on purpose. Skip the
+  download, reuse the slug, and pick moments that are **different from every
+  reel already cut from it** (see the cut ranges in `work/<slug>/build_reel*.py`).
+  Never delete the reels already live. See `docs/STYLE.md` → "Repeated sources".
 - Output: `sources/<slug>/source.mp4`, `source.en.vtt`, `source.kn.vtt`
 
 ## 2. Pick the moments
@@ -44,18 +48,31 @@ Read `source.en.vtt` and choose moments that **end on a complete thought**.
   `snapped-low-confidence`, or `review-manually`.
 - For every `review-manually` flag, read the caption text at that time
   yourself before trusting or overriding the snap.
-- Leave a little quiet after the last word (aim for 0.5–0.7s).
+- **Use the Kannada captions (`source.kn.vtt`) to place cuts, not the
+  English.** The English is a machine translation: its word timings are
+  evenly-spaced guesses and its sentences don't line up with the audio. The
+  Kannada cues follow the real speech. Pick each start/end from where a
+  Kannada sentence begins/ends **and** a real pause (`ffmpeg silencedetect`)
+  sits there. Avoid ending on a dangling `ಅನ್ನುವುದನ್ನು` / mid-clause word.
+- Leave a little quiet after the last word (aim for 0.5–0.7s; never less
+  than ~0.4s — if the pause is shorter, choose a different ending).
 - Output: confirmed start/end + `work/<slug>/cut_report_NN.json`
 
-## 4. Cut the raw clip
+## 4 + 5. Cut and style the reel
 
-- Cut with `ffmpeg`, re-encoding (not `-c copy`) so the cut is frame-accurate.
-- Output: `work/<slug>/clipNN_<topic>.mp4`
+Add the reel to `work/<slug>/reels.json` (cut points, title, subtitles with
+clip-relative times, caption text), then run:
 
-## 5. Style the reel
+```
+/Users/venkyb/envs/bie-work/bin/python3 tools/reel_builder.py <slug> <NN>
+```
 
-Write a build script `work/<slug>/build_reelNN.py` (copy the nearest
-existing one). It uses `tools/overlays_lib.py` and does, in order:
+`tools/reel_builder.py` cuts the raw clip (re-encoded, frame-accurate) to
+`work/<slug>/clipNN_<topic>.mp4`, styles it, writes the reel + `.caption.txt`,
+and prints the real quiet at the head/tail of the finished file. It refuses
+cuts of 60s or longer and subtitles that would wrap to two lines.
+(Older reels were built with per-reel `build_reelNN.py` scripts; those stay
+as-is, new reels use the spec + builder.) In order, it does:
 
 1. **Reframe** to 1080x1920 by cropping around the speaker. Work out a fresh
    `crop_x` for every new source; never reuse another source's value.
@@ -68,16 +85,17 @@ existing one). It uses `tools/overlays_lib.py` and does, in order:
    A fade only smooths a cut that already lands in quiet; it can't fix a cut
    that lands on speech.
 
-Get the reel number from `tools/reel_numbering.py` on the first build, then
-keep it fixed in the script. Numbers are never reused.
+Get the reel number from `tools/reel_numbering.py` when adding the reel to
+`reels.json`, then keep it fixed there. Numbers are never reused. (The tool
+counts numbers in `docs/SOURCES.md` and `work/<slug>/` too, because uploaded
+reels are deleted locally and `reels/<slug>/` alone would restart at 01.)
 
 - Output: `reels/<slug>/<slug>_NN_<topic>.mp4` + a matching
   `.caption.txt` (TITLE / DESCRIPTION / HASHTAGS)
 
-> **Watermark, first time only:** the URL + icon watermark hasn't been
-> rendered yet. On the next build, run `assets/make_watermark.py`, check it
-> on a real frame (centered, readable, not touching the right edge), and get
-> the owner's OK before using it.
+> **Watermark:** `assets/watermark.png` now holds the URL + icon version
+> (rendered 2026-10-23, checked on real frames). It is pending the owner's
+> OK as part of reviewing the 2026-10-23 batch.
 
 ## 6. Check the reel
 

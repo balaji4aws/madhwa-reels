@@ -1411,3 +1411,74 @@ since all are confirmed live.
 - Earlier CHANGELOG entries still mention ep01 paths and
   `docs/archive/CUTTING_PLAN.md`. They are kept as history; those files are
   in git history if ever needed.
+
+---
+
+## 2026-10-23 (batch) — 15 new reels: 5 each from ep06, ep07 and a new Madhwa Jayanti source
+
+**Request:** 5 reels from each of three links. Two (`DoHq0Eh9Rvo` = ep06,
+`9IDCabMthdQ` = ep07) were already sources — the owner shares repeats on
+purpose, so: same slug, no new SOURCES row per source, and moments must be
+different from every reel already cut from them (live or rejected). The third
+(`Ww7105ppkyg`, Madhwa Jayanti discourse, 2619s, Hubli) is new: slug
+`madhwacharya-avatara`, downloaded in full, duration matched YouTube.
+
+**Rules recorded (owner-confirmed):** the 0.2s picture+audio fade is now a
+STYLE.md rule; a new STYLE.md "Repeated sources" section + WORKFLOW step 1 note.
+
+**How moments were picked:** read all three transcripts looking for the
+owner's two strong shapes (advice to people / a story's high point). Avoided
+every earlier cut range (ep06 ~231-345, 111-157, 617-671, 2675-2730; ep07
+88-113, 1055-1082, 1307-1356, 3272-3326). Dropped two candidates on review:
+- Bakuladevi's "bold answer" — its payoff is that lying is acceptable in five
+  situations; a poor standalone message.
+- "Parents must talk to their children" — the only clean ending is the same
+  verse that opens live reel 03, and with "Who Is a True Devotee?" also in the
+  batch ep06 would have had three parent-themed reels. Replaced with
+  Brihaspati's humility.
+
+**Cut placement — the important change this time:** the English VTT is a
+machine translation; its word timestamps are evenly-spaced guesses and its
+sentences don't align with the Kannada audio (e.g. the English put "If
+parents do not listen…" ~3s after where the Kannada sentence actually
+starts). Every boundary was instead placed from the **Kannada** cues
+(`source.kn.vtt`, read directly) at a real `silencedetect` pause, ending only
+on a completed Kannada sentence (avoiding dangling `ಅನ್ನುವುದನ್ನು`-type
+clause endings). `clip_cutter.py` was still run first (reports in
+`work/<slug>/cut_report_rNN_*.json`); as usual it flagged most boundaries
+`review-manually`. The Kannada also corrected the English meaning in places
+(ep06 Shuka reel: "ಸುಖೋದ್ರೇಕ" = overflowing bliss, not "attracted to pleasure").
+
+**Finished-file check (STYLE.md verification #4):** head quiet 0.15–0.30s,
+tail quiet 0.43–0.64s on all 15. Six tails are 0.43–0.49s because the real
+pause after the last word is that short; each still ends on a complete sentence.
+
+**New tooling:**
+- `tools/reel_builder.py` + one `work/<slug>/reels.json` spec per source,
+  replacing a hand-copied `build_reelNN.py` per reel. Enforces <60s and
+  single-line subtitles before building. `.gitignore` excepts `reels.json`.
+- **Fixed a numbering bug** in `tools/reel_numbering.py`: post-upload cleanup
+  empties `reels/<slug>/`, so it would have restarted ep06/ep07 at 01 and
+  collided with live reels. It now also counts numbers in `docs/SOURCES.md`
+  and `work/<slug>/` (clip/build files + `reels.json`). ep06 continued at 07,
+  ep07 at 05 (02/03 stay retired), new source at 01.
+
+**Framing:** ep06 crop_x=573 and ep07 crop_x=523 reused (same sources). New
+source crop_x=548 from gridded frames (face centre x≈940–975) and a 3-way crop
+comparison. Same speaker/studio as ep06/ep07, so the compact top title band
+was used for all 15.
+
+**Watermark:** first build with the URL + icon watermark
+(`assets/make_watermark.py` → `assets/watermark.png`), checked on real frames:
+centred under the subtitle, legible, clear of the right edge. Awaiting the
+owner's OK with this batch. Already-live reels keep the old handle watermark.
+
+**Spelling — pending owner confirmation:** names not yet in
+`tools/sanskrit_terms.py`, used and allowlisted per slug only: Rudra,
+Rudradeva, Shukacharya, Tirumala, Tiruchanur, Padma Sarovar, Yashoda, Shani,
+Ugadi, Phalguna Amavasya, Madhwacharya (channel's "Madhwa" spelling), darshan.
+To be moved into the shared list once confirmed.
+
+**check_reel.py:** all 15 PASS dimensions, duration (<60s) and spelling.
+Cut-placement WARNs are against the run-on English cues and expected (see
+above). Nothing uploaded — all 15 await owner review in `reels/<slug>/`.

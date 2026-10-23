@@ -21,6 +21,9 @@ work/**/*.png
 work/**/*.jpg
 work/**/*.jpeg
 work/**/*.json
+# ...except each source's reel spec: it is the build source of truth (cut
+# points, titles, subtitles, captions) for tools/reel_builder.py
+!work/*/reels.json
 
 # Python bytecode / caches — never commit (regenerated on every run)
 __pycache__/

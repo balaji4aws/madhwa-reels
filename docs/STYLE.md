@@ -232,6 +232,27 @@ manually using this file; YouTube may be automated later.
   implemented once in `tools/clip_cutter.py` and imported by `check_reel.py` —
   do not re-implement this logic a second time in a new per-slug script;
   import the shared module.
+- **Fade at every cut (confirmed by the owner, 2026-10-23).** Every reel gets
+  a **0.2s fade in and fade out** on both picture and audio: ffmpeg
+  `fade=t=in/out` (through black) on the FINAL composited frame (after the
+  title, subtitles and watermark are overlaid, so everything fades together)
+  plus a matching `afade`. A fade only smooths a cut that already lands in
+  quiet. It cannot fix a cut that lands on speech, so correct cut placement
+  and a moment that ends on a complete thought still come first.
+
+## Repeated sources
+
+- The owner sometimes shares a source that is already in `docs/SOURCES.md`.
+  That is intentional: **make new reels from it**, and do NOT add a second
+  row/slug for the same source. Reuse the existing slug, `sources/<slug>/`
+  download, `crop_x` and title settings.
+- New reels from a repeated source must be **different moments** from every
+  reel already cut from it (live or rejected). Check the cut ranges in
+  `work/<slug>/build_reel*.py` and `docs/CHANGELOG.md` (and the live titles
+  on YouTube) before picking moments. Do not overlap a previous cut range or
+  repeat its topic.
+- Never delete or re-upload the reels already live from that source.
+- A source not yet in `docs/SOURCES.md` is new: pick moments freely.
 
 ## Background audio (PLANNED — not built yet)
 

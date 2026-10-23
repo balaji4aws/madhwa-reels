@@ -43,7 +43,13 @@ ALLOWLIST = all_correct_lower() | {
     "dvaita", "uttaradi", "math", "purana", "madhwa16", "shri",
     # this talk's own named figures (Ep-07 wedding-invitation narrative)
     "brahma", "indra", "vishwakarma", "bakula", "lakshmi",
+    # reels 05-09 (2026-10-23 batch) -- PENDING OWNER CONFIRMATION; not yet
+    # in the shared tools/sanskrit_terms.py (see docs/CHANGELOG.md):
+    "shani", "rudradeva", "vishnu", "puranas",
 }
+# Real English words web2 lacks (contractions / irregular forms), reels 05-09:
+_EXTRA_BATCH2 = {"can't", "began", "i'm", "wouldn't", "planned", "couldn't",
+                 "isn't", "lifespans", "beginningless"}
 
 KNOWN_WRONG = correct_variants()
 
@@ -95,7 +101,7 @@ def _known(w, vocab):
 
 
 def spell_check(subs, dictionary):
-    vocab = dictionary | ALLOWLIST | EXTRA_OK
+    vocab = dictionary | ALLOWLIST | EXTRA_OK | _EXTRA_BATCH2
     bad = []
     wrong_hits = []
     for s in subs:
