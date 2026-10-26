@@ -110,7 +110,7 @@ reels are deleted locally and `reels/<slug>/` alone would restart at 01.)
 
 ## 6. Check the reel
 
-Run `work/<slug>/check_reel.py`. A reel is not ready until all of these pass:
+Run `tools/check_slug.py <slug>` (or `work/<slug>/check_reel.py` for older sources). A reel is not ready until all of these pass:
 
 - **Size and length:** 1080x1920 and **under 60s**. Either failing is a hard FAIL.
 - **English spelling:** dictionary + `tools/sanskrit_terms.py`. Never guess a

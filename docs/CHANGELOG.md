@@ -1773,3 +1773,26 @@ SOURCES.md: 10 rows added with "goes live DATE, 6 PM IST".
 - Re-scheduled the 8 pending reels on YouTube (verified through the API):
   26 Oct 6 PM, 27 Oct 6 AM/6 PM, 28 Oct 6 AM/6 PM, 29 Oct 6 AM/6 PM, 30 Oct 6 AM.
   Next free slot: 30 Oct 6 PM. SOURCES.md updated.
+
+## 2026-10-26 (later) — 25 new reels from 5 sources, speaker credit
+
+- **Speaker credit:** owner confirmed the satyaparayana-mahime speaker is Sri
+  Satyatmateertha Shripadangalavaru. Added to all 5 reels' captions, `reels.json`,
+  and the live/scheduled YouTube descriptions (`--update-description`).
+- **5 new sources, 25 reels, all uploaded and scheduled** (two a day, 6 AM and
+  6 PM IST; 30 Oct 6 PM to 11 Nov 6 PM; next free slot 12 Nov 6 AM):
+  venkatachala-ep01 (5), ep02 (5), ep03 (5), ep04 (7), madhwajayanti-sarkara (3).
+  ep04 got 7 and sarkara 3 instead of 5 each: the Madhva Jayanti video is only
+  ~2.5 minutes of speaker (the video is black after 155s), so the 2 reels it could
+  not give were made from ep04 (a 44-minute talk). Total still 25.
+- **New tools / builder options:** `tools/check_slug.py` (runs the standard checks
+  on every reel of a slug from `reels.json`, no per-slug check script needed);
+  `reels.json` `"reframe": "fit"` for non-16:9 sources (720x900 sarkara: full width
+  over a blurred copy, picture ends above the subtitles); per-reel `"glitch_ok"`
+  for source ranges that look like glitches but are real content (the newspaper
+  clipping and government order shown full-screen at 47-51s and 64-66.6s).
+- **Cuts** are placed from the Kannada captions at real pauses; every reel was
+  checked for size, <60s, English spelling, trailing quiet >= 0.35s, glitches,
+  and frames were viewed. Kannada checks ran on the descriptions/hashtags.
+- Old "ep01" reels (deleted earlier) are not reused; ep01 numbering restarts at 01.
+- ASR study findings are in `docs/NOTES.md`.

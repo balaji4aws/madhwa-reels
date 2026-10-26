@@ -184,8 +184,13 @@ def build(spec, reel):
     #    ([[src_start, src_end], ...]) or the build stops.
     holds = reel.get("hold_frames", [])
     flagged, _ = glitch_scan(src, reel["start"], reel["end"])
+    # "glitch_ok": source ranges that look like glitches to the scanner but are
+    # real content (e.g. a newspaper clipping or a document shown full-screen
+    # in the uploader's video). Owner-visible, so list them in reels.json.
+    glitch_ok = reel.get("glitch_ok", [])
     uncovered = [(a, b) for a, b in flagged
-                 if not any(h0 <= a + 0.01 and b - 0.01 <= h1 for h0, h1 in holds)]
+                 if not any(h0 <= a + 0.01 and b - 0.01 <= h1 for h0, h1 in holds)
+                 and not any(o0 - 0.05 <= a and b <= o1 + 0.05 for o0, o1 in glitch_ok)]
     if uncovered:
         raise ValueError(f"{nn}: source has glitch frames at "
                          + ", ".join(f"{a:.2f}-{b:.2f}s" for a, b in uncovered)
@@ -235,9 +240,19 @@ def build(spec, reel):
     for p, _, _ in subs:
         inputs += ["-i", p]
     inputs += ["-i", WATERMARK]
-    fc = ("[0:v]scale=1920:1080[scaled];"
-          + crop_reframe_filter(src_label="scaled", crop_x=spec["crop_x"])
-          + "[reframed][1:v]overlay=0:0[v0];")
+    if spec.get("reframe") == "fit":
+        # Non-16:9 source (e.g. 720x900): scale to the full 1080 width, put it
+        # near the top over a blurred copy of itself. The picture ends above
+        # the subtitle band (y~1540), so nothing is cropped or covered.
+        fit_y = int(spec.get("fit_y", 170))
+        fc = ("[0:v]split=2[fa][fb];"
+              "[fa]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:5[fbg];"
+              f"[fb]scale=1080:-2[ffg];[fbg][ffg]overlay=0:{fit_y}[reframed];"
+              "[reframed][1:v]overlay=0:0[v0];")
+    else:
+        fc = ("[0:v]scale=1920:1080[scaled];"
+              + crop_reframe_filter(src_label="scaled", crop_x=spec["crop_x"])
+              + "[reframed][1:v]overlay=0:0[v0];")
     prev = "v0"
     for i, (_, s, e) in enumerate(subs):
         fc += f"[{prev}][{i + 2}:v]overlay=0:0:enable='between(t,{s},{e})'[vs{i}];"
@@ -270,8 +285,10 @@ def build(spec, reel):
     #    check). Held frames are frozen on purpose, so they are excluded.
     held = [(h0 - reel["start"], h1 - reel["start"]) for h0, h1 in holds]
     bad, _ = glitch_scan(out)
+    ok_rel = [(o0 - reel["start"], o1 - reel["start"]) for o0, o1 in glitch_ok]
     bad = [(a, b) for a, b in bad
-           if not any(h0 - 0.3 <= a and b <= h1 + 0.3 for h0, h1 in held)]
+           if not any(h0 - 0.3 <= a and b <= h1 + 0.3 for h0, h1 in held)
+           and not any(o0 - 0.3 <= a and b <= o1 + 0.3 for o0, o1 in ok_rel)]
     if bad:
         raise RuntimeError(f"{nn}: finished reel has glitch frames at "
                            + ", ".join(f"{a:.2f}-{b:.2f}s" for a, b in bad)
