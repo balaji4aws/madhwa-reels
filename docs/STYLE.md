@@ -497,3 +497,21 @@ rule rather than leaving every scratch file forever:
   are finished — but the channel owner's standing preference (2026-10-23) is to
   **keep the sources** (and, since 2026-10-23, the finished reels too). Don't delete a source unless the owner explicitly says so for a
   specific slug; re-downloading costs time and more reels are often cut later.
+
+## Additions (2026-10-26)
+
+- **Release rate: two reels a day, 6:00 AM and 6:00 PM IST** (owner). Always
+  `--schedule-daily`; each slot holds one reel.
+- **Subtitle pill background:** on sources where the lower part of the frame is
+  dark (ep03, ep04), the pill blends into it. The white text stays readable;
+  this was accepted.
+- **Non-16:9 sources:** `"reframe": "fit"` in `reels.json` (see WORKFLOW.md). The
+  picture sits near the top (y 170 to about 1520), above the subtitle band.
+- **Speaker credit** is now on every source. The Madhva Jayanti announcement
+  (`madhwajayanti-sarkara`) is credited the same way (Sri Satyatmateertha
+  Shripadangalavaru).
+- **ASR study** (better Kannada speech-to-text): see `docs/NOTES.md`. Result: not
+  adopted for the standard flow; optional for shloka clips only. The old
+  Whisper rule above still stands.
+- **Checks:** `tools/check_slug.py <slug>` replaces per-slug `check_reel.py`
+  copies for new sources (older sources keep theirs).

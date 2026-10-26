@@ -82,3 +82,13 @@ upload/.venv/bin/python upload/youtube_upload.py --set-privacy <VIDEO_ID> --priv
 - **Shorts:** the script adds `#Shorts` to the title and the video is already
   1080x1920 ≤60s, so YouTube files it as a Short automatically.
 - **Title/description/tags** come from the reel's `.caption.txt` sidecar.
+
+## Scheduling (added 2026-10-26)
+- `--schedule-daily` books the next free **6 AM or 6 PM IST** slot (two reels a
+  day). The booked slots are also kept in `upload/schedule_ledger.json`, because
+  YouTube's own list does not show a just-scheduled private video straight away.
+- `--next-slot` prints the next free slot. `--reschedule-pending preview|apply`
+  packs the still-scheduled reels into the earliest free slots (owner request only).
+- `--update-description VIDEO_ID --caption file.caption.txt` fixes a live or
+  scheduled video's description and tags without a re-upload.
+- Batch helper: `python3 tools/upload_batch.py <slug> NN [NN ...]`.

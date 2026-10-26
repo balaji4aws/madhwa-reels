@@ -1796,3 +1796,22 @@ SOURCES.md: 10 rows added with "goes live DATE, 6 PM IST".
   and frames were viewed. Kannada checks ran on the descriptions/hashtags.
 - Old "ep01" reels (deleted earlier) are not reused; ep01 numbering restarts at 01.
 - ASR study findings are in `docs/NOTES.md`.
+
+## 2026-10-26 (end of session) — ASR cost study, handoff to Kiro Crew
+
+- **ASR cost study** (time, compute, disk) measured and written into
+  `docs/NOTES.md`. Short answer: the ASR makes reel-making slower and heavier and
+  saves no thinking time; about 14 to 35 min more machine time per 140 min of
+  talks, about 9 GB of memory while running, about 17 GB of extra disk. Optional
+  for shloka clips only.
+- **Helper scripts moved from temporary files into `tools/`** so they survive:
+  `vtt2txt.py`, `cut_inspect.py`, `pauses.py`, `cue_rel.py`, `frame_sheet.py`,
+  `upload_batch.py` (logs to `upload/upload_log.tsv`), `spec_common.py`.
+- **Docs refreshed:** README, WORKFLOW (helper table, `reframe: fit`,
+  `glitch_ok`, batch upload), STYLE (additions section), GUARDRAILS (RAG repo
+  read-only, re-scheduling, slot rules), upload/SETUP (scheduling), SOURCES (last
+  release date), and the Kiro steering rule file.
+- **New: `docs/KIROCREW_HANDOFF.md`**, a full knowledge transfer for Kiro Crew,
+  because the project moves from the Kiro IDE to Kiro Crew.
+- State at hand-off: 56 reels (23 public, 33 scheduled); last scheduled release
+  **2026-11-11, 6 PM IST**; next free slot 2026-11-12, 6 AM IST.

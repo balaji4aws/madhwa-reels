@@ -30,8 +30,10 @@ reels in a consistent style, checks them, and uploads them.
    around the speaker, with a title, spell-checked English subtitles, a soft
    fade at each end, and the channel watermark.
 5. **Check.** Every reel is checked before it goes out (see below).
-6. **Upload.** Reels that pass go straight to YouTube Shorts as public, up to
-   YouTube's daily upload limit (anything over it goes the next day). Instagram
+6. **Upload.** Reels that pass are uploaded straight to YouTube Shorts and
+   **scheduled two a day, at 6 AM and 6 PM India time** (YouTube releases them
+   by itself, so the laptop can be off). Anything over YouTube's daily upload
+   limit goes the next day. Instagram
    is posted by hand using the prepared title, description and hashtags. All
    reels and source videos are kept on this machine.
 
@@ -57,7 +59,8 @@ reels in a consistent style, checks them, and uploads them.
 madhwa reels/
 ├── README.md        ← this file
 ├── docs/            ← how-to and rules (see below)
-├── tools/           ← shared scripts used for every video
+├── tools/           ← shared scripts used for every video (builder, checks,
+│                      cut helpers, batch uploader)
 ├── assets/          ← channel watermark + brand icon
 ├── upload/          ← the YouTube upload script
 ├── sources/<slug>/  ← downloaded videos (not on GitHub)
@@ -72,10 +75,18 @@ madhwa reels/
 - `docs/GUARDRAILS.md`: what the assistant must never do without asking.
 - `docs/SOURCES.md`: every reel made, with its YouTube link.
 - `docs/CHANGELOG.md`: dated log of what was tried and what was learned.
+- `docs/NOTES.md`: the ASR study (would better Kannada speech-to-text help?),
+  including its time, compute and disk cost, and the owner's decisions of
+  2026-10-26.
+- `docs/KIROCREW_HANDOFF.md`: everything a new assistant (Kiro Crew) needs to
+  take over this project: history, state, rules, commands, lessons.
 
 ---
 
 ## Worth knowing
+- 56 reels are on the channel or scheduled (see `docs/SOURCES.md`). The last
+  one is scheduled for **2026-11-11, 6 PM IST**; the next free slot is
+  2026-11-12, 6 AM IST.
 
 - The English subtitles come from YouTube's automatic captions and
   translation of the Kannada audio. They are cleaned up for spelling, but

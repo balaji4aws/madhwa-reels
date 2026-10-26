@@ -13,6 +13,25 @@ that has Pillow: `/Users/venkyb/envs/bie-work/bin/python3`.
 
 ---
 
+## Helper tools (all in `tools/`, run from the project folder)
+| Tool | What it does |
+|------|--------------|
+| `vtt2txt.py <vtt> [secs]` | Caption file to readable text chunks: read a whole talk fast |
+| `cut_inspect.py <slug> <a> <b>` | Kannada cue lines + real speech pauses for a window: choose cut points |
+| `pauses.py <slug> <a> <b> [min]` | Finer pause list, to check the exact tail of a planned cut |
+| `cue_rel.py <slug> <a> <b>` | Kannada/English cues with times relative to the cut: time your subtitle lines |
+| `reel_builder.py <slug> [NN..]` | Build reels from `work/<slug>/reels.json` |
+| `check_slug.py <slug> [NN..]` | Size, <60s, spelling, trailing quiet, cut check for every reel of a slug |
+| `frame_sheet.py out.png reel@sec ...` | Side-by-side frames for the visual check |
+| `upload_batch.py <slug> NN ..` | Upload and schedule reels one by one; logs to `upload/upload_log.tsv` |
+| `spec_common.py` | Helpers to write `reels.json` from code |
+| `glitch_scan.py`, `kannada_check.py`, `clip_cutter.py`, `overlays_lib.py`, `fade_clip.py`, `reel_numbering.py`, `sanskrit_terms.py` | Shared libraries and checks |
+
+Source videos that are not 16:9 (for example a 720x900 clip): set
+`"reframe": "fit"` in `reels.json` (full width over a blurred copy; optional
+`"fit_y"`, default 170). Source ranges that the glitch scan flags but are real
+content (a newspaper shown full screen) go in the reel's `"glitch_ok"` list.
+
 ## 1. Download the source
 
 - Get the **full** video with `yt-dlp --cookies-from-browser chrome`, plus
@@ -145,6 +164,7 @@ direction, 2026-10-23); the owner reviews on the channel.
 - **Two reels a day, at 6:00 AM and 6:00 PM IST** (owner rule, 2026-10-26; was one a day at 6 PM). Upload each
   finished reel as scheduled, one at a time, from the project folder:
   `upload/.venv/bin/python upload/youtube_upload.py reels/<slug>/<reel>.mp4 --schedule-daily`
+  (or many at once: `python3 tools/upload_batch.py <slug> 1 2 3 ...`)
   It takes the next free 6 AM / 6 PM slot and schedules this reel for it.
   `--reschedule-pending apply` re-packs reels still scheduled into those slots. YouTube publishes it on its own servers, so the
   laptop can be asleep or off. `--next-slot` shows the next free slot

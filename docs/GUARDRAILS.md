@@ -94,3 +94,16 @@ When a new close call happens (a near-miss, a surprising side effect, a
 destructive action that almost went wrong), add a rule here — and record the
 actual story behind it in `docs/CHANGELOG.md` so the rule doesn't read as
 arbitrary years later.
+
+## Added 2026-10-26
+- **Do not modify the `madhwa-pravachana-RAG` repo** (the owner's ASR project,
+  next to this one). Read its code and run it read-only
+  (`PYTHONDONTWRITEBYTECODE=1`, `HF_HUB_OFFLINE=1`), write outputs only to a
+  temp folder. Do not install its packages into any shared Python.
+- **Re-scheduling live videos** (`--reschedule-pending apply`) changes publish
+  times of reels already on the channel. Do it only when the owner asks, and show
+  the old and new times first (`preview`).
+- **Schedule slots are 6 AM and 6 PM IST.** Never put two reels in one slot and
+  never publish one immediately unless the owner asks.
+- Never start a bulk upload (more than a handful of reels) without the owner
+  having asked for those reels in the current conversation.

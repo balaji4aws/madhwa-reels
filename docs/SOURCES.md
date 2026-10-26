@@ -4,6 +4,8 @@ Every reel made, one row per reel. **No YouTube link = not uploaded yet.**
 **Date** = the day the reel went public on YouTube (India time). For a
 scheduled reel it says *goes live DATE, 6 AM or 6 PM IST*: uploaded, and YouTube makes it public then.
 
+Last scheduled release: **2026-11-11, 6 PM IST**. Next free slot: 2026-11-12, 6 AM IST.
+
 | Source | Reel | Date | YouTube |
 |--------|------|------|---------|
 | [venkatachala-ep06](https://www.youtube.com/watch?v=DoHq0Eh9Rvo) | 03 · There's No Friend Like a Mother | 2026-10-23 | [youtu.be/eHx0uUuX354](https://youtu.be/eHx0uUuX354) |
