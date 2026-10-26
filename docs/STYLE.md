@@ -458,9 +458,9 @@ calling a reel done.
   "Verification" below (automated + the finished-file ending check + a visual
   look at frames), upload it to YouTube directly. The owner reviews on the
   channel instead.
-- **Post one reel a day, at 6:00 PM IST (owner rule, 2026-10-23).** Build in
+- **Post two reels a day, at 6:00 AM and 6:00 PM IST (owner rule, 2026-10-26; was one a day at 6 PM).** Build in
   batches, but upload each reel with `--schedule-daily`. YouTube's scheduled
-  publishing releases one per day at 6:00 PM IST from its own servers, so a
+  publishing releases two per day (6 AM and 6 PM IST) from its own servers, so a
   sleeping or closed laptop never makes a day get missed. Evening is when the
   India audience is most active. Don't change the slot without asking.
 - **Respect YouTube's daily limit.** The exact limit isn't known: 20 uploads

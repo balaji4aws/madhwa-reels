@@ -2,7 +2,7 @@
 
 Every reel made, one row per reel. **No YouTube link = not uploaded yet.**
 **Date** = the day the reel went public on YouTube (India time). For a
-scheduled reel it says *goes live DATE, 6 PM IST*: uploaded, and YouTube makes it public then.
+scheduled reel it says *goes live DATE, 6 AM or 6 PM IST*: uploaded, and YouTube makes it public then.
 
 | Source | Reel | Date | YouTube |
 |--------|------|------|---------|
@@ -28,12 +28,12 @@ scheduled reel it says *goes live DATE, 6 PM IST*: uploaded, and YouTube makes i
 | [madhwacharya-avatara](https://www.youtube.com/watch?v=Ww7105ppkyg) | 04 · Helping Others Is Like Paying Tax | 2026-10-23 | [youtu.be/V2OHIoGtvg4](https://youtu.be/V2OHIoGtvg4) |
 | [madhwacharya-avatara](https://www.youtube.com/watch?v=Ww7105ppkyg) | 05 · Serve Everyone — That Is Worship | 2026-10-23 | [youtu.be/zDrkEcRbv84](https://youtu.be/zDrkEcRbv84) |
 | [venkatachala-ep05](https://www.youtube.com/watch?v=8lYvO6Z6d6c) | 01 · No One Works Faster Than Rama | goes live 2026-10-26, 6 PM IST | [youtu.be/Xl8zvb5S3ZA](https://youtu.be/Xl8zvb5S3ZA) |
-| [venkatachala-ep05](https://www.youtube.com/watch?v=8lYvO6Z6d6c) | 02 · Before Any Good Work, Respect the Gods | goes live 2026-10-30, 6 PM IST | [youtu.be/yXR8Eud4XIg](https://youtu.be/yXR8Eud4XIg) |
+| [venkatachala-ep05](https://www.youtube.com/watch?v=8lYvO6Z6d6c) | 02 · Before Any Good Work, Respect the Gods | goes live 2026-10-28, 6 PM IST | [youtu.be/yXR8Eud4XIg](https://youtu.be/yXR8Eud4XIg) |
 | [venkatachala-ep05](https://www.youtube.com/watch?v=8lYvO6Z6d6c) | 03 · Begin Every Task With a Bow | 2026-10-24 | [youtu.be/YwrblRxE6P8](https://youtu.be/YwrblRxE6P8) |
-| [venkatachala-ep05](https://www.youtube.com/watch?v=8lYvO6Z6d6c) | 04 · Who Makes a Good Marriage Happen? | goes live 2026-11-01, 6 PM IST | [youtu.be/LamkVBCHJlM](https://youtu.be/LamkVBCHJlM) |
-| [venkatachala-ep05](https://www.youtube.com/watch?v=8lYvO6Z6d6c) | 05 · The Lord's Wondrous Disguise | goes live 2026-10-28, 6 PM IST | [youtu.be/rmGNlXmYz6A](https://youtu.be/rmGNlXmYz6A) |
-| [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 01 · 564 Sutras in One Word: Rama | goes live 2026-10-31, 6 PM IST | [youtu.be/WHnpQmBesCw](https://youtu.be/WHnpQmBesCw) |
-| [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 02 · Debt or Not, Feed Everyone | goes live 2026-10-29, 6 PM IST | [youtu.be/bwAs9LRBbBE](https://youtu.be/bwAs9LRBbBE) |
-| [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 03 · "You Are My Refuge" — A Disciple Clears His Guru's Debt | goes live 2026-10-27, 6 PM IST | [youtu.be/EUmcCMAzDxI](https://youtu.be/EUmcCMAzDxI) |
+| [venkatachala-ep05](https://www.youtube.com/watch?v=8lYvO6Z6d6c) | 04 · Who Makes a Good Marriage Happen? | goes live 2026-10-29, 6 PM IST | [youtu.be/LamkVBCHJlM](https://youtu.be/LamkVBCHJlM) |
+| [venkatachala-ep05](https://www.youtube.com/watch?v=8lYvO6Z6d6c) | 05 · The Lord's Wondrous Disguise | goes live 2026-10-27, 6 PM IST | [youtu.be/rmGNlXmYz6A](https://youtu.be/rmGNlXmYz6A) |
+| [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 01 · 564 Sutras in One Word: Rama | goes live 2026-10-29, 6 AM IST | [youtu.be/WHnpQmBesCw](https://youtu.be/WHnpQmBesCw) |
+| [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 02 · Debt or Not, Feed Everyone | goes live 2026-10-28, 6 AM IST | [youtu.be/bwAs9LRBbBE](https://youtu.be/bwAs9LRBbBE) |
+| [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 03 · "You Are My Refuge" — A Disciple Clears His Guru's Debt | goes live 2026-10-27, 6 AM IST | [youtu.be/EUmcCMAzDxI](https://youtu.be/EUmcCMAzDxI) |
 | [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 04 · Devoted to Truth, Not to Money | 2026-10-25 | [youtu.be/T9TZZdyl9m8](https://youtu.be/T9TZZdyl9m8) |
-| [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 05 · A Prayer for Every Devotee | goes live 2026-11-02, 6 PM IST | [youtu.be/AvinjjONmaE](https://youtu.be/AvinjjONmaE) |
+| [satyaparayana-mahime](https://www.youtube.com/watch?v=STkFaeM7YQg) | 05 · A Prayer for Every Devotee | goes live 2026-10-30, 6 AM IST | [youtu.be/AvinjjONmaE](https://youtu.be/AvinjjONmaE) |

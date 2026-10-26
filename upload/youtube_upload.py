@@ -135,16 +135,13 @@ def _record_slot(video_id, when, path):
         json.dump(led, f, indent=2)
 
 
-DAILY_SLOT_IST = (18, 0)          # owner rule 2026-10-23: one reel a day, 6:00 PM IST
+DAILY_SLOTS_IST = ((6, 0), (18, 0))   # owner rule 2026-10-26: two reels a day, 6:00 AM and 6:00 PM IST
 
 
-def next_daily_slot(yt):
-    """Next 6:00 PM IST slot on a day that has no reel going public yet.
-
-    Looks at the channel's uploads: a day is taken if a video was published
-    on it, or a scheduled (private + publishAt) video is set for it. YouTube
-    itself makes scheduled videos public at publishAt, so the laptop can be
-    asleep or off at that time."""
+def _booked_slots(yt):
+    """Set of publish times (IST, minute precision) already booked: scheduled
+    videos on the channel (private + publishAt in the future) plus our ledger
+    (YouTube's uploads list lags behind a just-scheduled video)."""
     from datetime import datetime, timedelta, timezone
     ist = timezone(timedelta(hours=5, minutes=30))
     ch = yt.channels().list(part="contentDetails", mine=True).execute()["items"][0]
@@ -159,24 +156,68 @@ def next_daily_slot(yt):
             break
     taken = set()
     for i in range(0, len(ids), 50):
-        r = yt.videos().list(part="status,snippet", id=",".join(ids[i:i + 50])).execute()
+        r = yt.videos().list(part="status", id=",".join(ids[i:i + 50])).execute()
         for v in r["items"]:
-            when = v["status"].get("publishAt") or v["snippet"].get("publishedAt")
+            when = v["status"].get("publishAt")
             if when:
-                taken.add(datetime.fromisoformat(when.replace("Z", "+00:00")).astimezone(ist).date())
-    # YouTube's uploads list does NOT show a just-scheduled private video right
-    # away (found 2026-10-23: 10 back-to-back uploads got 2 per day). So also
-    # read our own ledger of every slot we've booked.
+                taken.add(datetime.fromisoformat(when.replace("Z", "+00:00")).astimezone(ist).replace(second=0, microsecond=0))
     for v in _read_ledger().values():
-        taken.add(datetime.fromisoformat(v["publish_at"]).astimezone(ist).date())
-    now = datetime.now(ist)
-    day = now.date()
-    slot = now.replace(hour=DAILY_SLOT_IST[0], minute=DAILY_SLOT_IST[1], second=0, microsecond=0)
-    if now >= slot - timedelta(minutes=30):   # too close to (or past) today's slot
+        taken.add(datetime.fromisoformat(v["publish_at"]).astimezone(ist).replace(second=0, microsecond=0))
+    return taken
+
+
+def next_daily_slot(yt, taken=None, after=None):
+    """Next free 6:00 AM / 6:00 PM IST slot (two reels a day).
+
+    YouTube itself makes scheduled videos public at publishAt, so the laptop
+    can be asleep or off at that time."""
+    from datetime import datetime, timedelta, timezone
+    ist = timezone(timedelta(hours=5, minutes=30))
+    taken = _booked_slots(yt) if taken is None else taken
+    earliest = after or (datetime.now(ist) + timedelta(minutes=30))
+    day = earliest.date()
+    while True:
+        for h, m in DAILY_SLOTS_IST:
+            slot = datetime(day.year, day.month, day.day, h, m, tzinfo=ist)
+            if slot >= earliest and slot not in taken:
+                return slot
         day += timedelta(days=1)
-    while day in taken:
-        day += timedelta(days=1)
-    return datetime(day.year, day.month, day.day, *DAILY_SLOT_IST, tzinfo=ist)
+
+
+def reschedule_all(yt, apply=False):
+    """Re-pack every still-scheduled reel (in our ledger, publish time in the
+    future) into the 6 AM / 6 PM slots, keeping their order."""
+    import json
+    from datetime import datetime, timedelta, timezone
+    ist = timezone(timedelta(hours=5, minutes=30))
+    led = _read_ledger()
+    now = datetime.now(ist) + timedelta(minutes=30)
+    pending = sorted((datetime.fromisoformat(v["publish_at"]), k) for k, v in led.items()
+                     if datetime.fromisoformat(v["publish_at"]) > now)
+    taken = {datetime.fromisoformat(v["publish_at"]).astimezone(ist).replace(second=0, microsecond=0)
+             for k, v in led.items() if k not in {k2 for _, k2 in pending}}
+    cursor = now
+    plan = []
+    for old, vid in pending:
+        slot = next_daily_slot(yt, taken, cursor)
+        taken.add(slot)
+        cursor = slot + timedelta(minutes=1)
+        plan.append((vid, old, slot))
+    for vid, old, slot in plan:
+        print(f"{vid}: {old:%Y-%m-%d %H:%M} -> {slot:%Y-%m-%d %H:%M} IST")
+        if apply:
+            items = yt.videos().list(part="status", id=vid).execute().get("items", [])
+            if not items:
+                print("   not found on channel, skipped")
+                continue
+            st = items[0]["status"]
+            st["publishAt"] = slot.isoformat()
+            yt.videos().update(part="status", body={"id": vid, "status": st}).execute()
+            led[vid]["publish_at"] = slot.isoformat()
+    if apply:
+        with open(LEDGER, "w") as f:
+            json.dump(led, f, indent=2)
+    return plan
 
 
 def delete_video(video_id):
@@ -211,8 +252,10 @@ def main():
                          "--yes is also given. The replacement gets a NEW "
                          "video ID/URL -- YouTube has no in-place file swap.")
     ap.add_argument("--schedule-daily", action="store_true",
-                    help="schedule for the next free 6:00 PM IST daily slot "
-                         "(one reel a day; YouTube publishes it automatically)")
+                    help="schedule for the next free 6:00 AM / 6:00 PM IST slot "
+                         "(two reels a day; YouTube publishes it automatically)")
+    ap.add_argument("--reschedule-pending", choices=["preview", "apply"],
+                    help="re-pack all still-scheduled reels into the 6 AM / 6 PM slots")
     ap.add_argument("--publish-at", metavar="ISO_TIME",
                     help="schedule for an exact time, e.g. 2026-10-25T19:00:00+05:30")
     ap.add_argument("--next-slot", action="store_true",
@@ -223,6 +266,10 @@ def main():
                          "video's sidecar). Same video/URL, no re-upload; the "
                          "title is not changed.")
     args = ap.parse_args()
+
+    if args.reschedule_pending:
+        reschedule_all(get_service(), apply=args.reschedule_pending == "apply")
+        return
 
     if args.next_slot:
         print("Next free daily slot:", next_daily_slot(get_service()).strftime("%Y-%m-%d %H:%M IST"))

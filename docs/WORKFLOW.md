@@ -142,12 +142,12 @@ Then check by hand:
 Once step 6 passes, upload directly. No owner review is needed (owner
 direction, 2026-10-23); the owner reviews on the channel.
 
-- **One reel a day, at 6:00 PM IST** (owner rule, 2026-10-23). Upload each
+- **Two reels a day, at 6:00 AM and 6:00 PM IST** (owner rule, 2026-10-26; was one a day at 6 PM). Upload each
   finished reel as scheduled, one at a time, from the project folder:
   `upload/.venv/bin/python upload/youtube_upload.py reels/<slug>/<reel>.mp4 --schedule-daily`
-  It takes the next day with no reel going public and schedules this reel
-  for 6:00 PM IST that day. YouTube publishes it on its own servers, so the
-  laptop can be asleep or off. `--next-slot` shows the next free day
+  It takes the next free 6 AM / 6 PM slot and schedules this reel for it.
+  `--reschedule-pending apply` re-packs reels still scheduled into those slots. YouTube publishes it on its own servers, so the
+  laptop can be asleep or off. `--next-slot` shows the next free slot
   without uploading. Each upload's `.caption.txt` supplies the
   title/description/hashtags.
 - Uploading without `--schedule-daily` publishes immediately. Use that only

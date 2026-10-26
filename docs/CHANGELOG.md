@@ -1764,3 +1764,12 @@ moved (status update only, no delete/re-upload) to one per day, 24 Oct – 2 Nov
 counts it as taken; next free slot correctly reports 3 Nov.
 
 SOURCES.md: 10 rows added with "goes live DATE, 6 PM IST".
+
+## 2026-10-26 — Two reels a day (6 AM and 6 PM IST)
+
+- Owner rule: two reels a day. `youtube_upload.py` now has two slots
+  (`DAILY_SLOTS_IST`), checks each slot separately, and has
+  `--reschedule-pending preview|apply`.
+- Re-scheduled the 8 pending reels on YouTube (verified through the API):
+  26 Oct 6 PM, 27 Oct 6 AM/6 PM, 28 Oct 6 AM/6 PM, 29 Oct 6 AM/6 PM, 30 Oct 6 AM.
+  Next free slot: 30 Oct 6 PM. SOURCES.md updated.
