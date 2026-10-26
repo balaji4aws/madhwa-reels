@@ -9,4 +9,8 @@ for i, s in enumerate(sys.argv[2:]):
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", t, "-i", f, "-frames:v", "1", p], check=True); ims.append(p)
 cmd = ["ffmpeg", "-v", "error", "-y"]
 for p in ims: cmd += ["-i", p]
-cmd += ["-filter_complex", f"hstack=inputs={len(ims)},scale=1440:-1", out]; subprocess.run(cmd, check=True)
+if len(ims) == 1:
+    cmd += ["-vf", "scale=720:-1", out]
+else:
+    cmd += ["-filter_complex", f"hstack=inputs={len(ims)},scale=1440:-1", out]
+subprocess.run(cmd, check=True)
