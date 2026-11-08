@@ -6,7 +6,7 @@ YouTube link hasn't been uploaded yet.
 **Date** is the day the reel went public on YouTube (India time). *Goes live
 DATE* means it is uploaded and YouTube will make it public then.
 
-Last scheduled release: **2026-11-14, 6 PM IST**. Next free slot: 2026-11-15, 6 AM IST.
+Last scheduled release: **2026-11-17, 6 PM IST**. Next free slot: 2026-11-18, 6 AM IST.
 
 | Source | Reel | Date | YouTube |
 |--------|------|------|---------|
@@ -75,6 +75,12 @@ Last scheduled release: **2026-11-14, 6 PM IST**. Next free slot: 2026-11-15, 6 
 | [madhwa-mata-prabhanjanacharya](https://www.youtube.com/watch?v=a78fCnn9PNY) | 04 · They Raised You, Don't Abandon Them | goes live 2026-11-13, 6 PM IST | [youtu.be/ie__BrggEoA](https://youtu.be/ie__BrggEoA) |
 | [madhwa-mata-prabhanjanacharya](https://www.youtube.com/watch?v=a78fCnn9PNY) | 05 · Without Prana, Nothing Works | goes live 2026-11-14, 6 AM IST | [youtu.be/KtySPZxXK-0](https://youtu.be/KtySPZxXK-0) |
 | [madhwa-mata-prabhanjanacharya](https://www.youtube.com/watch?v=a78fCnn9PNY) | 06 · Retired? Study, Stay Young | goes live 2026-11-14, 6 PM IST | [youtu.be/u1A-i4Yq7s0](https://youtu.be/u1A-i4Yq7s0) |
+| [sandhyavandane-tulasi-prabhanjanacharya](https://www.youtube.com/watch?v=Bwihw3p33HU) | 01 · Your Most Important Food: Air | goes live 2026-11-15, 6 AM IST | [youtu.be/ns7OthDG1lE](https://youtu.be/ns7OthDG1lE) |
+| [sandhyavandane-tulasi-prabhanjanacharya](https://www.youtube.com/watch?v=Bwihw3p33HU) | 02 · A Bath Cleans the Outside, Breath the Inside | goes live 2026-11-15, 6 PM IST | [youtu.be/_4k2-WrHJ-I](https://youtu.be/_4k2-WrHJ-I) |
+| [sandhyavandane-tulasi-prabhanjanacharya](https://www.youtube.com/watch?v=Bwihw3p33HU) | 03 · Health Till Your Last Day: Arghya | goes live 2026-11-16, 6 AM IST | [youtu.be/pkHjApAIZKg](https://youtu.be/pkHjApAIZKg) |
+| [sandhyavandane-tulasi-prabhanjanacharya](https://www.youtube.com/watch?v=Bwihw3p33HU) | 04 · 10 Minutes at Dawn Beats 3 Hours at Night | goes live 2026-11-16, 6 PM IST | [youtu.be/2jJf_7Y8msI](https://youtu.be/2jJf_7Y8msI) |
+| [sandhyavandane-tulasi-prabhanjanacharya](https://www.youtube.com/watch?v=Bwihw3p33HU) | 05 · Even the Breeze Over Tulasi Is Sacred | goes live 2026-11-17, 6 AM IST | [youtu.be/TLfei8U4gu0](https://youtu.be/TLfei8U4gu0) |
+| [sandhyavandane-tulasi-prabhanjanacharya](https://www.youtube.com/watch?v=Bwihw3p33HU) | 06 · The Eyes Are the Index of the Face | goes live 2026-11-17, 6 PM IST | [youtu.be/f_RPCPkyrpE](https://youtu.be/f_RPCPkyrpE) |
 
 ## Unused good moments (candidates for future reels)
 
