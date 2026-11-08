@@ -1,103 +1,75 @@
-# Workflow: from a long talk to live reels
+# Workflow: how a talk becomes reels
 
-This is what happens to each talk, in order. How each reel should look is in
-`STYLE.md`; things never to do are in `GUARDRAILS.md`.
+This is the pipeline at a high level. How a reel should look is in
+`STYLE.md`; the checks and safeguards are in `GUARDRAILS.md`.
 
-**In one line:** get the talk, pick the moments, cut, style, check, schedule,
-record.
+```
+ Talk link
+    │
+    ▼
+ 1. Download ──► 2. Transcript ──► 3. Pick moments ──► 4. Place cuts
+                                                          │
+    ┌─────────────────────────────────────────────────────┘
+    ▼
+ 5. Build reel ──► 6. Check ──► 7. Schedule on YouTube ──► 8. Record
+```
 
-## 1. Get the talk
+## 1. Download
 
-- The **full** talk is downloaded once, with its Kannada and English
-  captions. Never a trimmed piece.
-- The whole video is scanned for glitches (placeholder cards, black flashes)
-  so no reel is cut across one.
-- The talk gets a short name, its *slug* (for example `venkatachala-ep07`),
-  used in every file name after that.
-- If a talk was already used before, it is used again on purpose: the new
-  reels must be different moments from the ones already made.
+The owner shares a YouTube link. The **whole** talk is downloaded once, never
+a trimmed piece. Every frame is scanned for glitches, such as black flashes or
+placeholder cards, so no reel is cut across one.
 
-## 2. Pick the moments
+## 2. Transcript
 
-The captions are read to find moments that **end on a complete thought**:
-advice from the speaker, or the high point of a story. Each reel is under 60
-seconds and opens on its strongest line. See `STYLE.md` for the full rules.
+The words of the talk, with timings, are needed to find moments and write
+subtitles.
 
-## 3. Place the cuts
+- Usually this is **YouTube's own Kannada captions**, with YouTube's English
+  translation as a rough guide.
+- When a talk has no captions, a **dedicated Kannada speech-to-text model**
+  writes the transcript instead (see `NOTES.md`).
 
-Each start and end is moved to a real pause in the speech, lined up with where
-a Kannada sentence begins or ends. The English captions are not used for
-timing, because their timing doesn't follow the audio.
+## 3. Pick moments
 
-## 4. Cut and style
+The transcript is read in full to find moments that **stand on their own**:
 
-Each reel is described in a small spec: its start and end, its title, its
-subtitle lines with their timings, and its description. The builder in
-the builder then:
+- the speaker giving advice, or
+- the high point of a story,
 
-1. Crops the video to vertical around the speaker.
-2. Adds the title, the subtitles and the watermark.
-3. Adds the short fade at each end.
-4. Writes the finished reel plus a text file with its title, description
-   and hashtags.
+each **under 60 seconds** and ending on a complete thought. Passages that
+attack others are skipped. One talk usually gives five or six reels.
 
-The builder refuses a reel that is 60 seconds or longer, a subtitle line too
-long for one line, or a cut across a glitch.
+## 4. Place the cuts
 
-## 5. Check
+Each start and end is moved onto a **real pause** in the speech, measured from
+the audio itself. That way a reel never starts or stops in the middle of a
+word.
 
-Every check in `STYLE.md` ("Checks before a reel goes out") must pass:
-size, length, spelling in both languages, a clean ending, every frame scanned,
-and a look and a listen.
+## 5. Build the reel
 
-## 6. Schedule
+Each reel is written down as a short description: where it starts and ends,
+its title, its subtitle lines with their timings, and its YouTube description
+in English and Kannada. A builder then turns that into the finished video:
 
-Reels that pass are uploaded to YouTube and scheduled into the next free
-slot: 6 AM or 6 PM India time, one reel per slot. There is no extra review
-step; the owner reviews on the channel. Instagram is posted by hand.
+1. Cut the clip from the talk.
+2. Reframe it to vertical around the speaker.
+3. Add the title, the subtitles and the watermark.
+4. Fade the start and end.
 
-## 7. Record
+## 6. Check
 
-Each reel's YouTube link goes into `SOURCES.md` as soon as it's uploaded, and
-anything learned goes into `CHANGELOG.md`.
+Automatic checks run on every reel, then a person-style review: looking at
+frames and listening to the start and end. See `GUARDRAILS.md`.
 
-## Standing rules in one place
+## 7. Schedule
 
-- Every reel is **under 60 seconds** and ends on a complete thought.
-- **Two reels a day, one per slot.** Releasing many at once costs reach.
-- **English subtitles; English and Kannada descriptions.**
-- **Credit the speaker and Sri Uttaradhi Matha Adhyatmavani.** Never guess a
-  name.
-- **Spelling is checked every time.** Never invent a Sanskrit spelling.
-- **Live videos are only deleted, replaced or hidden when the owner names
-  them.** Replacing a video gives it a new link and resets its views.
-- **Instagram is always posted by hand.**
-- **The rules change only with the owner's agreement.** A one-off request is
-  not a new rule.
+Reels that pass are uploaded and scheduled on YouTube, **one reel per slot,
+at 6 AM and 6 PM India time**. YouTube releases them on its own. For a new
+speaker or a new look, one reel is uploaded first for the owner to review,
+and the rest follow once it's approved. Instagram is posted by hand.
 
-## Lessons learned (each one cost something)
+## 8. Record
 
-1. **Off-centre speaker:** every talk is filmed differently, so the crop is
-   worked out fresh for each talk and checked on a real frame.
-2. **Abrupt endings:** a cut at the end of a sentence isn't enough. The quiet
-   is measured on the finished reel, and the moment itself must be finished.
-3. **Hidden glitches:** one source had a 1.6-second "Missing File" card that a
-   sample frame missed. Now every frame is scanned.
-4. **Double-booked days:** YouTube doesn't always show a reel scheduled
-   minutes ago, so a local list of booked slots is kept.
-5. **Machine-made captions:** the English is a paraphrase, and verses are
-   often garbled. Verses are flagged for a person to check.
-6. **Kannada typing slips:** wrong vowel signs, or a letter from another
-   script, slip into descriptions. An automatic check catches them.
-7. **Reel numbers are never reused**, even after a reel is removed.
-
-## Known weak spots
-
-- The earliest reels have an older look and watermark. They haven't been
-  rebuilt.
-- On two talks the lower part of the picture is dark, so the subtitle band is
-  hard to see. The text itself stays readable.
-- Most English subtitles haven't been read against the Kannada by a person.
-- Long full talks hold almost no viewers on YouTube; short 3–6 minute pieces do
-  much better. No long-form flow exists yet.
-- The watermark sits close to the subtitles.
+Each reel's link goes into `SOURCES.md`, and anything learned goes into
+`CHANGELOG.md`.

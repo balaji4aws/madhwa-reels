@@ -1,49 +1,59 @@
 # Madhwa Reels
 
-Short vertical videos (reels) made from long devotional talks, for the
-**Madhwa16** channel on YouTube Shorts:
-[youtube.com/@madhwa16](https://www.youtube.com/@madhwa16/).
+Context for anyone, human or AI model, picking up this project. Read this
+first, then the docs it points to.
 
-## Why
+## Purpose
 
-The talks are full of practical wisdom, but most run an hour or more, and few
-people watch that on a phone. A 40-second clip of one clear teaching reaches
-far more people and points them back to the full talk and the speaker.
+This project turns long Kannada devotional talks (pravachanas) from the
+Madhwa (Dvaita) tradition into short vertical videos, called reels, for the
+**Madhwa16** YouTube channel: [youtube.com/@madhwa16](https://www.youtube.com/@madhwa16/).
 
-These scripts make every reel look the same and pass the same checks, so the
-time goes into choosing good moments, not into editing.
+## Why it exists
 
-## What a reel looks like
+- The talks carry practical, timeless teaching, but most run an hour or more.
+  Very few people watch that on a phone.
+- A reel of 30 to 50 seconds, holding one clear teaching, reaches far more
+  people and points them back to the full talk and the speaker.
+- The goal is to spread these teachings faithfully, not to entertain or to
+  win arguments. Accuracy and respect come before reach.
 
-- Vertical, under 60 seconds, one idea that ends on a complete thought.
-- A one-line title at the top, English subtitles, and the channel watermark.
-- The speaker is credited by name, with a link to the full talk.
+## What the project does
 
-## `docs/`: the rules and the record
+- Takes a talk the channel owner chooses.
+- Finds moments that stand on their own: the speaker's advice, or the high
+  point of a story.
+- Turns each moment into a reel with a title, English subtitles and the
+  channel watermark, all in one consistent look.
+- Checks every reel before it goes out, then schedules it on YouTube, two a
+  day.
+- Keeps a record of every reel and its source talk.
 
-| File | What it covers |
+## Principles to respect when working on it
+
+1. **Faithful to the speaker.** Subtitles give the meaning of what was said.
+   Nothing is invented, and Sanskrit verses or names are never guessed.
+2. **Credit always.** Every reel names the speaker with full respect and
+   links to the original talk. A speaker's name is never guessed; ask.
+3. **Nothing divisive.** Skip passages that attack other traditions,
+   communities or people. Prefer positive teaching.
+4. **The live channel is protected.** Deleting, replacing or hiding a
+   published video happens only when the owner names that video.
+5. **The owner decides the rules.** A one-off request is not a new standing
+   rule.
+
+## Where to read next
+
+| Doc | Read it for |
 |---|---|
-| [`STYLE.md`](docs/STYLE.md) | How every reel looks, how moments are chosen, and the checks before release. |
-| [`WORKFLOW.md`](docs/WORKFLOW.md) | The steps from a long talk to a live reel, plus lessons learned. |
-| [`GUARDRAILS.md`](docs/GUARDRAILS.md) | Things never done without the owner's say-so, like deleting a live video. |
-| [`SOURCES.md`](docs/SOURCES.md) | Every reel made so far, the talk it came from, and its YouTube link. |
-| [`CHANGELOG.md`](docs/CHANGELOG.md) | A short history of what changed and what was learned. |
-| [`NOTES.md`](docs/NOTES.md) | A small study: would better speech-to-text make better reels? |
+| [`docs/WORKFLOW.md`](docs/WORKFLOW.md) | How a talk becomes live reels, step by step, at a high level. |
+| [`docs/STYLE.md`](docs/STYLE.md) | Every style rule: framing, text, colours, timing, descriptions, credit. |
+| [`docs/GUARDRAILS.md`](docs/GUARDRAILS.md) | The checks and safeguards in place, and what is never done without asking. |
+| [`docs/NOTES.md`](docs/NOTES.md) | The speech-to-text models tried so far and what was learned. |
+| [`docs/SOURCES.md`](docs/SOURCES.md) | Every reel made, its source talk and its YouTube link. |
+| [`docs/CHANGELOG.md`](docs/CHANGELOG.md) | Dated history of decisions and lessons. |
 
-## How a reel is made
+## What is not in this repository
 
-1. **Read the talk** to find a moment that stands on its own: advice, or the
-   high point of a story.
-2. **Cut it** on real pauses in the speech, so it never ends mid-word.
-3. **Style it**: crop to vertical around the speaker, add the title, English
-   subtitles and the watermark, and fade the ends.
-4. **Check it**: size, length, spelling in English and Kannada, every frame
-   scanned for glitches, then a look and a listen.
-5. **Schedule it** on YouTube, two reels a day at 6 AM and 6 PM India time.
-
-The scripts that do this run locally and are not part of this repository.
-
-## Credit
-
-All talks belong to their speakers and the organisations that publish them.
-Every reel names the speaker and links back to the original talk.
+The videos, downloaded talks, scripts and upload login stay on the owner's
+computer. This repository holds the description of the project only.

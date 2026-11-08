@@ -1,103 +1,119 @@
-# Style: how every reel looks
+# Style: every rule for how a reel looks and reads
 
-These are the rules every reel on the **Madhwa16** channel follows
-([youtube.com/@madhwa16](https://www.youtube.com/@madhwa16/)). If a reel breaks
-one of them, it is fixed before it goes out.
+These rules apply to every reel on the **Madhwa16** channel
+([youtube.com/@madhwa16](https://www.youtube.com/@madhwa16/)). A reel that
+breaks one is fixed before it goes out.
 
-## The basics
+## 1. The video
 
-- **Vertical video**, 1080 x 1920 pixels (9:16), the shape of a phone screen.
-- **Always under 60 seconds.** This is a hard rule, not a target.
-- **One idea per reel**, ending on a complete thought.
+| Setting | Value |
+|---|---|
+| Shape | Vertical 9:16, 1080 x 1920 pixels, the shape of a phone screen |
+| Length | **Always under 60 seconds** (a hard rule). Most land at 30–50 seconds. |
+| Frame rate | 30 frames per second |
+| Fade | 0.2 seconds in and out, on picture and sound together |
+| Idea | One per reel, ending on a complete thought |
 
-## What's on screen
+## 2. Framing the speaker
 
-| Part | Where | How it looks |
+Talks are filmed in different ways, so the framing is set for each talk, never
+copied from another one.
+
+| Source video | How it's framed |
+|---|---|
+| **Wide (16:9), speaker facing the camera** | A vertical slice is cropped around the speaker's face. Any leftover space at the bottom is a soft blurred copy of the scene. |
+| **Wide, speaker turned sideways** | A **full-screen vertical cut** straight from the video, with room on the side the speaker is looking towards. If the source has its own name banner at the bottom, the cut stops just above it so no half-banner shows. |
+| **Already vertical** | Shown full width over a blurred copy of itself. |
+
+- The speaker's **face is always centred and fully in frame.** The crop is
+  checked on real frames from the talk before any reel is built.
+- No invented backgrounds and no colour fills made to match the speaker's
+  clothes. The picture always comes from the talk itself.
+
+## 3. Text on screen
+
+| Element | Where | Look |
 |---|---|---|
-| **Title** | Top of the frame | One line of English. The first words are white, the key phrase is saffron (`#F5A623`). On screen from the very first frame. |
-| **Speaker** | Middle | The original video is cropped around the speaker so their face is centred. Videos that are already vertical sit full width over a blurred copy of themselves. |
-| **Subtitles** | Lower middle | One line of English at a time, white text on a dark rounded band. Never smaller than 46 px, so it stays sharp on phones. |
-| **Watermark** | Just below the subtitles | The channel icon and its web address, on a dark rounded band so it reads on any background, even a white robe. |
+| **Title** | Top edge | One line of English in Noto Sans Bold, 38 px (shrinks to 32 px at most to fit). The first words are white, the key phrase is **saffron `#F5A623`**, on a dark rounded band. On screen from the very first frame. |
+| **Subtitles** | Lower middle (about 80% down) | One line of English at a time, Noto Sans Bold, 46 px, white on a dark rounded band. Never smaller than 46 px. |
+| **Watermark** | Just below the subtitles | The channel icon plus `https://www.youtube.com/@madhwa16`, 30 px white text on a dark rounded band, so it reads on any background, even a white robe. |
 
-- **One font for everything:** Noto Sans. It is free to use, and its licence
-  is the SIL Open Font License.
-- **Keep clear of the bottom and the right edge.** YouTube and Instagram put
-  their own buttons and captions there, so nothing important goes in the
-  bottom ~15% of the frame or against the right side.
-- **A soft fade** (0.2 seconds) at the start and end of every reel, on both
-  picture and sound. A fade smooths a cut that already lands in quiet; it
-  can't rescue a cut in the middle of a word.
+- **One font family for everything:** Noto Sans, free to use under the SIL
+  Open Font License.
+- **Safe zones:** YouTube and Instagram cover the bottom ~15% of the frame and
+  the right edge with their own buttons, so nothing important goes there.
+- **Never two lines.** A subtitle or title that doesn't fit on one line is
+  rewritten shorter.
 
-## Choosing the moment
+## 4. Choosing and opening the moment
 
-The best reels are moments that finish on their own. Two kinds work best:
+- **Best moments:** the speaker giving advice, or the high point of a story.
+  Avoid the middle of an explanation; it always feels cut off.
+- **Open on the strongest line:** the claim, the question or the image. Not
+  "so…", "now…" or a greeting. About two out of three viewers decide in the
+  first second or two.
+- **Length follows the thought.** Shorter is tried first, but never at the cost
+  of the ending. The best reels so far ran 32–50 seconds.
+- **Each reel from a talk is a different moment and topic.**
 
-1. **The speaker giving advice:** "here is how you should live."
-2. **The high point of a story:** the turning point or the miracle.
+## 5. Ending cleanly
 
-Avoid the middle of an explanation. A clip of someone still explaining feels
-cut off no matter where it ends, because the thought isn't finished.
+- Cuts land on **real pauses in the speech**, measured from the audio.
+- About half a second of quiet after the last word, so the reel never ends
+  while the voice trails off.
+- Some speakers barely pause. Then a short but silent ending beats cutting
+  mid-sentence or losing the payoff.
 
-- **Open on the strongest line.** About two out of three viewers swipe away in
-  the first second or two, so the first words must be the claim or the
-  question, not "so…" or "now…" or a greeting.
-- **The title says the payoff**, for example "Debt or Not, Feed Everyone",
-  not a vague topic like "On Charity".
-- **Shorter is tried first, but never at the cost of the ending.** The reels
-  that did best so far ran 32–50 seconds. A complete 40-second thought beats a
-  cut-down 25-second one.
-- **One talk usually gives several reels.** Each new reel from a talk must be
-  a different moment and topic from every earlier one.
-- Talks often end with a short summary and a closing verse. That ending is
-  often a good reel on its own.
+## 6. Subtitle wording
 
-## Ending cleanly
+- **English only.** Short lines of about 4–8 words.
+- They give the **meaning** of the Kannada, cleaned for spelling, not a
+  word-for-word translation.
+- Sanskrit and Madhwa names are spelled from a list of confirmed spellings.
+  An unknown name is flagged, never guessed.
+- **Verses (shlokas)** are shown by their English meaning. A word of a verse
+  is never guessed.
+- Plain, respectful words: for example "can't see" rather than a blunt label.
+- If a stretch has nothing new said, no subtitle is shown, rather than
+  inventing words.
 
-- Cuts follow the **Kannada** captions and the real pauses in the speech. The
-  English captions are a machine translation and their timing doesn't match
-  the audio.
-- Leave about half a second of quiet after the last word, so the reel doesn't
-  end while the voice is still trailing off.
-- Some speakers barely pause between sentences. Then a short but silent ending
-  is better than cutting mid-sentence or losing the payoff.
+## 7. Title wording
 
-## Words: subtitles, descriptions, credit
+- States the **payoff or the question**, not a vague topic: "Debt or Not, Feed
+  Everyone", not "On Charity".
+- About 2–6 words, in title case, written as two parts: a white lead and a
+  saffron key phrase, for example "God Is the Water," + "We Are the Fish".
 
-- **Subtitles are English only.** They come from YouTube's automatic
-  translation of the Kannada, cleaned for spelling. Treat them as a close
-  paraphrase, not an exact quote.
-- **Spelling is checked every time.** English words against a dictionary;
-  Sanskrit and Madhwa names against a list of confirmed spellings. A name
-  that isn't on the list is flagged, never guessed.
-- **Verses (shlokas):** shown as their English meaning. A word of a verse is
-  never guessed; if the caption is unclear, it is flagged.
-- **Descriptions and hashtags are in English and Kannada.** The Kannada text is
-  checked for broken letters before upload.
-- **Credit:** every reel names the speaker with full respect, for example
-  *Sri Satyatmateertha Shripadangalavaru*, gives the talk's title in English,
-  and credits the channel **Sri Uttaradhi Matha Adhyatmavani**. If the speaker
-  isn't named in the video, the owner is asked. Names are never guessed.
+## 8. YouTube title, description and hashtags
 
-## Checks before a reel goes out
+| Part | Format |
+|---|---|
+| **Title** | `<Reel title> 🙏 \| Madhwa16 #Shorts` |
+| **Description** | A few sentences in English telling the teaching, then 🙏, then the credit line. Then the same in **Kannada**. |
+| **Credit line** | `From "<talk title>" by <speaker> (<publishing channel>).` For newer reels, followed by a link to the full talk. |
+| **Hashtags** | `#Madhwa16` first, then the speaker, topic and tradition tags, ending with `#Shorts`; then Kannada hashtags such as `#ಕನ್ನಡ #ಪ್ರವಚನ #ಮಧ್ವ`. |
 
-1. Right size and under 60 seconds.
-2. Every subtitle word spelled correctly, in both languages.
-3. The start and end land on sentence boundaries, with real quiet at the end.
-4. **Every frame** is scanned for glitches in the source, such as a "Missing
-   File" card or a black flash. A sample frame once missed one.
-5. A few frames are looked at by eye: title, subtitles and watermark readable,
-   nothing overlapping, the speaker's face clear.
-6. The first second and last second and a half are listened to. Passing
-   numbers alone have been wrong before.
+The Kannada text is checked for broken letters before upload.
 
-## Release
+## 9. Credit
 
-- **Two reels a day, at 6 AM and 6 PM India time.** Each reel is scheduled on
-  YouTube ahead of time and released by YouTube.
-- **One reel per slot.** Reels released four or more on the same day got about
-  50 views in their first week; reels released one per slot had a median of
-  about 10,800.
-- Instagram is posted by hand, using the same title, description and hashtags.
+- The speaker is named with full respect, for example *Sri Satyatmateertha
+  Shripadangalavaru* or *Dr. Vyasanakere Prabhanjanacharya*.
+- The **publishing channel** is credited as it names itself, for example *Sri
+  Uttaradhi Matha Adhyatmavani* or *Ataha by Madhwacharya for Youth*.
+- If the video doesn't name the speaker, the owner is asked. Names are never
+  guessed.
+
+## 10. Release
+
+- **Two reels a day, at 6 AM and 6 PM India time, one reel per slot.**
+  Scheduled ahead on YouTube, which releases them.
+- Instagram is posted by hand, with the same title, description and hashtags.
+
+## 11. Older reels
+
+The earliest reels use an older look: a two-line serif title and a different
+watermark. They are left as they are unless the owner asks for a rebuild.
 
 ## Planned, not built yet
 
