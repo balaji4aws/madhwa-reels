@@ -1,0 +1,27 @@
+# Kept locally only, never pushed to GitHub:
+#   tools/    the scripts that build and check reels
+#   .assets/  watermark, icon and font
+#   .reels/   finished reels (large .mp4s)
+#   .sources/ downloaded source videos and captions
+#   .upload/  YouTube uploader, login secrets, schedule and upload logs
+#   .work/    per-video build specs, scripts and scratch clips
+tools/
+.assets/
+.reels/
+.sources/
+.upload/
+.work/
+
+# Python bytecode / caches
+__pycache__/
+*.pyc
+*.pyo
+
+# Transient review notes
+docs/.review-*.md
+
+# Folder-view files
+.DS_Store
+
+# Tool caches
+.ruff_cache/
