@@ -6,7 +6,7 @@ YouTube link hasn't been uploaded yet.
 **Date** is the day the reel went public on YouTube (India time). *Goes live
 DATE* means it is uploaded and YouTube will make it public then.
 
-Last published: **2026-11-17, 6 PM IST**. Scheduled through **2026-11-29, 6 PM IST**. Next free slot: 2026-11-30, 6 AM IST.
+Last published: **2026-11-17, 6 PM IST**. Scheduled through **2026-12-03, 6 AM IST**. Next free slot: 2026-12-03, 6 PM IST.
 
 | Source | Reel | Date | YouTube |
 |--------|------|------|---------|
@@ -95,6 +95,13 @@ Last published: **2026-11-17, 6 PM IST**. Scheduled through **2026-11-29, 6 PM I
 | [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 05 · Hanuman Never Praised Himself | goes live 2026-11-28, 6 PM IST | [youtu.be/CkKqOg0789I](https://youtu.be/CkKqOg0789I) |
 | [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 06 · Turn Every Task Into Rama's Puja | goes live 2026-11-29, 6 AM IST | [youtu.be/bDt8tM4p2B8](https://youtu.be/bDt8tM4p2B8) |
 | [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 07 · Sita's Doubt and the Name Sundarakanda | goes live 2026-11-29, 6 PM IST | [youtu.be/VFLUcrcceRA](https://youtu.be/VFLUcrcceRA) |
+| [sundarakanda-day02](https://www.youtube.com/watch?v=Jz6sg4h9T8k) | 01 · Insulted, He Said "Auspicious One" | goes live 2026-11-30, 6 AM IST | [youtu.be/bzy9f03Utcs](https://youtu.be/bzy9f03Utcs) |
+| [sundarakanda-day02](https://www.youtube.com/watch?v=Jz6sg4h9T8k) | 02 · The Day Anger Itself Fainted | goes live 2026-11-30, 6 PM IST | [youtu.be/JiIax0cCXis](https://youtu.be/JiIax0cCXis) |
+| [sundarakanda-day02](https://www.youtube.com/watch?v=Jz6sg4h9T8k) | 03 · Hanuman Danced and Kissed His Tail | goes live 2026-12-01, 6 AM IST | [youtu.be/7qMkUVwGuMY](https://youtu.be/7qMkUVwGuMY) |
+| [sundarakanda-day02](https://www.youtube.com/watch?v=Jz6sg4h9T8k) | 04 · The Curse That Doomed Ravana | goes live 2026-12-01, 6 PM IST | [youtu.be/hnZ-_K5Ypmw](https://youtu.be/hnZ-_K5Ypmw) |
+| [sundarakanda-day02](https://www.youtube.com/watch?v=Jz6sg4h9T8k) | 05 · The Plane That Reads Your Mind | goes live 2026-12-02, 6 AM IST | [youtu.be/dVpFQ2vQJx0](https://youtu.be/dVpFQ2vQJx0) |
+| [sundarakanda-day02](https://www.youtube.com/watch?v=Jz6sg4h9T8k) | 06 · "I'm Just a Tourist," Said Hanuman | goes live 2026-12-02, 6 PM IST | [youtu.be/NqtTXLwx0jU](https://youtu.be/NqtTXLwx0jU) |
+| [sundarakanda-day02](https://www.youtube.com/watch?v=Jz6sg4h9T8k) | 07 · A Thousand Arms, No Traffic Jams | goes live 2026-12-03, 6 AM IST | [youtu.be/KzCRRfcWvj0](https://youtu.be/KzCRRfcWvj0) |
 
 ## Unused good moments (candidates for future reels)
 
