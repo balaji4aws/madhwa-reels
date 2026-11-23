@@ -6,7 +6,7 @@ YouTube link hasn't been uploaded yet.
 **Date** is the day the reel went public on YouTube (India time). *Goes live
 DATE* means it is uploaded and YouTube will make it public then.
 
-Last published: **2026-11-17, 6 PM IST**. Scheduled through **2026-11-26, 6 AM IST**. Next free slot: 2026-11-26, 6 PM IST.
+Last published: **2026-11-17, 6 PM IST**. Scheduled through **2026-11-29, 6 PM IST**. Next free slot: 2026-11-30, 6 AM IST.
 
 | Source | Reel | Date | YouTube |
 |--------|------|------|---------|
@@ -88,6 +88,13 @@ Last published: **2026-11-17, 6 PM IST**. Scheduled through **2026-11-26, 6 AM I
 | [divine-effects-daily-rituals](https://www.youtube.com/watch?v=51EEjkNcfiw) | 05 · Krishna Took Sudama's Humble Gift | goes live 2026-11-25, 6 AM IST | [youtu.be/GDin2IPSLJo](https://youtu.be/GDin2IPSLJo) |
 | [divine-effects-daily-rituals](https://www.youtube.com/watch?v=51EEjkNcfiw) | 06 · Don't Fight Back, Report to God | goes live 2026-11-25, 6 PM IST | [youtu.be/aDqsgeDdrXk](https://youtu.be/aDqsgeDdrXk) |
 | [divine-effects-daily-rituals](https://www.youtube.com/watch?v=51EEjkNcfiw) | 07 · Your Strength Comes From Your Breath | goes live 2026-11-26, 6 AM IST | [youtu.be/um5IYXG_0Gk](https://youtu.be/um5IYXG_0Gk) |
+| [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 01 · Nobody Gets Tired of Breathing | goes live 2026-11-26, 6 PM IST | [youtu.be/Muc3-m7a7oU](https://youtu.be/Muc3-m7a7oU) |
+| [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 02 · "I Am Never Alone," Said Hanuman | goes live 2026-11-27, 6 AM IST | [youtu.be/JIU5BfnY6ac](https://youtu.be/JIU5BfnY6ac) |
+| [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 03 · Be Like Rama's Arrow: Never Stop | goes live 2026-11-27, 6 PM IST | [youtu.be/Eo_RHIht798](https://youtu.be/Eo_RHIht798) |
+| [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 04 · Don't Let Kind Words Stall Good Work | goes live 2026-11-28, 6 AM IST | [youtu.be/6BubW-uISk4](https://youtu.be/6BubW-uISk4) |
+| [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 05 · Hanuman Never Praised Himself | goes live 2026-11-28, 6 PM IST | [youtu.be/CkKqOg0789I](https://youtu.be/CkKqOg0789I) |
+| [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 06 · Turn Every Task Into Rama's Puja | goes live 2026-11-29, 6 AM IST | [youtu.be/bDt8tM4p2B8](https://youtu.be/bDt8tM4p2B8) |
+| [sundarakanda-day01](https://www.youtube.com/watch?v=y99o1suEGv4) | 07 · Sita's Doubt and the Name Sundarakanda | goes live 2026-11-29, 6 PM IST | [youtu.be/VFLUcrcceRA](https://youtu.be/VFLUcrcceRA) |
 
 ## Unused good moments (candidates for future reels)
 
